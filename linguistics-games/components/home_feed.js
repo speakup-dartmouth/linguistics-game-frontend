@@ -20,6 +20,7 @@ import { getAllHomePosts } from '../actions';
 import FeedPost from './feed_post';
 import { AuthContext } from '../context/AuthContext';
 
+
 function HomeFeed(props) {
   const { navigation } = props;
   const dispatch = useDispatch();
