@@ -11,12 +11,15 @@ const MainTabBar = () => {
     return (
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName="Search"
+          initialRouteName="Home"
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused }) => {
               let iconName;
   
-              if (route.name === 'About') {
+              if (route.name === 'Home') {
+                iconName = 'home';
+              }
+              else if (route.name === 'About') {
                 iconName = 'info-circle';
               }
   
