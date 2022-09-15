@@ -10,7 +10,7 @@ class About extends Component {
           style={styles.image}
           source={{ uri: 'https://facebook.github.io/react/logo-og.png' }}
         />
-        <Text>
+        <Text style={styles.bodyMedium}>
           The bare bones of this app were created following the CS52 React Native ECSA!
         </Text>
       </View>
