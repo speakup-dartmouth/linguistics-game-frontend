@@ -115,32 +115,33 @@
       "alias": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"],
         "map": [
-        [
-          "@actions",
-          "./src/actions"
-        ],
-        [
-          "@assets",
-          "./src/assets"
-        ],
-        [
-          "@navigation",
-          "./src/navigation"
-        ],
-        [
-          "@reducers",
-          "./src/reducers"
-        ],
-        [
-          "@screens",
-          "./src/screens"
-        ],
-        [
-          "@types",
-          "./src/types"
+          [
+            "actions",
+            "./src/actions"
+          ],
+          [
+            "assets",
+            "./src/assets"
+          ],
+          [
+            "navigation",
+            "./src/navigation"
+          ],
+          [
+            "reducers",
+            "./src/reducers"
+          ],
+          [
+            "screens",
+            "./src/screens"
+          ],
+          [
+            "types",
+            "./src/types"
+          ]
         ]
-      ]
-    }
+      },
+      "typescript": {}
     }
   },
   "globals": {

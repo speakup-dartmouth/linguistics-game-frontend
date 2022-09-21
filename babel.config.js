@@ -19,7 +19,7 @@ module.exports = function (api) {
             '.json',
           ],
           alias: {
-            '^@(.+)': './src/\\1',
+            '^~(.+)': './src/\\1',
           },
         },
       ],
