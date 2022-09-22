@@ -113,33 +113,7 @@
   "settings": {
     "import/resolver": {
       "alias": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"],
-        "map": [
-          [
-            "actions",
-            "./src/actions"
-          ],
-          [
-            "assets",
-            "./src/assets"
-          ],
-          [
-            "navigation",
-            "./src/navigation"
-          ],
-          [
-            "reducers",
-            "./src/reducers"
-          ],
-          [
-            "screens",
-            "./src/screens"
-          ],
-          [
-            "types",
-            "./src/types"
-          ]
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       },
       "typescript": {}
     }
