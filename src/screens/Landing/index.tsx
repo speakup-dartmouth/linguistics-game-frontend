@@ -7,7 +7,7 @@ import styles from './styles';
 function LandingScreen(): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Landing Screen</Text>
+      <Text>This text is currently a placeholder.</Text>
     </SafeAreaView>
   );
 }

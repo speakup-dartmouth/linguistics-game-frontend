@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unstable-nested-components */
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -31,10 +30,10 @@ function TabNavigator(): JSX.Element {
         tabBarInactiveTintColor: colors.white,
       }}
     >
-      <Tab.Screen name="Landing" component={Landing} options={{ tabBarIcon: () => (<CompassIcon />) }} />
-      <Tab.Screen name="Upvote" component={Landing} options={{ tabBarIcon: () => (<UpvoteIcon />) }} />
-      <Tab.Screen name="Search" component={Landing} options={{ tabBarIcon: () => (<SearchIcon />) }} />
-      <Tab.Screen name="Profile" component={Landing} options={{ tabBarIcon: () => (<ProfileIcon />) }} />
+      <Tab.Screen name="Landing" component={Landing} options={{ tabBarIcon: CompassIcon }} />
+      <Tab.Screen name="Upvote" component={Landing} options={{ tabBarIcon: UpvoteIcon }} />
+      <Tab.Screen name="Search" component={Landing} options={{ tabBarIcon: SearchIcon }} />
+      <Tab.Screen name="Profile" component={Landing} options={{ tabBarIcon: ProfileIcon }} />
     </Tab.Navigator>
   );
 }
