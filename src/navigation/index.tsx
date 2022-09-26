@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Landing } from 'screens';
+import { Landing, RecordingList, Placeholder } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
 import Profile from 'assets/profile.svg';
@@ -31,9 +31,9 @@ function TabNavigator(): JSX.Element {
       }}
     >
       <Tab.Screen name="Landing" component={Landing} options={{ tabBarIcon: CompassIcon }} />
-      <Tab.Screen name="Upvote" component={Landing} options={{ tabBarIcon: UpvoteIcon }} />
-      <Tab.Screen name="Search" component={Landing} options={{ tabBarIcon: SearchIcon }} />
-      <Tab.Screen name="Profile" component={Landing} options={{ tabBarIcon: ProfileIcon }} />
+      <Tab.Screen name="Upvote" component={RecordingList} options={{ tabBarIcon: UpvoteIcon }} />
+      <Tab.Screen name="Search" component={Placeholder} options={{ tabBarIcon: SearchIcon }} />
+      <Tab.Screen name="Profile" component={Placeholder} options={{ tabBarIcon: ProfileIcon }} />
     </Tab.Navigator>
   );
 }

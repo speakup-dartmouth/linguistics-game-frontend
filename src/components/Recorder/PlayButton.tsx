@@ -56,15 +56,16 @@ function PlayButton({ recordingUri }: {recordingUri: string}): JSX.Element {
   };
 
   const duration = playbackStatus && (playbackStatus as AVPlaybackStatusSuccess).durationMillis ? ((playbackStatus as AVPlaybackStatusSuccess).durationMillis / 1000) : 0;
-  const progress = playbackStatus && (playbackStatus as AVPlaybackStatusSuccess).durationMillis ? ((playbackStatus as AVPlaybackStatusSuccess).positionMillis / 1000) : 0;
+  const progress = playbackStatus && (playbackStatus as AVPlaybackStatusSuccess).positionMillis ? ((playbackStatus as AVPlaybackStatusSuccess).positionMillis / 1000) : 0;
+  const isLoaded = playbackStatus?.isLoaded;
 
   return (
     <View>
-      <TouchableOpacity style={styles.playButton} onPress={onPress}>
+      <TouchableOpacity style={styles.playButton} onPress={onPress} disabled={!isLoaded}>
         <Text style={styles.playButtonText}>{isPlaying ? 'Stop' : 'Play'}</Text>
       </TouchableOpacity>
 
-      {playbackStatus && <Text style={styles.timeText}>{`${formatTime(progress)} / ${formatTime(duration)}`}</Text>}
+      {playbackStatus && <Text style={styles.timeText}>{!isLoaded ? 'Loading...' : `${formatTime(progress)} / ${formatTime(duration)}`}</Text>}
     </View>
   );
 }

@@ -6,12 +6,14 @@ import Stop from 'assets/stop.svg';
 import { Audio } from 'expo-av';
 import { useState } from 'react';
 import { uploadFile } from 'services/s3';
+import { addRecording } from 'services/storage';
 import styles from './styles';
 import PlayButton from './PlayButton';
 
-function Recorder({ updateRecording }: {updateRecording: (filename: string, url: string) => void}): JSX.Element {
+function Recorder(): JSX.Element {
   const [recordingObject, setRecordingObject] = useState(null); // This is set when the recording is in progress.
   const [recordingUri, setRecordingUri] = useState(null); // When the recording is complete, this is set to the URI of the recording on the local drive.
+  const [isUploading, setIsUploading] = useState(false);
 
   const onPress = async (): Promise<void> => {
     await Audio.requestPermissionsAsync();
@@ -38,8 +40,11 @@ function Recorder({ updateRecording }: {updateRecording: (filename: string, url:
 
   const saveRecording = async (): Promise<void> => {
     try {
+      setIsUploading(true);
       const { url, filename } = await uploadFile(recordingUri);
-      updateRecording(filename, url);
+      addRecording({ filename, url });
+      setIsUploading(false);
+      reset();
     } catch (e) {
       console.log(e.response);
       console.log(e.message);
@@ -59,8 +64,8 @@ function Recorder({ updateRecording }: {updateRecording: (filename: string, url:
       {
         recordingUri && (
           <View style={styles.actionButtons}>
-            <Button title="Reset" onPress={reset} />
-            <Button title="Save" onPress={saveRecording} />
+            <Button title="Reset" onPress={reset} disabled={isUploading} />
+            <Button title="Save" onPress={saveRecording} disabled={isUploading} />
           </View>
         )
       }
