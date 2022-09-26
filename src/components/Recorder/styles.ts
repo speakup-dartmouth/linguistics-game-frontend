@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
   playButtonText: {
     color: colors.white,
   },
+  timeText: {
+    marginTop: 10,
+  },
 });
 
 export default styles;
