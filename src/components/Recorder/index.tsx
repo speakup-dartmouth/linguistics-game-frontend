@@ -1,5 +1,5 @@
 import {
-  View, TouchableOpacity,
+  View, TouchableOpacity, Button,
 } from 'react-native';
 import Record from 'assets/record.svg';
 import Stop from 'assets/stop.svg';
@@ -30,14 +30,33 @@ function Recorder(): JSX.Element {
     }
   };
 
+  const reset = (): void => {
+    setRecordingUri(null);
+    setRecordingObject(null);
+  };
+
+  const saveRecording = (): void => {
+    console.log('save');
+  };
+
   return (
     <View style={styles.container}>
       {!recordingUri && (
       <TouchableOpacity onPressOut={onPress}>
-        {recordingObject ? <Stop width={190} height={190} /> : <Record width={190} height={190} />}
+        {recordingObject ? <Stop width={190} height={190} style={styles.stop} /> : <Record width={190} height={190} />}
       </TouchableOpacity>
       )}
+
       {recordingUri && <PlayButton recordingUri={recordingUri} />}
+
+      {
+        recordingUri && (
+          <View style={styles.actionButtons}>
+            <Button title="Reset" onPress={reset} />
+            <Button title="Save" onPress={saveRecording} />
+          </View>
+        )
+      }
     </View>
   );
 }
