@@ -1,3 +1,4 @@
+import Recorder from 'components/Recorder';
 import React from 'react';
 import {
   SafeAreaView, Text,
@@ -8,6 +9,7 @@ function LandingScreen(): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <Text>This text is currently a placeholder.</Text>
+      <Recorder />
     </SafeAreaView>
   );
 }

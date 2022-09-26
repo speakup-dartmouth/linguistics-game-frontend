@@ -1,0 +1,45 @@
+import {
+  View, TouchableOpacity,
+} from 'react-native';
+import Record from 'assets/record.svg';
+import Stop from 'assets/stop.svg';
+import { Audio } from 'expo-av';
+import { useState } from 'react';
+import styles from './styles';
+import PlayButton from './PlayButton';
+
+function Recorder(): JSX.Element {
+  const [recordingObject, setRecordingObject] = useState(null); // This is set when the recording is in progress.
+  const [recordingUri, setRecordingUri] = useState(null); // When the recording is complete, this is set to the URI of the recording on the local drive.
+
+  const onPress = async (): Promise<void> => {
+    await Audio.requestPermissionsAsync();
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: true,
+      playsInSilentModeIOS: true,
+    });
+
+    if (!recordingObject) {
+      const { recording } = await Audio.Recording.createAsync(Audio.RecordingOptionsPresets.HIGH_QUALITY);
+      setRecordingObject(recording);
+    } else {
+      await recordingObject.stopAndUnloadAsync();
+      const uri = recordingObject.getURI();
+      setRecordingObject(null);
+      setRecordingUri(uri);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      {!recordingUri && (
+      <TouchableOpacity onPressOut={onPress}>
+        {recordingObject ? <Stop width={190} height={190} /> : <Record width={190} height={190} />}
+      </TouchableOpacity>
+      )}
+      {recordingUri && <PlayButton recordingUri={recordingUri} />}
+    </View>
+  );
+}
+
+export default Recorder;
