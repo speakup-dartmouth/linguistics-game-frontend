@@ -9,7 +9,7 @@ import { uploadFile } from 'services/s3';
 import styles from './styles';
 import PlayButton from './PlayButton';
 
-function Recorder(): JSX.Element {
+function Recorder({ updateRecording }: {updateRecording: (filename: string, url: string) => void}): JSX.Element {
   const [recordingObject, setRecordingObject] = useState(null); // This is set when the recording is in progress.
   const [recordingUri, setRecordingUri] = useState(null); // When the recording is complete, this is set to the URI of the recording on the local drive.
 
@@ -38,8 +38,8 @@ function Recorder(): JSX.Element {
 
   const saveRecording = async (): Promise<void> => {
     try {
-      const url = await uploadFile(recordingUri);
-      console.log(url);
+      const { url, filename } = await uploadFile(recordingUri);
+      updateRecording(filename, url);
     } catch (e) {
       console.log(e.response);
       console.log(e.message);

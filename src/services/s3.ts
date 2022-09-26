@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { apiUrl, s3BucketUrl } from 'lib/constants';
+import Recording from 'types/recording';
 
 const getFileType = async (fileUri: string): Promise<string> => {
   const resp = await fetch(fileUri);
@@ -35,10 +36,10 @@ const uploadFileToS3 = (signedUrl, { uri, type, filename }: {uri: string, type: 
   });
 };
 
-export const uploadFile = async (fileUri: string): Promise<string> => {
+export const uploadFile = async (fileUri: string): Promise<Recording> => {
   const filename = fileUri.split('/').pop();
   const type = await getFileType(fileUri);
   const signedUrl = await getSignedUrl(filename, type);
   await uploadFileToS3(signedUrl, { uri: fileUri, type, filename });
-  return `${s3BucketUrl}/${filename}`;
+  return { url: `${s3BucketUrl}/${filename}`, filename };
 };
