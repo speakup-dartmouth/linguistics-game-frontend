@@ -5,6 +5,7 @@ import Record from 'assets/record.svg';
 import Stop from 'assets/stop.svg';
 import { Audio } from 'expo-av';
 import { useState } from 'react';
+import { uploadFile } from 'services/s3';
 import styles from './styles';
 import PlayButton from './PlayButton';
 
@@ -35,8 +36,14 @@ function Recorder(): JSX.Element {
     setRecordingObject(null);
   };
 
-  const saveRecording = (): void => {
-    console.log('save');
+  const saveRecording = async (): Promise<void> => {
+    try {
+      const url = await uploadFile(recordingUri);
+      console.log(url);
+    } catch (e) {
+      console.log(e.response);
+      console.log(e.message);
+    }
   };
 
   return (
