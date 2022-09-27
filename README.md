@@ -5,7 +5,7 @@
 ## Designs
 [Screenshot description]
 
-[Link to the project Figma](https://apple.com)
+[Link to the project Figma](https://www.figma.com/file/rA2O0gfeSZ6mFjTjsPulWP/Linguistics-Games-22F)
 
 [2-4 screenshots from the app]
 

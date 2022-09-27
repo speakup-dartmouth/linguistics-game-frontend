@@ -41,8 +41,8 @@ function Recorder(): JSX.Element {
   const saveRecording = async (): Promise<void> => {
     try {
       setIsUploading(true);
-      const { url, filename } = await uploadFile(recordingUri);
-      addRecording({ filename, url });
+      const { url, filename } = await uploadFile(recordingUri); // Upload the recording to S3.
+      addRecording({ filename, url }); // Add the recording to local storage
       setIsUploading(false);
       reset();
     } catch (e) {

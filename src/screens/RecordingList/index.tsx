@@ -16,9 +16,10 @@ function RecordingListScreen(): JSX.Element {
     getRecordings().then((r) => setRecordings(r));
   }, [getRecordings]);
 
-  useFocusEffect(fetchRecordings);
+  useFocusEffect(fetchRecordings); // Runs whenever the tab navigation changes
 
   const select = (recording: Recording): void => {
+    // If you tap the same recording twice in a row the play button goes away.
     if (selectedRecording && selectedRecording.filename === recording.filename) {
       setSelectedRecording(null);
     } else {

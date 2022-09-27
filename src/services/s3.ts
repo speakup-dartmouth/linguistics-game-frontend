@@ -12,9 +12,10 @@ const getSignedUrl = async (filename: string, type: string): Promise<string> => 
   return data.url;
 };
 
-const uploadFileToS3 = (signedUrl, { uri, type, filename }: {uri: string, type: string, filename: string}): Promise<void> => {
+const uploadFileToS3 = (signedUrl: string, { uri, type, filename }: {uri: string, type: string, filename: string}): Promise<void> => {
+  // Uploading to S3 is annoying with fetch/axios – this code is demonstrated to work for arbitrary file types.
+
   return new Promise((fulfill, reject) => {
-    // eslint-disable-next-line no-undef
     const xhr = new XMLHttpRequest();
     xhr.open('PUT', signedUrl);
     xhr.onreadystatechange = function xhrrequest(): void {
@@ -36,6 +37,12 @@ const uploadFileToS3 = (signedUrl, { uri, type, filename }: {uri: string, type: 
   });
 };
 
+/**
+ * Given a URI to a file on disk, upload it to S3 and return the URL to the uploaded file.
+ *
+ * @param fileUri The URI to the file to upload.
+ * @returns A Recording object, with a url field and a filename field.
+ */
 export const uploadFile = async (fileUri: string): Promise<Recording> => {
   const filename = fileUri.split('/').pop();
   const type = await getFileType(fileUri);

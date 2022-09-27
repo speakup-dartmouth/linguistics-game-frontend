@@ -6,10 +6,13 @@ import { useEffect, useState } from 'react';
 import styles from './styles';
 
 // Get mm:ss from seconds
-// Note: this does not work for times > 1 hour currently.
 function formatTime(seconds: number): string {
   if (Number.isNaN(seconds)) { return '0'; }
-  return new Date(seconds * 1000).toISOString().slice(14, 19);
+
+  const hours = Math.floor(seconds / 3600);
+  const remainder = seconds % 3600;
+  const mmss = new Date(remainder * 1000).toISOString().slice(14, 19);
+  return hours > 0 ? `${hours}:${mmss}` : mmss;
 }
 
 function PlayButton({ recordingUri }: {recordingUri: string}): JSX.Element {
@@ -24,9 +27,11 @@ function PlayButton({ recordingUri }: {recordingUri: string}): JSX.Element {
     setPlaybackStatus(status);
   };
 
+  // When the recordingUri changes, create a new sound for playback.
   useEffect(() => {
     createSound();
 
+    // To address memory leaks
     return () => {
       if (sound) {
         sound.unloadAsync();
@@ -34,10 +39,13 @@ function PlayButton({ recordingUri }: {recordingUri: string}): JSX.Element {
     };
   }, [recordingUri]);
 
+  // Play/pause the sound when isPlaying changes.
   useEffect(() => {
     if (!sound) {
       return;
     }
+
+    // See https://github.com/expo/expo/issues/9915#issuecomment-814270274
     Audio.setAudioModeAsync({ allowsRecordingIOS: false });
 
     if (isPlaying) {
@@ -47,15 +55,9 @@ function PlayButton({ recordingUri }: {recordingUri: string}): JSX.Element {
     }
   }, [isPlaying, sound]);
 
-  const onPress = async (): Promise<void> => {
-    if (isPlaying) {
-      setIsPlaying(false);
-      return;
-    }
+  const onPress = (): void => setIsPlaying((p) => !p);
 
-    setIsPlaying(true);
-  };
-
+  // Type casting here due to annoying quirk in expo-av with AVPlaybackStatus
   const duration = playbackStatus && (playbackStatus as AVPlaybackStatusSuccess).durationMillis ? ((playbackStatus as AVPlaybackStatusSuccess).durationMillis / 1000) : 0;
   const progress = playbackStatus && (playbackStatus as AVPlaybackStatusSuccess).positionMillis ? ((playbackStatus as AVPlaybackStatusSuccess).positionMillis / 1000) : 0;
   const isLoaded = playbackStatus?.isLoaded;
