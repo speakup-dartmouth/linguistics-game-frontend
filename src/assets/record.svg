@@ -1,0 +1,9 @@
+<svg width="190" height="190" viewBox="0 0 190 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="95" cy="95" r="95" fill="#FFFDFB"/>
+<circle cx="95" cy="95" r="90" fill="#FFBB37"/>
+<rect width="120" height="120" transform="translate(35 35)" fill="#FFBB37"/>
+<path d="M95 40C91.0218 40 87.2064 41.5804 84.3934 44.3934C81.5804 47.2064 80 51.0218 80 55V95C80 98.9782 81.5804 102.794 84.3934 105.607C87.2064 108.42 91.0218 110 95 110C98.9782 110 102.794 108.42 105.607 105.607C108.42 102.794 110 98.9782 110 95V55C110 51.0218 108.42 47.2064 105.607 44.3934C102.794 41.5804 98.9782 40 95 40V40Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M130 85V95C130 104.283 126.313 113.185 119.749 119.749C113.185 126.313 104.283 130 95 130C85.7174 130 76.815 126.313 70.2513 119.749C63.6875 113.185 60 104.283 60 95V85" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M95 130V150" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M75 150H115" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
