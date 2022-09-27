@@ -38,6 +38,7 @@ function PlayButton({ recordingUri }: {recordingUri: string}): JSX.Element {
     if (!sound) {
       return;
     }
+    Audio.setAudioModeAsync({ allowsRecordingIOS: false });
 
     if (isPlaying) {
       sound.playAsync();

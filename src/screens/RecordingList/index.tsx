@@ -1,6 +1,6 @@
-import { useRoute } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import Recording from 'types/recording';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   SafeAreaView, TouchableOpacity, Text, ScrollView, View,
 } from 'react-native';
@@ -11,11 +11,12 @@ import styles from './styles';
 function RecordingListScreen(): JSX.Element {
   const [recordings, setRecordings] = useState<Recording[]>([]);
   const [selectedRecording, setSelectedRecording] = useState<Recording | null>(null);
-  const route = useRoute();
 
-  useEffect(() => {
+  const fetchRecordings = useCallback((): void => {
     getRecordings().then((r) => setRecordings(r));
-  }, [route.key]);
+  }, [getRecordings]);
+
+  useFocusEffect(fetchRecordings);
 
   const select = (recording: Recording): void => {
     if (selectedRecording && selectedRecording.filename === recording.filename) {

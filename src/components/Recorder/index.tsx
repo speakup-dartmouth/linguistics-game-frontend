@@ -48,6 +48,7 @@ function Recorder(): JSX.Element {
     } catch (e) {
       console.log(e.response);
       console.log(e.message);
+      setIsUploading(false);
     }
   };
 

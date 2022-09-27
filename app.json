@@ -2,6 +2,7 @@
   "expo": {
     "name": "linguistics-games",
     "slug": "linguistics-games",
+    "owner": "linguistics.games",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
@@ -12,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/f2c0d962-f476-4c43-8ec9-5213d31de34d"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -28,6 +30,14 @@
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f2c0d962-f476-4c43-8ec9-5213d31de34d"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
