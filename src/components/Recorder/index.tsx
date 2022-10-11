@@ -7,7 +7,6 @@ import { Audio } from 'expo-av';
 import { useState } from 'react';
 import { uploadFile } from 'services/s3';
 import { addRecording } from 'services/storage';
-import styles from './styles';
 import PlayButton from './PlayButton';
 
 function Recorder(): JSX.Element {
@@ -53,10 +52,10 @@ function Recorder(): JSX.Element {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       {!recordingUri && (
       <TouchableOpacity onPressOut={onPress}>
-        {recordingObject ? <Stop width={190} height={190} style={styles.stop} /> : <Record width={190} height={190} />}
+        {recordingObject ? <Stop width={190} height={190} /> : <Record width={190} height={190} />}
       </TouchableOpacity>
       )}
 
@@ -64,7 +63,7 @@ function Recorder(): JSX.Element {
 
       {
         recordingUri && (
-          <View style={styles.actionButtons}>
+          <View>
             <Button title="Reset" onPress={reset} disabled={isUploading} />
             <Button title="Save" onPress={saveRecording} disabled={isUploading} />
           </View>

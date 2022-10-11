@@ -17,7 +17,7 @@ function TabNavigator(): JSX.Element {
   const ProfileIcon = useCallback(() => <Profile width={24} height={24} />, []);
   const SearchIcon = useCallback(() => <Search width={24} height={24} />, []);
   const UpvoteIcon = useCallback(() => <Upvote width={24} height={24} />, []);
-
+  
   return (
     <Tab.Navigator
       initialRouteName="Landing"
@@ -28,8 +28,7 @@ function TabNavigator(): JSX.Element {
         tabBarInactiveBackgroundColor: colors.darkBlue,
         tabBarActiveTintColor: colors.white,
         tabBarInactiveTintColor: colors.white,
-      }}
-    >
+      }}>
       <Tab.Screen name="Landing" component={Landing} options={{ tabBarIcon: CompassIcon }} />
       <Tab.Screen name="Upvote" component={RecordingList} options={{ tabBarIcon: UpvoteIcon }} />
       <Tab.Screen name="Search" component={Placeholder} options={{ tabBarIcon: SearchIcon }} />

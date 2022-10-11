@@ -1,16 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-no-constructed-context-values */
-/* eslint-disable no-shadow */
-/* referenced the tutorial from samironbarai at https://github.com/samironbarai/rn-auth to use Authcontext */
-/* referenced https://stackoverflow.com/questions/55708709/how-to-restart-react-native-application-on-button-click-event for logout */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
 import { NativeModules } from 'react-native';
-
-const API_CLIENT = process.env.API_CLIENT
-const API_KEY = process.env.API_KEY;
+import {API_CLIENT, API_KEY} from '@env';
 
 export const AuthContext = createContext();
 
@@ -18,6 +10,8 @@ export function AuthProvider({ children }) {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [splashLoading, setSplashLoading] = useState(false);
+
+  axios.defaults.headers.common['API_KEY'] = API_KEY // add API_KEY to all requests
 
   const signUp = (username, email, password) => {
     console.log({ username, email, password });
@@ -42,6 +36,8 @@ export function AuthProvider({ children }) {
   };
 
   const logIn = (email, password) => {
+    console.log(`${API_CLIENT}/signin`);
+    console.log({ email, password });
     setIsLoading(true);
     axios
       .post(`${API_CLIENT}/signin`, {
@@ -49,8 +45,9 @@ export function AuthProvider({ children }) {
         password,
       })
       .then((res) => {
+        console.log("made it here!");
         const userInfo = res.data;
-        // console.log(userInfo);
+        console.log(userInfo);
         setUserInfo(userInfo);
         AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
         setIsLoading(false);
@@ -85,6 +82,7 @@ export function AuthProvider({ children }) {
       }
 
       setSplashLoading(false);
+
     } catch (e) {
       setSplashLoading(false);
       console.log(`is logged in error ${e}`);
