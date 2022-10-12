@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { apiUrl, s3BucketUrl } from 'lib/constants';
+import * as mime from 'react-native-mime-types';
 import Recording from 'types/recording';
 
 const getFileType = async (fileUri: string): Promise<string> => {
-  const resp = await fetch(fileUri);
-  return resp.type;
+  return mime.lookup(fileUri) || 'application/octet-stream';
 };
 
 const getSignedUrl = async (filename: string, type: string): Promise<string> => {
-  const { data } = await axios.get(`${apiUrl}/upload?filename=${filename}&type=${type}`);
+  const { data } = await axios.get(`${apiUrl}/sign-s3?filename=${filename}&type=${type}`);
   return data.url;
 };
 

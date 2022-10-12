@@ -5,5 +5,5 @@ export const colors = {
   yellow: '#FFBB37',
 };
 
-export const apiUrl = 'https://linguistics-games-proof-of-concept.netlify.app/.netlify/functions';
-export const s3BucketUrl = 'https://lg-dali-test.s3.us-west-1.amazonaws.com';
+export const apiUrl = 'http://localhost:9090/api';
+export const s3BucketUrl = 'https://linguistics-games.s3.us-east-1.amazonaws.com';
