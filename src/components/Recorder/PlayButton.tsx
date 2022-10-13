@@ -1,8 +1,9 @@
 import {
   TouchableOpacity, Text, View,
 } from 'react-native';
-import { Audio, AVPlaybackStatus, AVPlaybackStatusSuccess } from 'expo-av';
+import { Audio, AVPlaybackStatus } from 'expo-av';
 import { useEffect, useState } from 'react';
+import { isAVPlaybackStatusSuccess } from 'types/guards';
 import styles from './styles';
 
 // Get mm:ss from seconds
@@ -58,8 +59,8 @@ function PlayButton({ recordingUri }: {recordingUri: string}): JSX.Element {
   const onPress = (): void => setIsPlaying((p) => !p);
 
   // Type casting here due to annoying quirk in expo-av with AVPlaybackStatus
-  const duration = playbackStatus && (playbackStatus as AVPlaybackStatusSuccess).durationMillis ? ((playbackStatus as AVPlaybackStatusSuccess).durationMillis / 1000) : 0;
-  const progress = playbackStatus && (playbackStatus as AVPlaybackStatusSuccess).positionMillis ? ((playbackStatus as AVPlaybackStatusSuccess).positionMillis / 1000) : 0;
+  const duration = playbackStatus && isAVPlaybackStatusSuccess(playbackStatus) ? (playbackStatus.durationMillis / 1000) : 0;
+  const progress = playbackStatus && isAVPlaybackStatusSuccess(playbackStatus) ? (playbackStatus.positionMillis / 1000) : 0;
   const isLoaded = playbackStatus?.isLoaded;
 
   return (
