@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,7 +10,9 @@ import Compass from 'assets/compass.svg';
 import Profile from 'assets/profile.svg';
 import Search from 'assets/search.svg';
 import Upvote from 'assets/upvote.svg';
-import { useAppSelector } from 'redux/hooks';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { storeToken } from 'services/storage';
+import { retrieveToken } from 'redux/slices/authSlice';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,7 +44,18 @@ function TabNavigator(): JSX.Element {
 }
 
 function Navigator(): JSX.Element {
-  const { authenticated } = useAppSelector((state) => state.auth);
+  const { authenticated, token } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (token) {
+      storeToken(token);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    dispatch(retrieveToken());
+  }, []);
 
   return (
     <NavigationContainer>

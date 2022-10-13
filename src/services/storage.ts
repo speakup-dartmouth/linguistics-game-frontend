@@ -18,3 +18,31 @@ export const addRecording = async (recording: Recording): Promise<void> => {
   recordings.push(recording);
   await AsyncStorage.setItem('recordings', JSON.stringify(recordings));
 };
+
+export const storeToken = async (value: string): Promise<void> => {
+  try {
+    await AsyncStorage.setItem('@token', value);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const clearToken = async (): Promise<void> => {
+  try {
+    await AsyncStorage.removeItem('@token');
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getToken = async (): Promise<string | null> => {
+  try {
+    const value = await AsyncStorage.getItem('@token');
+    if (value !== null) {
+      return value;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+  return null;
+};

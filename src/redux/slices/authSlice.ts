@@ -1,6 +1,9 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf, createAsyncThunk } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from 'services/api';
+import axios from 'axios';
+import { apiUrl } from 'lib/constants';
 
 export interface AuthState {
   authenticated: boolean
@@ -8,6 +11,7 @@ export interface AuthState {
   email: string
   username: string
   token: string
+  loaded: boolean
 }
 
 const initialState: AuthState = {
@@ -16,7 +20,31 @@ const initialState: AuthState = {
   email: '',
   username: '',
   token: '',
+  loaded: false,
 };
+
+export const retrieveToken = createAsyncThunk(
+  'auth/retrieveToken',
+  async () => {
+    const token = await AsyncStorage.getItem('@token');
+    const { data } = await axios.get(`${apiUrl}user-info`, {
+      headers: {
+        authorization: token,
+      },
+    });
+
+    if (data) {
+      return {
+        token,
+        id: data.id,
+        email: data.email,
+        username: data.username,
+      };
+    }
+
+    return null;
+  },
+);
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -31,6 +59,21 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(retrieveToken.fulfilled, (state, action) => {
+      if (action.payload) {
+        state = {
+          ...state,
+          ...action.payload,
+          authenticated: true,
+        };
+      }
+      state.loaded = true;
+      return state;
+    });
+    builder.addCase(retrieveToken.rejected, (state) => {
+      state.loaded = true;
+      return state;
+    });
     builder.addMatcher(isAnyOf(api.endpoints.signIn.matchFulfilled, api.endpoints.signUp.matchFulfilled), (state, action) => {
       if ('token' in action.payload) {
         const {
