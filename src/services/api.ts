@@ -1,5 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { apiUrl } from 'lib/constants';
+import { RootState } from 'redux/store';
+
+// @ts-ignore
+import { API_KEY } from 'react-native-dotenv';
+import axios from 'axios';
+
+axios.defaults.headers.common.API_KEY = API_KEY;
 
 interface LoginResponse {
   token: string
@@ -9,10 +16,23 @@ interface LoginResponse {
 }
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: apiUrl,
+    prepareHeaders: (headers, { getState }) => {
+      const { token } = (getState() as RootState).auth;
+
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+
+      headers.set('API_KEY', API_KEY);
+
+      return headers;
+    },
+  }),
   reducerPath: 'api',
   endpoints: (builder) => ({
-    signIn: builder.query<LoginResponse, {email: string, password: string}>({
+    signIn: builder.mutation<LoginResponse, {email: string, password: string}>({
       query: ({ email, password }) => {
         return {
           url: 'signin',
@@ -21,7 +41,16 @@ export const api = createApi({
         };
       },
     }),
+    signUp: builder.mutation<LoginResponse, {email: string, password: string, username: string}>({
+      query: ({ username, email, password }) => {
+        return {
+          url: 'signup',
+          method: 'POST',
+          body: { username, email, password },
+        };
+      },
+    }),
   }),
 });
 
-export const { useSignInQuery } = api;
+export const { useSignInMutation, useSignUpMutation } = api;

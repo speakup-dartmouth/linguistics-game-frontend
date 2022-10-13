@@ -1,15 +1,16 @@
 import {
-  SafeAreaView, Button
+  SafeAreaView, Button,
 } from 'react-native';
+import { logout } from 'redux/slices/authSlice';
+import { useAppDispatch } from 'redux/hooks';
 import styles from './styles';
-import { useContext } from 'react';
-import { AuthContext } from 'context/AuthContext';
 
 function ProfileScreen(): JSX.Element {
-    const { logOut } = useContext(AuthContext);
+  const dispatch = useAppDispatch();
+
   return (
     <SafeAreaView style={styles.container}>
-      <Button title="LOG OUT" onPress={() => {logOut();}} />
+      <Button title="LOG OUT" onPress={() => { dispatch(logout()); }} />
     </SafeAreaView>
   );
 }

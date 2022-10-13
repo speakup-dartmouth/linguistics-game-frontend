@@ -1,11 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
-// @ts-ignore
-import { API_KEY } from 'react-native-dotenv';
-import axios from 'axios';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { api } from 'services/api';
-
-axios.defaults.headers.common.API_KEY = API_KEY;
 
 export interface AuthState {
   authenticated: boolean
@@ -27,11 +22,16 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    startAuthLoading: (state) => ({ ...state, loading: true }),
-    stopAuthLoading: (state) => ({ ...state, loading: false }),
+    logout: (state) => {
+      state.authenticated = false;
+      state.id = '';
+      state.email = '';
+      state.username = '';
+      state.token = '';
+    },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(api.endpoints.signIn.matchFulfilled, (state, action) => {
+    builder.addMatcher(isAnyOf(api.endpoints.signIn.matchFulfilled, api.endpoints.signUp.matchFulfilled), (state, action) => {
       if ('token' in action.payload) {
         const {
           token, id, email, username,
@@ -45,6 +45,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { startAuthLoading, stopAuthLoading } = authSlice.actions;
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

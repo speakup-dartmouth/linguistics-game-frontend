@@ -1,11 +1,11 @@
 import React, {
-  useContext, useState,
+  useState,
 } from 'react';
 import {
   Text, TextInput, View, Pressable,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { AuthContext } from 'context/AuthContext';
+import { useSignUpMutation } from 'services/api';
 import styles from './styles';
 
 function SignUp(): JSX.Element {
@@ -13,7 +13,7 @@ function SignUp(): JSX.Element {
   const [username, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { signUp } = useContext(AuthContext);
+  const [signUp] = useSignUpMutation();
   const [ageOpen, setAgeOpen] = useState(false);
   const [age, setAge] = useState(null);
   const [ageOptions, setAgeOptions] = useState([
@@ -86,7 +86,7 @@ function SignUp(): JSX.Element {
       />
       <TextInput
         style={styles.textBox}
-        value={password}
+        value={confirmPassword}
         placeholder="CONFIRM PASSWORD"
         onChangeText={(p) => {
           setConfirmPassword(p);
@@ -99,7 +99,7 @@ function SignUp(): JSX.Element {
             console.log('password and confirm password must match.');
             return;
           }
-          signUp(username, email, password);
+          signUp({ username, email, password });
         }}
       >
         <Text style={styles.buttonText}>Sign Up</Text>

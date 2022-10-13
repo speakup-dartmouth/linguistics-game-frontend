@@ -1,16 +1,16 @@
 import React, {
-  useContext, useState,
+  useState,
 } from 'react';
 import {
   Text, View, TextInput, Pressable,
 } from 'react-native';
-import { AuthContext } from 'context/AuthContext';
+import { useSignInMutation } from 'services/api';
 import styles from './styles';
 
 function LogIn(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { logIn } = useContext(AuthContext);
+  const [logIn] = useSignInMutation();
 
   return (
     <View style={styles.subview}>
@@ -37,7 +37,7 @@ function LogIn(): JSX.Element {
       <Pressable
         style={styles.submitButton}
         onPress={() => {
-          logIn(email, password);
+          logIn({ email, password });
         }}
       >
         <Text style={styles.buttonText}>Log In</Text>

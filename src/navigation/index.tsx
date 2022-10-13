@@ -16,12 +16,6 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function TabNavigator(): JSX.Element {
-  const { authenticated } = useAppSelector((state) => state.auth);
-
-  if (!authenticated) {
-    return <Registration />;
-  }
-
   const CompassIcon = useCallback(() => <Compass width={24} height={24} />, []);
   const ProfileIcon = useCallback(() => <Profile width={24} height={24} />, []);
   const SearchIcon = useCallback(() => <Search width={24} height={24} />, []);
@@ -48,10 +42,16 @@ function TabNavigator(): JSX.Element {
 }
 
 function Navigator(): JSX.Element {
+  const { authenticated } = useAppSelector((state) => state.auth);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false }} />
+        {authenticated ? (
+          <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false }} />
+        ) : (
+          <Stack.Screen name="Registration" component={Registration} options={{ headerShown: false }} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
