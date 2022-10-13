@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,15 +10,15 @@ import Compass from 'assets/compass.svg';
 import Profile from 'assets/profile.svg';
 import Search from 'assets/search.svg';
 import Upvote from 'assets/upvote.svg';
-import { AuthContext } from '../context/AuthContext';
+import { useAppSelector } from 'redux/hooks';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function TabNavigator(): JSX.Element {
-  const { userInfo } = useContext(AuthContext);
+  const { authenticated } = useAppSelector((state) => state.auth);
 
-  if (!userInfo.token) {
+  if (!authenticated) {
     return <Registration />;
   }
 

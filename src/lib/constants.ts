@@ -5,5 +5,5 @@ export const colors = {
   yellow: '#FFBB37',
 };
 
-export const apiUrl = 'http://localhost:9090/api';
+export const apiUrl = 'http://localhost:9090/api/';
 export const s3BucketUrl = 'https://linguistics-games.s3.us-east-1.amazonaws.com';
