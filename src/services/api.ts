@@ -1,3 +1,4 @@
+/* eslint-disable no-return-await */
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { apiUrl } from 'lib/constants';
 import { RootState } from 'redux/store';
@@ -14,6 +15,15 @@ interface LoginResponse {
   email: string
   username: string
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const responseHandler = async (response: Response): Promise<any> => {
+  try {
+    return await response.clone().json();
+  } catch (error) {
+    return await response.text();
+  }
+};
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -35,6 +45,7 @@ export const api = createApi({
           url: 'signin',
           method: 'POST',
           body: { email, password },
+          responseHandler,
         };
       },
     }),
@@ -44,6 +55,7 @@ export const api = createApi({
           url: 'signup',
           method: 'POST',
           body: { username, email, password },
+          responseHandler,
         };
       },
     }),

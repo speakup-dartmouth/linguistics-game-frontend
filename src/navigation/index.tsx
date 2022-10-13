@@ -46,17 +46,27 @@ function TabNavigator(): JSX.Element {
 
 function Navigator(): JSX.Element {
   const { authenticated, token, loaded } = useAppSelector((state) => state.auth);
+  const { message, isError } = useAppSelector((state) => state.error);
   const dispatch = useAppDispatch();
 
+  // When a new token is generated, store it in async storage
   useEffect(() => {
     if (token) {
       storeToken(token);
     }
   }, [token]);
 
+  // When the app loads, check if there is a token stored in async storage
   useEffect(() => {
     dispatch(retrieveToken());
   }, []);
+
+  useEffect(() => {
+    if (isError) {
+      // eslint-disable-next-line no-alert
+      alert(message);
+    }
+  }, [isError, message]);
 
   if (!loaded) {
     return <SplashScreen />;

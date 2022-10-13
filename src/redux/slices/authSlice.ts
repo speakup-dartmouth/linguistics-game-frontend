@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { createSlice, isAnyOf, createAsyncThunk } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from 'services/api';
