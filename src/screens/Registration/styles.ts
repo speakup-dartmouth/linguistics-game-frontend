@@ -18,7 +18,7 @@ export default StyleSheet.create({
   subview: {
     flex: 1,
     justifyContent: 'center',
-    width:'90%',
+    width: '90%',
   },
   textBox: {
     backgroundColor: '#F4F5F4',
@@ -93,13 +93,13 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   dropdown: {
-    backgroundColor: "#F4F5F4",
+    backgroundColor: '#F4F5F4',
     borderWidth: 0,
   },
   dropdownContainer: {
-    backgroundColor: "#F4F5F4",
+    backgroundColor: '#F4F5F4',
     // width: '50%',
     flex: 1,
-    margin: 5
-  }
+    margin: 5,
+  },
 });
