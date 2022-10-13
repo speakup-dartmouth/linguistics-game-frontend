@@ -20,13 +20,10 @@ export const api = createApi({
     baseUrl: apiUrl,
     prepareHeaders: (headers, { getState }) => {
       const { token } = (getState() as RootState).auth;
-
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }
-
       headers.set('API_KEY', API_KEY);
-
       return headers;
     },
   }),

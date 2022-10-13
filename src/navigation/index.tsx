@@ -13,6 +13,7 @@ import Upvote from 'assets/upvote.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { storeToken } from 'services/storage';
 import { retrieveToken } from 'redux/slices/authSlice';
+import SplashScreen from 'screens/Splash';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -44,7 +45,7 @@ function TabNavigator(): JSX.Element {
 }
 
 function Navigator(): JSX.Element {
-  const { authenticated, token } = useAppSelector((state) => state.auth);
+  const { authenticated, token, loaded } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -57,14 +58,18 @@ function Navigator(): JSX.Element {
     dispatch(retrieveToken());
   }, []);
 
+  if (!loaded) {
+    return <SplashScreen />;
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {authenticated ? (
+        {loaded && (authenticated ? (
           <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false }} />
         ) : (
           <Stack.Screen name="Registration" component={Registration} options={{ headerShown: false }} />
-        )}
+        ))}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -6,7 +6,7 @@ import authReducer from './slices/authSlice';
 
 export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
   if (action.error && action.meta.requestStatus === 'rejected') {
-    console.log(action.payload);
+    console.log(action.error, action.payload);
   }
 
   return next(action);
