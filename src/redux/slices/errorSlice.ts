@@ -14,7 +14,12 @@ const initialState: ErrorState = {
 export const errorSlice = createSlice({
   name: 'error',
   initialState,
-  reducers: {},
+  reducers: {
+    setError: (state, action) => {
+      state.message = action.payload;
+      state.isError = true;
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.signIn.matchRejected, (state, action) => {
       if (typeof action.payload.data === 'string' && action.payload.data.includes('Unauthorized')) {
@@ -27,5 +32,7 @@ export const errorSlice = createSlice({
     });
   },
 });
+
+export const { setError } = errorSlice.actions;
 
 export default errorSlice.reducer;

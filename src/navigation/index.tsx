@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  Landing, RecordingList, ProfilePage, Placeholder, Registration,
+  Landing, RecordingList, ProfilePage, Placeholder, Registration, Splash,
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
@@ -13,7 +13,6 @@ import Upvote from 'assets/upvote.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { storeToken } from 'services/storage';
 import { retrieveToken } from 'redux/slices/authSlice';
-import SplashScreen from 'screens/Splash';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -69,7 +68,7 @@ function Navigator(): JSX.Element {
   }, [isError, message]);
 
   if (!loaded) {
-    return <SplashScreen />;
+    return <Splash />;
   }
 
   return (
