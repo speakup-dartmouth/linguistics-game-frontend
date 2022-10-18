@@ -99,10 +99,13 @@
     ],
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
-    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "warn",
     "@typescript-eslint/interface-name-prefix": "off",
-    "@typescript-eslint/no-explicit-any": "error"
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-param-reassign": "off"
   },
   "plugins": [
     "react",
