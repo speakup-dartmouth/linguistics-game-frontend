@@ -5,7 +5,9 @@ import {
   Text, TextInput, View, Pressable,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useSignUpMutation } from 'services/api';
+import dayjs from 'dayjs';
 import styles from './styles';
 
 function SignUp(): JSX.Element {
@@ -14,13 +16,8 @@ function SignUp(): JSX.Element {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [signUp] = useSignUpMutation();
-  const [ageOpen, setAgeOpen] = useState(false);
-  const [age, setAge] = useState(null);
-  const [ageOptions, setAgeOptions] = useState([
-    { label: '19', value: 19 },
-    { label: '20', value: 20 },
-    { label: '21', value: 21 },
-  ]);
+  const [dateOfBirthOpen, setDateOfBirthOpen] = useState(false);
+  const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
   const [genderOpen, setGenderOpen] = useState(false);
   const [gender, setGender] = useState(null);
   const [genderOptions, setGenderOptions] = useState([
@@ -44,16 +41,19 @@ function SignUp(): JSX.Element {
         returnKeyType="next"
       />
       <View style={styles.dropdownRow}>
-        <DropDownPicker
-          open={ageOpen}
-          value={age}
-          items={ageOptions}
-          setOpen={setAgeOpen}
-          setValue={setAge}
-          setItems={setAgeOptions}
-          style={styles.dropdown}
-          containerStyle={styles.dropdownContainer}
-          textStyle={styles.dropdownText}
+        <Pressable style={styles.dateOfBirth} onPress={() => { setDateOfBirthOpen(true); }}>
+          <Text style={styles.dropdownText}>{dateOfBirth ? dayjs(dateOfBirth).format('MM/DD/YYYY') : 'Date of Birth'}</Text>
+        </Pressable>
+        <DateTimePickerModal
+          isVisible={dateOfBirthOpen}
+          mode="date"
+          onConfirm={(date) => {
+            setDateOfBirth(date);
+            setDateOfBirthOpen(false);
+          }}
+          onCancel={() => {
+            setDateOfBirthOpen(false);
+          }}
         />
         <DropDownPicker
           open={genderOpen}

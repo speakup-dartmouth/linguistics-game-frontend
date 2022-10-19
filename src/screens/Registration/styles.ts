@@ -37,6 +37,14 @@ export default StyleSheet.create({
     marginBottom: 10,
     color: colors.lightBlack,
   },
+  dateOfBirth: {
+    backgroundColor: '#F4F5F4',
+    width: '50%',
+    color: colors.lightBlack,
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+  },
   submitButton: {
     backgroundColor: '#3297C1',
     alignItems: 'center',
@@ -105,6 +113,7 @@ export default StyleSheet.create({
     flex: 1,
     margin: 5,
     zIndex: 100,
+    borderRadius: 10,
   },
   dropdownText: {
     color: colors.lightBlack,
