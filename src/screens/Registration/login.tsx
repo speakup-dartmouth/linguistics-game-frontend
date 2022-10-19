@@ -22,13 +22,13 @@ function LogIn(): JSX.Element {
           setEmail(e);
         }}
         value={email}
-        placeholder="EMAIL"
+        placeholder="Email"
         returnKeyType="next"
       />
       <TextInput
         style={styles.textBox}
         value={password}
-        placeholder="PASSWORD"
+        placeholder="Password"
         onChangeText={(p) => {
           setPassword(p);
         }}

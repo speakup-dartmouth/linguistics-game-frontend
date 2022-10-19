@@ -37,7 +37,7 @@ function SignUp(): JSX.Element {
       <TextInput
         style={styles.textBox}
         value={username}
-        placeholder="USERNAME"
+        placeholder="Username"
         onChangeText={(u) => {
           setName(u);
         }}
@@ -53,6 +53,7 @@ function SignUp(): JSX.Element {
           setItems={setAgeOptions}
           style={styles.dropdown}
           containerStyle={styles.dropdownContainer}
+          textStyle={styles.dropdownText}
         />
         <DropDownPicker
           open={genderOpen}
@@ -63,12 +64,14 @@ function SignUp(): JSX.Element {
           setItems={setGenderOptions}
           style={styles.dropdown}
           containerStyle={styles.dropdownContainer}
+          placeholder="Gender"
+          textStyle={styles.dropdownText}
         />
       </View>
       <TextInput
         style={styles.textBox}
         value={email}
-        placeholder="EMAIL"
+        placeholder="Email"
         onChangeText={(e) => {
           setEmail(e);
         }}
@@ -78,7 +81,7 @@ function SignUp(): JSX.Element {
       <TextInput
         style={styles.textBox}
         value={password}
-        placeholder="PASSWORD"
+        placeholder="Password"
         onChangeText={(p) => {
           setPassword(p);
         }}
@@ -87,7 +90,7 @@ function SignUp(): JSX.Element {
       <TextInput
         style={styles.textBox}
         value={confirmPassword}
-        placeholder="CONFIRM PASSWORD"
+        placeholder="Confirm Password"
         onChangeText={(p) => {
           setConfirmPassword(p);
         }}
