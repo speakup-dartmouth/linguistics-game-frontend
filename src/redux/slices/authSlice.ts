@@ -11,6 +11,7 @@ export interface AuthState {
   username: string
   token: string
   loaded: boolean
+  isRegistering: boolean
 }
 
 const initialState: AuthState = {
@@ -20,6 +21,7 @@ const initialState: AuthState = {
   username: '',
   token: '',
   loaded: false,
+  isRegistering: false,
 };
 
 export const retrieveToken = createAsyncThunk(
@@ -82,6 +84,14 @@ export const authSlice = createSlice({
           ...state, authenticated: true, token, id, email, username,
         });
       }
+      return state;
+    });
+    builder.addMatcher(api.endpoints.signIn.matchPending, (state) => {
+      state.isRegistering = false;
+      return state;
+    });
+    builder.addMatcher(api.endpoints.signUp.matchPending, (state) => {
+      state.isRegistering = true;
       return state;
     });
   },

@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
+import React, {
+  useCallback, useEffect,
+} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  Landing, RecordingList, ProfilePage, Placeholder, Registration, Splash,
+  Landing, RecordingList, ProfilePage, Placeholder, Registration, Splash, ResearchConsent,
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
@@ -43,6 +45,22 @@ function TabNavigator(): JSX.Element {
   );
 }
 
+function MainStackNavigator(): JSX.Element {
+  const { isRegistering } = useAppSelector((state) => state.auth);
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName={isRegistering ? 'ResearchConsent' : 'TabNavigator'}
+    >
+      <Stack.Screen name="TabNavigator" component={TabNavigator} />
+      <Stack.Screen name="ResearchConsent" component={ResearchConsent} />
+    </Stack.Navigator>
+  );
+}
+
 function Navigator(): JSX.Element {
   const { authenticated, token, loaded } = useAppSelector((state) => state.auth);
   const { message, isError } = useAppSelector((state) => state.error);
@@ -75,7 +93,7 @@ function Navigator(): JSX.Element {
     <NavigationContainer>
       <Stack.Navigator>
         {loaded && (authenticated ? (
-          <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="Home" component={MainStackNavigator} options={{ headerShown: false }} />
         ) : (
           <Stack.Screen name="Registration" component={Registration} options={{ headerShown: false }} />
         ))}
