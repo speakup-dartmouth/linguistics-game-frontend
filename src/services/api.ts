@@ -6,6 +6,7 @@ import { RootState } from 'redux/store';
 // @ts-ignore
 import { API_KEY } from 'react-native-dotenv';
 import axios from 'axios';
+import { User } from 'redux/slices/authSlice';
 
 axios.defaults.headers.common.API_KEY = API_KEY;
 
@@ -31,7 +32,7 @@ export const api = createApi({
     prepareHeaders: (headers, { getState }) => {
       const { token } = (getState() as RootState).auth;
       if (token) {
-        headers.set('authorization', `Bearer ${token}`);
+        headers.set('authorization', token);
       }
       headers.set('API_KEY', API_KEY);
       return headers;
@@ -59,7 +60,17 @@ export const api = createApi({
         };
       },
     }),
+    updateConsent: builder.mutation<User, boolean>({
+      query: (value) => {
+        return {
+          url: 'update-consent',
+          method: 'POST',
+          responseHandler,
+          body: { researchConsent: value },
+        };
+      },
+    }),
   }),
 });
 
-export const { useSignInMutation, useSignUpMutation } = api;
+export const { useSignInMutation, useSignUpMutation, useUpdateConsentMutation } = api;

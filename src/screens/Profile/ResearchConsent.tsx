@@ -2,10 +2,22 @@ import Button from 'components/UI/Button';
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { CheckBox } from '@rneui/themed';
+import { useUpdateConsentMutation } from 'services/api';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from 'navigation/types';
+import { useAppSelector } from 'redux/hooks';
 import styles from './styles';
 
 function ResearchConsent(): JSX.Element {
-  const [checked, setChecked] = useState<boolean | null>(true);
+  const { isRegistering, researchConsent } = useAppSelector((state) => state.auth);
+  const [checked, setChecked] = useState<boolean | null>(isRegistering ? true : researchConsent);
+  const [updateConsent] = useUpdateConsentMutation();
+  const navigation = useNavigation<NavigationProp>();
+
+  const onPress = () => {
+    updateConsent(checked);
+    navigation.navigate('TabNavigator');
+  };
 
   return (
     <View style={styles.container}>
@@ -22,7 +34,7 @@ function ResearchConsent(): JSX.Element {
         </View>
 
         <View style={styles.buttonContainer}>
-          <Button text="Continue" />
+          <Button onPress={onPress} text="Continue" disabled={checked === null} />
         </View>
       </View>
     </View>

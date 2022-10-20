@@ -4,11 +4,15 @@ import { api } from 'services/api';
 import axios from 'axios';
 import { apiUrl } from 'lib/constants';
 
-export interface AuthState {
-  authenticated: boolean
+export interface User {
   id: string
-  email: string
   username: string
+  email: string
+  researchConsent: boolean
+}
+
+export interface AuthState extends User {
+  authenticated: boolean
   token: string
   loaded: boolean
   isRegistering: boolean
@@ -22,6 +26,7 @@ const initialState: AuthState = {
   token: '',
   loaded: false,
   isRegistering: false,
+  researchConsent: false,
 };
 
 export const retrieveToken = createAsyncThunk(
@@ -92,6 +97,10 @@ export const authSlice = createSlice({
     });
     builder.addMatcher(api.endpoints.signUp.matchPending, (state) => {
       state.isRegistering = true;
+      return state;
+    });
+    builder.addMatcher(api.endpoints.updateConsent.matchFulfilled, (state, action) => {
+      state.researchConsent = action.payload.researchConsent;
       return state;
     });
   },

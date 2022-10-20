@@ -61,6 +61,19 @@ function MainStackNavigator(): JSX.Element {
   );
 }
 
+function StackModalNavigator(): JSX.Element {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        presentation: 'modal',
+      }}
+    >
+      <Stack.Screen name="MainStackNavigator" component={MainStackNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="ResearchConsentModal" component={ResearchConsent} options={{ headerShown: false }} />
+    </Stack.Navigator>
+  );
+}
+
 function Navigator(): JSX.Element {
   const { authenticated, token, loaded } = useAppSelector((state) => state.auth);
   const { message, isError } = useAppSelector((state) => state.error);
@@ -93,7 +106,7 @@ function Navigator(): JSX.Element {
     <NavigationContainer>
       <Stack.Navigator>
         {loaded && (authenticated ? (
-          <Stack.Screen name="Home" component={MainStackNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="Home" component={StackModalNavigator} options={{ headerShown: false }} />
         ) : (
           <Stack.Screen name="Registration" component={Registration} options={{ headerShown: false }} />
         ))}
