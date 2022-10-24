@@ -82,6 +82,7 @@ function Navigator(): JSX.Element {
   // When a new token is generated, store it in async storage
   useEffect(() => {
     if (token) {
+      console.log(token);
       storeToken(token);
     }
   }, [token]);
@@ -89,7 +90,7 @@ function Navigator(): JSX.Element {
   // When the app loads, check if there is a token stored in async storage
   useEffect(() => {
     dispatch(retrieveToken());
-  }, []);
+  }, [authenticated]);
 
   useEffect(() => {
     if (isError && message) {

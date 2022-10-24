@@ -74,6 +74,16 @@ export const api = createApi({
         };
       },
     }),
+    updateUser: builder.mutation<User, Partial<User>>({
+      query: (user) => {
+        return {
+          url: 'users',
+          method: 'PUT',
+          responseHandler,
+          body: user,
+        };
+      },
+    }),
   }),
 });
 

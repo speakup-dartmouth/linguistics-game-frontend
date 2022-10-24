@@ -2,8 +2,9 @@ import React, {
   useState,
 } from 'react';
 import {
-  Text, View, TextInput, Pressable,
+  Text, View, Pressable,
 } from 'react-native';
+import Textbox from 'components/UI/Textbox';
 import { useSignInMutation } from 'services/api';
 import styles from './styles';
 
@@ -12,12 +13,13 @@ function LogIn(): JSX.Element {
   const [password, setPassword] = useState('');
   const [logIn] = useSignInMutation();
 
+  const disabled = email === '' || password === '';
+
   return (
     <View style={styles.subview}>
       <Text style={styles.heading}>Log In</Text>
       <Text style={styles.subheading}>Welcome back. Please log in to your account.</Text>
-      <TextInput
-        style={styles.textBox}
+      <Textbox
         onChangeText={(e) => {
           setEmail(e);
         }}
@@ -25,8 +27,7 @@ function LogIn(): JSX.Element {
         placeholder="Email"
         returnKeyType="next"
       />
-      <TextInput
-        style={styles.textBox}
+      <Textbox
         value={password}
         placeholder="Password"
         onChangeText={(p) => {
@@ -35,7 +36,8 @@ function LogIn(): JSX.Element {
         secureTextEntry
       />
       <Pressable
-        style={styles.submitButton}
+        style={{ ...styles.submitButton, opacity: disabled ? 0.5 : 1 }}
+        disabled={disabled}
         onPress={() => {
           logIn({ email, password });
         }}

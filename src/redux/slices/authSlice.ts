@@ -8,7 +8,11 @@ export interface User {
   id: string
   username: string
   email: string
-  researchConsent: boolean
+  researchConsent: boolean,
+  birthday: string,
+  gender: string,
+  interests: string[],
+  demographicAttributes: { [key: string]: string },
 }
 
 export interface AuthState extends User {
@@ -27,12 +31,18 @@ const initialState: AuthState = {
   loaded: false,
   isRegistering: false,
   researchConsent: false,
+  birthday: '',
+  gender: '',
+  interests: [],
+  demographicAttributes: {},
 };
 
 export const retrieveToken = createAsyncThunk(
   'auth/retrieveToken',
   async () => {
     const token = await AsyncStorage.getItem('@token');
+    if (!token) return null;
+
     const { data } = await axios.get(`${apiUrl}user-info`, {
       headers: {
         authorization: token,
@@ -45,6 +55,11 @@ export const retrieveToken = createAsyncThunk(
         id: data.id,
         email: data.email,
         username: data.username,
+        researchConsent: data.researchConsent,
+        birthday: data.birthday,
+        gender: data.gender,
+        interests: data.interests,
+        demographicAttributes: data.demographicAttributes,
       };
     }
 
@@ -62,6 +77,11 @@ export const authSlice = createSlice({
       state.email = '';
       state.username = '';
       state.token = '';
+      state.researchConsent = false;
+      state.birthday = '';
+      state.gender = '';
+      state.interests = [];
+      state.demographicAttributes = {};
     },
   },
   extraReducers: (builder) => {

@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors, dimensions } from 'lib/constants';
+import { globalStyles } from 'lib/styles';
 
 export default StyleSheet.create({
   container: {
@@ -32,7 +33,6 @@ export default StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 10,
-    elevation: 3,
     marginTop: 10,
     marginBottom: 10,
     color: colors.lightBlack,
@@ -88,13 +88,10 @@ export default StyleSheet.create({
     color: 'white',
   },
   heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
+    ...globalStyles.headingThree,
   },
   subheading: {
-    fontSize: 15,
-    color: '#737B7D',
+    ...globalStyles.bodySmall,
     marginBottom: 10,
   },
   dropdownRow: {

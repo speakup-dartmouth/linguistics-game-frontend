@@ -1,4 +1,4 @@
-import { colors } from 'lib/constants';
+import { globalStyles } from 'lib/styles';
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
@@ -15,17 +15,13 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   consentHeading: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    ...globalStyles.headingTwo,
     marginTop: 20,
-    color: colors.lightBlack,
   },
   consentSubheading: {
-    fontSize: 18,
-    fontWeight: '400',
+    ...globalStyles.bodyLarge,
     textAlign: 'left',
     marginTop: 5,
-    color: colors.lightBlack,
   },
   buttonContainer: {
     flex: -1,

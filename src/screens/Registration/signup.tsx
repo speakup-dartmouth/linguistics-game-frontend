@@ -2,7 +2,7 @@ import React, {
   useState,
 } from 'react';
 import {
-  Text, TextInput, View, Pressable,
+  Text, View, Pressable,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -10,6 +10,7 @@ import { useSignUpMutation } from 'services/api';
 import dayjs from 'dayjs';
 import { useAppDispatch } from 'redux/hooks';
 import { setError } from 'redux/slices/errorSlice';
+import Textbox from 'components/UI/Textbox';
 import styles from './styles';
 
 function SignUp(): JSX.Element {
@@ -37,8 +38,7 @@ function SignUp(): JSX.Element {
     <View style={styles.subview}>
       <Text style={styles.heading}>Sign Up</Text>
       <Text style={styles.subheading}>Create your account today!</Text>
-      <TextInput
-        style={styles.textBox}
+      <Textbox
         value={username}
         placeholder="Username"
         onChangeText={(u) => {
@@ -76,8 +76,7 @@ function SignUp(): JSX.Element {
           textStyle={styles.dropdownText}
         />
       </View>
-      <TextInput
-        style={styles.textBox}
+      <Textbox
         value={email}
         placeholder="Email"
         onChangeText={(e) => {
@@ -88,8 +87,7 @@ function SignUp(): JSX.Element {
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <TextInput
-        style={styles.textBox}
+      <Textbox
         value={password}
         placeholder="Password"
         onChangeText={(p) => {
@@ -99,8 +97,7 @@ function SignUp(): JSX.Element {
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <TextInput
-        style={styles.textBox}
+      <Textbox
         value={confirmPassword}
         placeholder="Confirm Password"
         onChangeText={(p) => {

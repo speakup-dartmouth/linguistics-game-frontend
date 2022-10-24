@@ -14,6 +14,17 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontWeight: 'bold',
   },
+  textBox: {
+    backgroundColor: '#F4F5F4',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    color: colors.lightBlack,
+  },
 });
 
 export default styles;
