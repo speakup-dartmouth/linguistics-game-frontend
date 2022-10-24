@@ -59,7 +59,7 @@ export const retrieveToken = createAsyncThunk(
         birthday: data.birthday,
         gender: data.gender,
         interests: data.interests,
-        demographicAttributes: data.demographicAttributes,
+        ...data.demographicAttributes && { demographicAttributes: data.demographicAttributes },
       };
     }
 
@@ -121,6 +121,13 @@ export const authSlice = createSlice({
     });
     builder.addMatcher(api.endpoints.updateConsent.matchFulfilled, (state, action) => {
       state.researchConsent = action.payload.researchConsent;
+      return state;
+    });
+    builder.addMatcher(api.endpoints.updateUser.matchFulfilled, (state, action) => {
+      state = {
+        ...state,
+        ...action.payload,
+      };
       return state;
     });
   },

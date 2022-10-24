@@ -87,4 +87,6 @@ export const api = createApi({
   }),
 });
 
-export const { useSignInMutation, useSignUpMutation, useUpdateConsentMutation } = api;
+export const {
+  useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation,
+} = api;

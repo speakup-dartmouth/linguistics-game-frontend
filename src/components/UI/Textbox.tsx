@@ -1,12 +1,29 @@
 import React from 'react';
-import { TextInput, TextInputProps } from 'react-native';
+import {
+  TextInput, TextInputProps, StyleProp, TextStyle,
+} from 'react-native';
 import styles from './styles';
 
-function Textbox(props: TextInputProps): JSX.Element {
+interface TextboxProps extends TextInputProps {
+  fullWidth?: boolean;
+  style?: StyleProp<TextStyle>;
+}
+
+function Textbox(props: TextboxProps): JSX.Element {
+  const style = [];
+  style.push(styles.textBox);
+
+  if (props.fullWidth) {
+    style.push({ width: '100%' });
+  }
+  if (props.style) {
+    style.push(props.style);
+  }
+
   return (
     <TextInput
-      style={styles.textBox}
       {...props}
+      style={style}
     />
   );
 }

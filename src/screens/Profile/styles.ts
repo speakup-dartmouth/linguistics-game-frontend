@@ -29,8 +29,4 @@ export default StyleSheet.create({
     width: '100%',
     marginTop: 50,
   },
-  consentBoxes: {
-    flex: -1,
-    flexDirection: 'row',
-  },
 });
