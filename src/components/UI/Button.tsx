@@ -11,7 +11,7 @@ interface ButtonProps {
 
 function Button({ text, onPress, disabled }: ButtonProps): JSX.Element {
   return (
-    <TouchableOpacity style={styles.buttonContainer} disabled={disabled} onPress={onPress}>
+    <TouchableOpacity style={{ ...styles.buttonContainer, opacity: disabled ? 0.7 : 1 }} disabled={disabled} onPress={onPress}>
       <Text style={styles.buttonText}>{text}</Text>
     </TouchableOpacity>
   );

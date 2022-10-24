@@ -50,12 +50,16 @@ export const api = createApi({
         };
       },
     }),
-    signUp: builder.mutation<LoginResponse, {email: string, password: string, username: string}>({
-      query: ({ username, email, password }) => {
+    signUp: builder.mutation<LoginResponse, {email: string, password: string, username: string, gender: string, birthday: Date}>({
+      query: ({
+        username, email, password, gender, birthday,
+      }) => {
         return {
           url: 'signup',
           method: 'POST',
-          body: { username, email, password },
+          body: {
+            username, email, password, gender, birthday: birthday.toUTCString(),
+          },
           responseHandler,
         };
       },

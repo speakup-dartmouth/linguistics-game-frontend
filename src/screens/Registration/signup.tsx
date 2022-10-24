@@ -8,6 +8,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useSignUpMutation } from 'services/api';
 import dayjs from 'dayjs';
+import { useAppDispatch } from 'redux/hooks';
+import { setError } from 'redux/slices/errorSlice';
 import styles from './styles';
 
 function SignUp(): JSX.Element {
@@ -21,11 +23,15 @@ function SignUp(): JSX.Element {
   const [genderOpen, setGenderOpen] = useState(false);
   const [gender, setGender] = useState(null);
   const [genderOptions, setGenderOptions] = useState([
-    { label: 'Male', value: 'Male' },
-    { label: 'Female', value: 'Female' },
-    { label: 'Nonbinary', value: 'Nonbinary' },
-    { label: 'Other', value: 'Other' },
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+    { label: 'Nonbinary', value: 'nonbinary' },
+    { label: 'Other', value: 'other' },
   ]);
+  const dispatch = useAppDispatch();
+
+  const disabled = !email || !username || !password || !confirmPassword
+    || !dateOfBirth || !gender;
 
   return (
     <View style={styles.subview}>
@@ -39,6 +45,8 @@ function SignUp(): JSX.Element {
           setName(u);
         }}
         returnKeyType="next"
+        autoCapitalize="none"
+        autoCorrect={false}
       />
       <View style={styles.dropdownRow}>
         <Pressable style={styles.dateOfBirth} onPress={() => { setDateOfBirthOpen(true); }}>
@@ -77,6 +85,8 @@ function SignUp(): JSX.Element {
         }}
         returnKeyType="next"
         blurOnSubmit={false}
+        autoCapitalize="none"
+        autoCorrect={false}
       />
       <TextInput
         style={styles.textBox}
@@ -86,6 +96,8 @@ function SignUp(): JSX.Element {
           setPassword(p);
         }}
         secureTextEntry
+        autoCapitalize="none"
+        autoCorrect={false}
       />
       <TextInput
         style={styles.textBox}
@@ -95,14 +107,19 @@ function SignUp(): JSX.Element {
           setConfirmPassword(p);
         }}
         secureTextEntry
+        autoCapitalize="none"
+        autoCorrect={false}
       />
-      <Pressable style={styles.submitButton}
+      <Pressable style={{ ...styles.submitButton, opacity: disabled ? 0.5 : 1 }}
+        disabled={disabled}
         onPress={() => {
           if (password !== confirmPassword) {
-            console.log('password and confirm password must match.');
+            dispatch(setError(('Password and confirm password must match.')));
             return;
           }
-          signUp({ username, email, password });
+          signUp({
+            username, email, password, gender, birthday: dateOfBirth,
+          });
         }}
       >
         <Text style={styles.buttonText}>Sign Up</Text>

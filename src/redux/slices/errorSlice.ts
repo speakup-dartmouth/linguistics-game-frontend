@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { api } from 'services/api';
+import { hasError } from 'types/guards';
 
 export interface ErrorState {
   message: string;
@@ -28,6 +29,13 @@ export const errorSlice = createSlice({
         state.message = 'There was an error signing in';
       }
       state.isError = true;
+      return state;
+    });
+    builder.addMatcher(api.endpoints.signUp.matchRejected, (state, action) => {
+      if (hasError(action.payload.data) && action.payload.data.error) {
+        state.message = action.payload.data.error;
+        state.isError = true;
+      }
       return state;
     });
   },

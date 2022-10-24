@@ -92,7 +92,7 @@ function Navigator(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (isError) {
+    if (isError && message) {
       // eslint-disable-next-line no-alert
       alert(message);
     }
