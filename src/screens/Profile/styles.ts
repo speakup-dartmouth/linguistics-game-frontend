@@ -8,7 +8,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  consentContainer: {
+  subcontainer: {
     width: '80%',
     flex: 1,
     alignItems: 'flex-start',

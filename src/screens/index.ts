@@ -5,6 +5,7 @@ import ProfileScreen from './Profile';
 import RegistrationScreen from './Registration';
 import SplashScreen from './Splash';
 import ResearchConsent from './Profile/ResearchConsent';
+import Demographics from './Profile/Demographics';
 
 export {
   LandingScreen as Landing,
@@ -14,4 +15,5 @@ export {
   RegistrationScreen as Registration,
   SplashScreen as Splash,
   ResearchConsent,
+  Demographics,
 };

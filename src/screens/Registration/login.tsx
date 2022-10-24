@@ -26,6 +26,8 @@ function LogIn(): JSX.Element {
         value={email}
         placeholder="Email"
         returnKeyType="next"
+        autoCapitalize="none"
+        autoCorrect={false}
       />
       <Textbox
         value={password}

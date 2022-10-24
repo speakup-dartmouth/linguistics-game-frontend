@@ -25,6 +25,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: colors.lightBlack,
   },
+  checkboxes: {
+    flex: -1,
+    flexDirection: 'row',
+  },
 });
 
 export default styles;

@@ -14,6 +14,8 @@ export type StackParamList = {
   ResearchConsent: undefined,
   Registration: undefined,
   ResearchConsentModal: undefined,
+  Demographics: undefined,
+  DemographicsModal: undefined,
 }
 
 export type NavigationProp = CompositeNavigationProp<

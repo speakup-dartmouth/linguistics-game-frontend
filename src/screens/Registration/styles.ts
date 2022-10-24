@@ -24,18 +24,7 @@ export default StyleSheet.create({
   subview: {
     flex: -1,
     justifyContent: 'center',
-    width: '90%',
-  },
-  textBox: {
-    backgroundColor: '#F4F5F4',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    color: colors.lightBlack,
+    width: '85%',
   },
   dateOfBirth: {
     backgroundColor: '#F4F5F4',
