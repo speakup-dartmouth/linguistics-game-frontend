@@ -4,21 +4,19 @@ import YesNo from 'components/UI/YesNo';
 import { globalStyles } from 'lib/styles';
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { useAppSelector } from 'redux/hooks';
 import { useUpdateUserMutation } from 'services/api';
 import { NavigationProp } from 'navigation/types';
 import Textbox from 'components/UI/Textbox';
-import { setRegistering } from 'redux/slices/authSlice';
 import styles from './styles';
 
 function Demographics(): JSX.Element {
-  const { demographicAttributes } = useAppSelector((state) => state.auth);
+  const { demographicAttributes, isRegistering } = useAppSelector((state) => state.auth);
   const [isBilingualOrMultilingual, setIsBilingualOrMultilingual] = useState(null);
   const [childhoodLanguage, setChildhoodLanguage] = useState('');
   const [currentLanguage, setCurrentLanguage] = useState('');
   const [updateUser] = useUpdateUserMutation();
   const navigation = useNavigation<NavigationProp>();
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (demographicAttributes.isBilingualOrMultilingual === 'true') {
@@ -44,8 +42,11 @@ function Demographics(): JSX.Element {
         currentLanguage,
       },
     });
-    navigation.navigate('TabNavigator');
-    dispatch(setRegistering(false));
+    if (isRegistering) {
+      navigation.navigate('Categories');
+    } else {
+      navigation.navigate('TabNavigator');
+    }
   };
 
   return (

@@ -4,8 +4,9 @@ import { View, Text, Pressable } from 'react-native';
 import { useGetCategoriesQuery, useUpdateUserMutation } from 'services/api';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from 'navigation/types';
-import { useAppSelector } from 'redux/hooks';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import Button from 'components/UI/Button';
+import { setRegistering } from 'redux/slices/authSlice';
 import styles from './styles';
 
 function CategoriesItem(
@@ -25,10 +26,12 @@ function Categories(): JSX.Element {
   const [updateUser] = useUpdateUserMutation();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const navigation = useNavigation<NavigationProp>();
+  const dispatch = useAppDispatch();
 
   const onPress = () => {
     updateUser({ interests: selectedCategories });
     navigation.navigate('TabNavigator');
+    dispatch(setRegistering(false));
   };
 
   const onPressCategory = (category: string) => {
