@@ -83,6 +83,9 @@ export const authSlice = createSlice({
       state.interests = [];
       state.demographicAttributes = {};
     },
+    setRegistering: (state, action) => {
+      state.isRegistering = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(retrieveToken.fulfilled, (state, action) => {
@@ -133,6 +136,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setRegistering } = authSlice.actions;
 
 export default authSlice.reducer;

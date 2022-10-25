@@ -4,10 +4,11 @@ import YesNo from 'components/UI/YesNo';
 import { globalStyles } from 'lib/styles';
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import { useAppSelector } from 'redux/hooks';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useUpdateUserMutation } from 'services/api';
 import { NavigationProp } from 'navigation/types';
 import Textbox from 'components/UI/Textbox';
+import { setRegistering } from 'redux/slices/authSlice';
 import styles from './styles';
 
 function Demographics(): JSX.Element {
@@ -17,6 +18,7 @@ function Demographics(): JSX.Element {
   const [currentLanguage, setCurrentLanguage] = useState('');
   const [updateUser] = useUpdateUserMutation();
   const navigation = useNavigation<NavigationProp>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (demographicAttributes.isBilingualOrMultilingual === 'true') {
@@ -43,6 +45,7 @@ function Demographics(): JSX.Element {
       },
     });
     navigation.navigate('TabNavigator');
+    dispatch(setRegistering(false));
   };
 
   return (
