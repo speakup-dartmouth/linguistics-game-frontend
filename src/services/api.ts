@@ -84,9 +84,12 @@ export const api = createApi({
         };
       },
     }),
+    getCategories: builder.query<string[], void>({
+      query: () => 'categories',
+    }),
   }),
 });
 
 export const {
-  useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation,
+  useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery,
 } = api;

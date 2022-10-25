@@ -25,6 +25,7 @@ function ProfileScreen(): JSX.Element {
       <Button title="LOG OUT" onPress={signOut} />
       <Button title="CONSENT" onPress={navigateToConsent} />
       <Button title="DEMOGRAPHICS" onPress={() => navigation.navigate('DemographicsModal')} />
+      <Button title="CATEGORIES" onPress={() => navigation.navigate('CategoriesModal')} />
     </SafeAreaView>
   );
 }

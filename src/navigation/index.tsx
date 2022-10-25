@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  Landing, RecordingList, ProfilePage, Placeholder, Registration, Splash, ResearchConsent, Demographics,
+  Landing, RecordingList, ProfilePage, Placeholder, Registration, Splash, ResearchConsent, Demographics, Categories,
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
@@ -64,6 +64,7 @@ function MainStackNavigator(): JSX.Element {
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
       <Stack.Screen name="ResearchConsent" component={ResearchConsent} />
       <Stack.Screen name="Demographics" component={Demographics} />
+      <Stack.Screen name="Categories" component={Categories} />
     </Stack.Navigator>
   );
 }
@@ -79,6 +80,7 @@ function StackModalNavigator(): JSX.Element {
       <Stack.Screen name="MainStackNavigator" component={MainStackNavigator} />
       <Stack.Screen name="ResearchConsentModal" component={ResearchConsent} />
       <Stack.Screen name="DemographicsModal" component={Demographics} />
+      <Stack.Screen name="CategoriesModal" component={Categories} />
     </Stack.Navigator>
   );
 }
