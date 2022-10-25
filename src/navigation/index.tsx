@@ -29,18 +29,24 @@ function TabNavigator(): JSX.Element {
     <Tab.Navigator
       initialRouteName="Landing"
       screenOptions={{
-        tabBarShowLabel: false,
+        tabBarShowLabel: true,
         headerShown: false,
         tabBarActiveBackgroundColor: colors.lightBlue,
         tabBarInactiveBackgroundColor: colors.darkBlue,
         tabBarActiveTintColor: colors.white,
         tabBarInactiveTintColor: colors.white,
+        tabBarLabelStyle: {
+          marginBottom: 3,
+        },
+        tabBarIconStyle: {
+          marginTop: 3,
+        },
       }}
     >
-      <Tab.Screen name="Landing" component={Landing} options={{ tabBarIcon: CompassIcon }} />
-      <Tab.Screen name="Upvote" component={RecordingList} options={{ tabBarIcon: UpvoteIcon }} />
-      <Tab.Screen name="Search" component={Placeholder} options={{ tabBarIcon: SearchIcon }} />
-      <Tab.Screen name="ProfilePage" component={ProfilePage} options={{ tabBarIcon: ProfileIcon }} />
+      <Tab.Screen name="Landing" component={Landing} options={{ tabBarIcon: CompassIcon, tabBarLabel: 'Discover' }} />
+      <Tab.Screen name="Upvote" component={RecordingList} options={{ tabBarIcon: UpvoteIcon, tabBarLabel: 'Voting' }} />
+      <Tab.Screen name="Search" component={Placeholder} options={{ tabBarIcon: SearchIcon, tabBarLabel: 'Search' }} />
+      <Tab.Screen name="ProfilePage" component={ProfilePage} options={{ tabBarIcon: ProfileIcon, tabBarLabel: 'Profile' }} />
     </Tab.Navigator>
   );
 }
