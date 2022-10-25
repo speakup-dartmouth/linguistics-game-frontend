@@ -21,7 +21,7 @@ function CategoriesItem(
 }
 
 function Categories(): JSX.Element {
-  const { interests } = useAppSelector((state) => state.auth);
+  const { interests, isRegistering } = useAppSelector((state) => state.auth);
   const { data: allCategories } = useGetCategoriesQuery();
   const [updateUser] = useUpdateUserMutation();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -60,7 +60,7 @@ function Categories(): JSX.Element {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button onPress={onPress} text="Continue" />
+        <Button onPress={onPress} text={isRegistering ? 'Complete setup' : 'Continue'} />
       </View>
     </View>
   );
