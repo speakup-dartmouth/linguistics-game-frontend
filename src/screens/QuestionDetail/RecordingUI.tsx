@@ -17,10 +17,11 @@ interface RecordUIProps {
   selectedOption: string | null;
   setSelectedOption: (option: string) => void;
   setIsBackDisabled: (isDisabled: boolean) => void;
+  setIsRecordingMode: (isRecording: boolean) => void;
 }
 
 function RecordUI({
-  question, selectedOption, setSelectedOption, setIsBackDisabled,
+  question, selectedOption, setSelectedOption, setIsBackDisabled, setIsRecordingMode,
 }: RecordUIProps): JSX.Element {
   const {
     isRecording, recordingUri, startStopRecording, reset, saveRecording, isUploading,
@@ -31,6 +32,7 @@ function RecordUI({
 
   const submitRecording = async () => {
     await saveRecording(question._id, selectedOption);
+    setIsRecordingMode(false);
   };
 
   const onRedoOrPost = (option: string) => {

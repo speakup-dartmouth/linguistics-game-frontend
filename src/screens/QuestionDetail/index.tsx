@@ -3,18 +3,22 @@ import { globalStyles } from 'lib/styles';
 import { useAppNavigation } from 'navigation/types';
 import React, { useState } from 'react';
 import {
-  View, Text, Pressable,
+  View, Text, Pressable, ScrollView,
 } from 'react-native';
 import { useAppSelector } from 'redux/hooks';
+import { useGetAnswersQuery } from 'services/api';
 import RecordUI from './RecordingUI';
 import styles from './styles';
+import AnswerRow from './AnswerRow';
 
 function QuestionDetail(): JSX.Element {
   const [isRecording, setIsRecording] = useState(false);
   const [isBackDisabled, setIsBackDisabled] = useState(false);
-  const { currentQuestion } = useAppSelector((state) => state.question);
+  const { currentQuestion, questionAnswers } = useAppSelector((state) => state.question);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const navigation = useAppNavigation();
+
+  const { isSuccess } = useGetAnswersQuery({ questionId: currentQuestion._id || '' });
 
   const onBackPress = () => {
     if (!isBackDisabled) {
@@ -22,9 +26,15 @@ function QuestionDetail(): JSX.Element {
     }
   };
 
-  if (!currentQuestion) {
-    return <View />;
+  if (!currentQuestion || !isSuccess) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
   }
+
+  const answers = questionAnswers[currentQuestion._id] || [];
 
   return (
     <View style={styles.container}>
@@ -41,6 +51,12 @@ function QuestionDetail(): JSX.Element {
           <View style={styles.buttonContainer}>
             <Button text="Speak your mind" onPress={() => { setIsRecording(true); }} />
           </View>
+
+          <ScrollView contentContainerStyle={styles.scrollView} showsVerticalScrollIndicator={false}>
+            {answers.map((answer) => (
+              <AnswerRow answer={answer} key={answer._id} />
+            ))}
+          </ScrollView>
         </>
         )}
 
@@ -50,6 +66,7 @@ function QuestionDetail(): JSX.Element {
             question={currentQuestion}
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
+            setIsRecordingMode={setIsRecording}
           />
         )}
       </View>

@@ -14,6 +14,7 @@ export interface Answer {
   user: string;
   recordingURL: string;
   stance: string;
+  _id: string;
 }
 
 export interface QuestionState {
@@ -48,18 +49,11 @@ const questionSlice = createSlice({
       state.questions = action.payload;
     });
     builder.addMatcher(api.endpoints.addAnswer.matchFulfilled, (state, action) => {
-      const {
-        question, user, recordingURL, stance,
-      } = action.payload;
+      const { question } = action.payload;
       if (!state.questionAnswers[question]) {
         state.questionAnswers[question] = [];
       }
-      state.questionAnswers[question].push({
-        question,
-        user,
-        recordingURL,
-        stance,
-      });
+      state.questionAnswers[question].push(action.payload);
     });
     builder.addMatcher(api.endpoints.getAnswers.matchFulfilled, (state, action) => {
       const { questionId } = action.meta.arg.originalArgs;

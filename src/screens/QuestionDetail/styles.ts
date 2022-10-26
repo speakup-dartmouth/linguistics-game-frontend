@@ -84,4 +84,30 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
   },
+  answerContainer: {
+    flex: -1,
+    minWidth: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E5E6',
+    padding: 10,
+  },
+  answerStance: {
+    backgroundColor: '#B3D8FF',
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginLeft: 10,
+  },
+  stanceText: {
+    color: 'white',
+    fontWeight: '500',
+  },
+  scrollView: {
+    marginTop: 30,
+    paddingBottom: 100,
+    width: '100%',
+  },
 });

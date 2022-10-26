@@ -108,5 +108,5 @@ export const api = createApi({
 });
 
 export const {
-  useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery, useGetQuestionsQuery, useAddAnswerMutation,
+  useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery, useGetQuestionsQuery, useAddAnswerMutation, useGetAnswersQuery,
 } = api;
