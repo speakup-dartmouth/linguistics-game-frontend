@@ -11,12 +11,15 @@ import styles from './styles';
 
 function QuestionDetail(): JSX.Element {
   const [isRecording, setIsRecording] = useState(false);
+  const [isBackDisabled, setIsBackDisabled] = useState(false);
   const { currentQuestion } = useAppSelector((state) => state.question);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const navigation = useAppNavigation();
 
   const onBackPress = () => {
-    navigation.goBack();
+    if (!isBackDisabled) {
+      navigation.goBack();
+    }
   };
 
   if (!currentQuestion) {
@@ -42,7 +45,12 @@ function QuestionDetail(): JSX.Element {
         )}
 
         {isRecording && (
-          <RecordUI question={currentQuestion} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+          <RecordUI
+            setIsBackDisabled={setIsBackDisabled}
+            question={currentQuestion}
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+          />
         )}
       </View>
     </View>

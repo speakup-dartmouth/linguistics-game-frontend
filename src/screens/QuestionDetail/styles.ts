@@ -45,6 +45,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     alignSelf: 'center',
     padding: 20,
+    minHeight: 220,
   },
   recordingHeader: {
     fontSize: 20,
@@ -57,28 +58,6 @@ export default StyleSheet.create({
     color: colors.lightBlack,
     marginBottom: 20,
   },
-  stanceContainer: {
-    flex: -1,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#ADD5E6',
-    borderRadius: 10,
-  },
-  stanceButton: {
-    flexGrow: 1,
-    paddingVertical: 10,
-    borderRadius: 10,
-  },
-  stanceText: {
-    textAlign: 'center',
-    fontWeight: '600',
-  },
-  dividerVertical: {
-    height: '100%',
-    width: 1,
-    backgroundColor: '#3297C1',
-  },
   kernedText: {
     fontWeight: '700',
     fontSize: 14,
@@ -88,5 +67,17 @@ export default StyleSheet.create({
   recordButton: {
     marginTop: 30,
     alignSelf: 'flex-end',
+  },
+  waveform: {
+    flex: -1,
+    width: '100%',
+    alignItems: 'center',
+    paddingVertical: 20,
+    borderRadius: 10,
+    marginTop: -10,
+  },
+  recordingControls: {
+    alignSelf: 'center',
+    marginTop: 30,
   },
 });
