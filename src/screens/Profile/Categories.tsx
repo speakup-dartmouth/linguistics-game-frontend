@@ -2,8 +2,7 @@ import { globalStyles } from 'lib/styles';
 import React, { useEffect, useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { useGetCategoriesQuery, useUpdateUserMutation } from 'services/api';
-import { useNavigation } from '@react-navigation/native';
-import { NavigationProp } from 'navigation/types';
+import { useAppNavigation } from 'navigation/types';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import Button from 'components/UI/Button';
 import { setRegistering } from 'redux/slices/authSlice';
@@ -25,7 +24,7 @@ function Categories(): JSX.Element {
   const { data: allCategories } = useGetCategoriesQuery();
   const [updateUser] = useUpdateUserMutation();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const navigation = useNavigation<NavigationProp>();
+  const navigation = useAppNavigation();
   const dispatch = useAppDispatch();
 
   const onPress = () => {

@@ -11,17 +11,23 @@ export interface Question {
 export interface QuestionState {
   categories: string[];
   questions: Question[];
+  currentQuestion: Question | null;
 }
 
 const initialState: QuestionState = {
   categories: [],
   questions: [],
+  currentQuestion: null,
 };
 
 const questionSlice = createSlice({
   name: 'question',
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentQuestion(state, action) {
+      state.currentQuestion = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.getCategories.matchFulfilled, (state, action) => {
       state.categories = action.payload;
@@ -31,5 +37,7 @@ const questionSlice = createSlice({
     });
   },
 });
+
+export const { setCurrentQuestion } = questionSlice.actions;
 
 export default questionSlice.reducer;

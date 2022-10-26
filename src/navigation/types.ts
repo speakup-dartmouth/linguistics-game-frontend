@@ -18,6 +18,7 @@ export type StackParamList = {
   DemographicsModal: undefined,
   Categories: undefined,
   CategoriesModal: undefined,
+  QuestionDetail: undefined,
 }
 
 export type NavigationProp = CompositeNavigationProp<

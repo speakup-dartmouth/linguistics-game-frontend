@@ -2,8 +2,7 @@ import Button from 'components/UI/Button';
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { useUpdateConsentMutation } from 'services/api';
-import { useNavigation } from '@react-navigation/native';
-import { NavigationProp } from 'navigation/types';
+import { useAppNavigation } from 'navigation/types';
 import { useAppSelector } from 'redux/hooks';
 import YesNo from 'components/UI/YesNo';
 import styles from './styles';
@@ -12,7 +11,7 @@ function ResearchConsent(): JSX.Element {
   const { isRegistering, researchConsent } = useAppSelector((state) => state.auth);
   const [checked, setChecked] = useState<boolean | null>(isRegistering ? true : researchConsent);
   const [updateConsent] = useUpdateConsentMutation();
-  const navigation = useNavigation<NavigationProp>();
+  const navigation = useAppNavigation();
 
   const onPress = () => {
     updateConsent(checked);

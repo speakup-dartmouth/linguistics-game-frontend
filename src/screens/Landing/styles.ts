@@ -19,7 +19,7 @@ export default StyleSheet.create({
   },
   scrollView: {
     marginTop: 30,
-    paddingBottom: 50,
+    paddingBottom: 100,
     minHeight: dimensions.height,
   },
   questionsContainer: {
