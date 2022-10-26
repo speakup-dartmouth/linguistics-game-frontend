@@ -12,6 +12,7 @@ import styles from './styles';
 function QuestionDetail(): JSX.Element {
   const [isRecording, setIsRecording] = useState(false);
   const { currentQuestion } = useAppSelector((state) => state.question);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const navigation = useAppNavigation();
 
   const onBackPress = () => {
@@ -28,7 +29,7 @@ function QuestionDetail(): JSX.Element {
 
       <View style={styles.subcontainer}>
         <Text style={styles.title}>{currentQuestion.title}</Text>
-        <Text style={styles.description}>{currentQuestion.description}</Text>
+        <Text style={styles.description}>{selectedOption ? `Your Stance: ${selectedOption}` : currentQuestion.description}</Text>
 
         {!isRecording && (
         <>
@@ -41,7 +42,7 @@ function QuestionDetail(): JSX.Element {
         )}
 
         {isRecording && (
-          <RecordUI />
+          <RecordUI question={currentQuestion} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
         )}
       </View>
     </View>
