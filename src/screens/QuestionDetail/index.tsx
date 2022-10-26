@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { useAppSelector } from 'redux/hooks';
 import { useGetAnswersQuery } from 'services/api';
+import Loader from 'components/UI/Loader';
 import RecordUI from './RecordingUI';
 import styles from './styles';
 import AnswerRow from './AnswerRow';
@@ -29,7 +30,7 @@ function QuestionDetail(): JSX.Element {
   if (!currentQuestion || !isSuccess) {
     return (
       <View style={styles.container}>
-        <Text>Loading...</Text>
+        <Loader fullWidth />
       </View>
     );
   }

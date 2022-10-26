@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  Landing, RecordingList, ProfilePage, Placeholder, Registration, Splash, ResearchConsent, Demographics, Categories, QuestionDetail,
+  Landing, ProfilePage, Placeholder, Registration, Splash, ResearchConsent, Demographics, Categories, QuestionDetail,
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
@@ -58,7 +58,7 @@ function TabNavigator(): JSX.Element {
       }}
     >
       <Tab.Screen name="Landing" component={LandingStackNavigator} options={{ tabBarIcon: CompassIcon, tabBarLabel: 'Discover' }} />
-      <Tab.Screen name="Upvote" component={RecordingList} options={{ tabBarIcon: UpvoteIcon, tabBarLabel: 'Voting' }} />
+      <Tab.Screen name="Upvote" component={Placeholder} options={{ tabBarIcon: UpvoteIcon, tabBarLabel: 'Voting' }} />
       <Tab.Screen name="Search" component={Placeholder} options={{ tabBarIcon: SearchIcon, tabBarLabel: 'Search' }} />
       <Tab.Screen name="ProfilePage" component={ProfilePage} options={{ tabBarIcon: ProfileIcon, tabBarLabel: 'Profile' }} />
     </Tab.Navigator>

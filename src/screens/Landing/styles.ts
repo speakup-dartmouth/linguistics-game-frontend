@@ -15,6 +15,9 @@ export default StyleSheet.create({
   },
   welcome: {
     ...globalStyles.headingOne,
+  },
+  welcomeSubheader: {
+    ...globalStyles.bodyLarge,
     marginBottom: 10,
   },
   scrollView: {
