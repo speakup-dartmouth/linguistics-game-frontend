@@ -1,13 +1,29 @@
-import Recorder from 'components/Recorder';
+import QuestionCard from 'components/QuestionCard';
 import {
-  SafeAreaView,
+  SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
+import { useAppSelector } from 'redux/hooks';
+import { useGetQuestionsQuery } from 'services/api';
 import styles from './styles';
 
 function LandingScreen(): JSX.Element {
+  const { username } = useAppSelector((state) => state.auth);
+  const { questions } = useAppSelector((state) => state.question);
+  const { isLoading } = useGetQuestionsQuery();
+
   return (
     <SafeAreaView style={styles.container}>
-      <Recorder />
+      <View style={styles.subcontainer}>
+        <Text style={styles.welcome}>Hi, {username}</Text>
+
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
+          <View style={styles.questionsContainer}>
+            {!isLoading && questions.map((question) => (
+              <QuestionCard key={question._id} question={question} />
+            ))}
+          </View>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
