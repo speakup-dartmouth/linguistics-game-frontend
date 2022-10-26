@@ -78,7 +78,7 @@ function RecordUI({
       )}
 
       {recordingUri && (
-        <View style={styles.recordingUi}>
+        <View style={[styles.recordingUi, isUploading ? { opacity: 0.5 } : {}]}>
           <Text style={styles.recordingHeader}>Done recording?</Text>
           <Text style={styles.recordingSubheader}>You can rerecord your response or post it now!</Text>
           <Toggle options={['Redo', 'Post']} selectedOption={null} setSelectedOption={onRedoOrPost} disabled={isUploading} />
