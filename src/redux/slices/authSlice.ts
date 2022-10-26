@@ -5,6 +5,7 @@ import axios from 'axios';
 import { apiUrl } from 'lib/constants';
 
 export interface User {
+  _id: string
   id: string
   username: string
   email: string
@@ -24,6 +25,7 @@ export interface AuthState extends User {
 
 const initialState: AuthState = {
   authenticated: false,
+  _id: '',
   id: '',
   email: '',
   username: '',

@@ -8,7 +8,7 @@ const getFileType = async (fileUri: string): Promise<string> => {
 };
 
 const getSignedUrl = async (filename: string, type: string): Promise<string> => {
-  const { data } = await axios.get(`${apiUrl}/sign-s3?filename=${filename}&type=${type}`);
+  const { data } = await axios.get(`${apiUrl}sign-s3?filename=${filename}&type=${type}`);
   return data.url;
 };
 

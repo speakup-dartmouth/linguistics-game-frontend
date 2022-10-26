@@ -15,6 +15,7 @@ import Upvote from 'assets/upvote.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { storeToken } from 'services/storage';
 import { retrieveToken } from 'redux/slices/authSlice';
+import { clearError } from 'redux/slices/errorSlice';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -120,6 +121,7 @@ function Navigator(): JSX.Element {
     if (isError && message) {
       // eslint-disable-next-line no-alert
       alert(message);
+      dispatch(clearError());
     }
   }, [isError, message]);
 

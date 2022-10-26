@@ -99,7 +99,7 @@ export default StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 20,
     borderRadius: 10,
-    marginLeft: 10,
+    marginLeft: 5,
   },
   stanceText: {
     color: 'white',
@@ -109,5 +109,15 @@ export default StyleSheet.create({
     marginTop: 30,
     paddingBottom: 100,
     width: '100%',
+  },
+  username: {
+    marginLeft: 10,
+    marginBottom: 5,
+    fontWeight: '700',
+  },
+  stanceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 10,
   },
 });

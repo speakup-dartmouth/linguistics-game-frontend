@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { api } from 'services/api';
+import { User } from './authSlice';
 
 export interface Question {
   title: string;
@@ -11,8 +12,8 @@ export interface Question {
 
 export interface Answer {
   question: string;
-  user: string;
-  recordingURL: string;
+  user: Pick<User, 'username' | '_id'>;
+  recordingURL?: string;
   stance: string;
   _id: string;
 }

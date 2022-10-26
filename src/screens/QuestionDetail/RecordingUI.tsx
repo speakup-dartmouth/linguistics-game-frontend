@@ -51,8 +51,8 @@ function RecordUI({
   };
 
   useEffect(() => {
-    setIsBackDisabled(isRecording);
-  }, [isRecording]);
+    setIsBackDisabled(isRecording || isUploading);
+  }, [isRecording, isUploading]);
 
   return (
     <>
