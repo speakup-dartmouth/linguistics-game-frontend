@@ -23,15 +23,21 @@ function RecordUI({
   question, selectedOption, setSelectedOption, setIsBackDisabled,
 }: RecordUIProps): JSX.Element {
   const {
-    isRecording, recordingUri, startStopRecording, reset,
+    isRecording, recordingUri, startStopRecording, reset, saveRecording, isUploading,
   } = useRecorder();
   const { startStopPlayback, isPlaying } = usePlayback(recordingUri);
 
   const isRecordingActive = isRecording || !!recordingUri;
 
+  const submitRecording = async () => {
+    await saveRecording(question._id, selectedOption);
+  };
+
   const onRedoOrPost = (option: string) => {
     if (option === 'Redo') {
       reset();
+    } else {
+      submitRecording();
     }
   };
 
@@ -73,7 +79,7 @@ function RecordUI({
         <View style={styles.recordingUi}>
           <Text style={styles.recordingHeader}>Done recording?</Text>
           <Text style={styles.recordingSubheader}>You can rerecord your response or post it now!</Text>
-          <Toggle options={['Redo', 'Post']} selectedOption={null} setSelectedOption={onRedoOrPost} />
+          <Toggle options={['Redo', 'Post']} selectedOption={null} setSelectedOption={onRedoOrPost} disabled={isUploading} />
         </View>
       )}
 
@@ -91,6 +97,10 @@ function RecordUI({
             ) // Prompt to record
           )}
       </View>
+
+      <TouchableOpacity style={styles.submit} disabled={!recordingUri || isUploading} onPress={submitRecording}>
+        <Text style={[styles.kernedText, recordingUri && !isUploading ? { color: '#3297C1' } : {}]}>SUBMIT RECORDING</Text>
+      </TouchableOpacity>
     </>
   );
 }

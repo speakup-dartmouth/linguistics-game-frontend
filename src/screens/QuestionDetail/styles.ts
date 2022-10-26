@@ -80,4 +80,8 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginTop: 30,
   },
+  submit: {
+    alignSelf: 'center',
+    marginTop: 20,
+  },
 });

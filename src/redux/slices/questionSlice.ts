@@ -8,16 +8,28 @@ export interface Question {
   _id: string;
   options: string[];
 }
+
+export interface Answer {
+  question: string;
+  user: string;
+  recordingURL: string;
+  stance: string;
+}
+
 export interface QuestionState {
   categories: string[];
   questions: Question[];
   currentQuestion: Question | null;
+  questionAnswers: {
+    [questionId: string]: Answer[];
+  }
 }
 
 const initialState: QuestionState = {
   categories: [],
   questions: [],
   currentQuestion: null,
+  questionAnswers: {},
 };
 
 const questionSlice = createSlice({
@@ -34,6 +46,24 @@ const questionSlice = createSlice({
     });
     builder.addMatcher(api.endpoints.getQuestions.matchFulfilled, (state, action) => {
       state.questions = action.payload;
+    });
+    builder.addMatcher(api.endpoints.addAnswer.matchFulfilled, (state, action) => {
+      const {
+        question, user, recordingURL, stance,
+      } = action.payload;
+      if (!state.questionAnswers[question]) {
+        state.questionAnswers[question] = [];
+      }
+      state.questionAnswers[question].push({
+        question,
+        user,
+        recordingURL,
+        stance,
+      });
+    });
+    builder.addMatcher(api.endpoints.getAnswers.matchFulfilled, (state, action) => {
+      const { questionId } = action.meta.arg.originalArgs;
+      state.questionAnswers[questionId] = action.payload;
     });
   },
 });

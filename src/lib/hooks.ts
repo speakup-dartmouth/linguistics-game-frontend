@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import { uploadFile } from 'services/s3';
-import { addRecording } from 'services/storage';
 import { isAVPlaybackStatusSuccess } from 'types/guards';
+import { useAppSelector } from 'redux/hooks';
+import { useAddAnswerMutation } from 'services/api';
 
 interface UseRecorderHook {
   isRecording: boolean;
   startStopRecording: () => Promise<void>;
   isUploading: boolean;
   reset: () => void;
-  saveRecording: () => Promise<void>;
+  saveRecording: (questionId: string, stance: string) => Promise<void>;
   recordingUri: string | null;
 }
 
@@ -32,6 +33,8 @@ function formatTime(seconds: number): string {
 }
 
 export const useRecorder = (): UseRecorderHook => {
+  const { id } = useAppSelector((state) => state.auth);
+  const [addAnswer] = useAddAnswerMutation();
   const [recordingObject, setRecordingObject] = useState(null); // This is set when the recording is in progress.
   const [recordingUri, setRecordingUri] = useState(null); // When the recording is complete, this is set to the URI of the recording on the local drive.
   const [isUploading, setIsUploading] = useState(false);
@@ -59,11 +62,15 @@ export const useRecorder = (): UseRecorderHook => {
     setRecordingObject(null);
   };
 
-  const saveRecording = async (): Promise<void> => {
+  const saveRecording = async (questionId: string, stance: string): Promise<void> => {
     try {
       setIsUploading(true);
-      const { url, filename } = await uploadFile(recordingUri); // Upload the recording to S3.
-      addRecording({ filename, url }); // Add the recording to local storage
+      const { url } = await uploadFile(recordingUri, id); // Upload the recording to S3.
+      await addAnswer({
+        recordingURL: url,
+        questionId,
+        stance,
+      });
       setIsUploading(false);
       reset();
     } catch (e) {
