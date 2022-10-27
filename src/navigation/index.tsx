@@ -17,6 +17,8 @@ import { storeToken } from 'services/storage';
 import { retrieveToken } from 'redux/slices/authSlice';
 import { clearError } from 'redux/slices/errorSlice';
 
+import 'react-native-gesture-handler';
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
