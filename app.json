@@ -3,7 +3,7 @@
     "name": "linguistics-games",
     "slug": "linguistics-games",
     "owner": "linguistics.games",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
@@ -20,7 +20,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "edu.dartmouth.dali.speakup"
     },
     "android": {
       "adaptiveIcon": {

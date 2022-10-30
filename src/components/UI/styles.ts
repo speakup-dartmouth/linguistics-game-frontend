@@ -29,6 +29,34 @@ const styles = StyleSheet.create({
     flex: -1,
     flexDirection: 'row',
   },
+  toggleContainer: {
+    flex: -1,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ADD5E6',
+    borderRadius: 10,
+  },
+  toggleButton: {
+    flexGrow: 1,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  toggleText: {
+    textAlign: 'center',
+    fontWeight: '600',
+  },
+  dividerVertical: {
+    height: '100%',
+    width: 1,
+    backgroundColor: '#3297C1',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
 });
 
 export default styles;

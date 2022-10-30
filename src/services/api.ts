@@ -7,6 +7,7 @@ import { RootState } from 'redux/store';
 import { API_KEY } from 'react-native-dotenv';
 import axios from 'axios';
 import { User } from 'redux/slices/authSlice';
+import { Answer, Question } from 'redux/slices/questionSlice';
 
 axios.defaults.headers.common.API_KEY = API_KEY;
 
@@ -87,9 +88,25 @@ export const api = createApi({
     getCategories: builder.query<string[], void>({
       query: () => 'categories',
     }),
+    getQuestions: builder.query<Question[], void>({
+      query: () => 'questions',
+    }),
+    addAnswer: builder.mutation<Answer, {questionId: string, recordingURL: string, stance: string}>({
+      query: ({ questionId, recordingURL, stance }) => {
+        return {
+          url: 'answers',
+          method: 'POST',
+          responseHandler,
+          body: { question: questionId, recordingURL, stance },
+        };
+      },
+    }),
+    getAnswers: builder.query<Answer[], {questionId: string}>({
+      query: ({ questionId }) => `answers?question=${questionId}`,
+    }),
   }),
 });
 
 export const {
-  useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery,
+  useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery, useGetQuestionsQuery, useAddAnswerMutation, useGetAnswersQuery,
 } = api;

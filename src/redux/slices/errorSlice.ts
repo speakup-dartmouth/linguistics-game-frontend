@@ -17,8 +17,17 @@ export const errorSlice = createSlice({
   initialState,
   reducers: {
     setError: (state, action) => {
-      state.message = action.payload;
-      state.isError = true;
+      if (typeof action.payload === 'string') {
+        state.message = action.payload;
+        state.isError = true;
+      } else {
+        state.message = action.payload.message;
+        state.isError = action.payload.isError;
+      }
+    },
+    clearError: (state) => {
+      state.message = '';
+      state.isError = false;
     },
   },
   extraReducers: (builder) => {
@@ -41,6 +50,6 @@ export const errorSlice = createSlice({
   },
 });
 
-export const { setError } = errorSlice.actions;
+export const { setError, clearError } = errorSlice.actions;
 
 export default errorSlice.reducer;

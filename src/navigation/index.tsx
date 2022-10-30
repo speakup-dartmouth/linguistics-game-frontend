@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  Landing, RecordingList, ProfilePage, Placeholder, Registration, Splash, ResearchConsent, Demographics, Categories,
+  Landing, ProfilePage, Placeholder, Registration, Splash, ResearchConsent, Demographics, Categories, QuestionDetail,
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
@@ -15,9 +15,25 @@ import Upvote from 'assets/upvote.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { storeToken } from 'services/storage';
 import { retrieveToken } from 'redux/slices/authSlice';
+import { clearError } from 'redux/slices/errorSlice';
+
+import 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+function LandingStackNavigator(): JSX.Element {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="LandingScreen" component={Landing} />
+      <Stack.Screen name="QuestionDetail" component={QuestionDetail} />
+    </Stack.Navigator>
+  );
+}
 
 function TabNavigator(): JSX.Element {
   const CompassIcon = useCallback(() => <Compass width={24} height={24} />, []);
@@ -43,8 +59,8 @@ function TabNavigator(): JSX.Element {
         },
       }}
     >
-      <Tab.Screen name="Landing" component={Landing} options={{ tabBarIcon: CompassIcon, tabBarLabel: 'Discover' }} />
-      <Tab.Screen name="Upvote" component={RecordingList} options={{ tabBarIcon: UpvoteIcon, tabBarLabel: 'Voting' }} />
+      <Tab.Screen name="Landing" component={LandingStackNavigator} options={{ tabBarIcon: CompassIcon, tabBarLabel: 'Discover' }} />
+      <Tab.Screen name="Upvote" component={Placeholder} options={{ tabBarIcon: UpvoteIcon, tabBarLabel: 'Voting' }} />
       <Tab.Screen name="Search" component={Placeholder} options={{ tabBarIcon: SearchIcon, tabBarLabel: 'Search' }} />
       <Tab.Screen name="ProfilePage" component={ProfilePage} options={{ tabBarIcon: ProfileIcon, tabBarLabel: 'Profile' }} />
     </Tab.Navigator>
@@ -107,6 +123,7 @@ function Navigator(): JSX.Element {
     if (isError && message) {
       // eslint-disable-next-line no-alert
       alert(message);
+      dispatch(clearError());
     }
   }, [isError, message]);
 

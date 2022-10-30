@@ -7,6 +7,7 @@ import SplashScreen from './Splash';
 import ResearchConsent from './Profile/ResearchConsent';
 import Demographics from './Profile/Demographics';
 import Categories from './Profile/Categories';
+import QuestionDetail from './QuestionDetail';
 
 export {
   LandingScreen as Landing,
@@ -18,4 +19,5 @@ export {
   ResearchConsent,
   Demographics,
   Categories,
+  QuestionDetail,
 };

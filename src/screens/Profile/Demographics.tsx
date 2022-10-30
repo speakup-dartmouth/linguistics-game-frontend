@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import Button from 'components/UI/Button';
 import YesNo from 'components/UI/YesNo';
 import { globalStyles } from 'lib/styles';
@@ -6,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { useAppSelector } from 'redux/hooks';
 import { useUpdateUserMutation } from 'services/api';
-import { NavigationProp } from 'navigation/types';
+import { useAppNavigation } from 'navigation/types';
 import Textbox from 'components/UI/Textbox';
 import styles from './styles';
 
@@ -16,7 +15,7 @@ function Demographics(): JSX.Element {
   const [childhoodLanguage, setChildhoodLanguage] = useState('');
   const [currentLanguage, setCurrentLanguage] = useState('');
   const [updateUser] = useUpdateUserMutation();
-  const navigation = useNavigation<NavigationProp>();
+  const navigation = useAppNavigation();
 
   useEffect(() => {
     if (demographicAttributes.isBilingualOrMultilingual === 'true') {

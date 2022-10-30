@@ -8,7 +8,7 @@ const getFileType = async (fileUri: string): Promise<string> => {
 };
 
 const getSignedUrl = async (filename: string, type: string): Promise<string> => {
-  const { data } = await axios.get(`${apiUrl}/sign-s3?filename=${filename}&type=${type}`);
+  const { data } = await axios.get(`${apiUrl}sign-s3?filename=${filename}&type=${type}`);
   return data.url;
 };
 
@@ -43,9 +43,14 @@ const uploadFileToS3 = (signedUrl: string, { uri, type, filename }: {uri: string
  * @param fileUri The URI to the file to upload.
  * @returns A Recording object, with a url field and a filename field.
  */
-export const uploadFile = async (fileUri: string): Promise<Recording> => {
-  const filename = fileUri.split('/').pop();
+export const uploadFile = async (fileUri: string, userId?: string): Promise<Recording> => {
+  let filename = fileUri.split('/').pop();
   const type = await getFileType(fileUri);
+
+  if (userId) {
+    filename = `${userId}/${filename}`;
+  }
+
   const signedUrl = await getSignedUrl(filename, type);
   await uploadFileToS3(signedUrl, { uri: fileUri, type, filename });
   return { url: `${s3BucketUrl}/${filename}`, filename };
