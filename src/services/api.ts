@@ -6,6 +6,7 @@ import { RootState } from 'redux/store';
 // @ts-ignore
 import { API_KEY } from 'react-native-dotenv';
 import axios from 'axios';
+import { User } from 'redux/slices/authSlice';
 
 axios.defaults.headers.common.API_KEY = API_KEY;
 
@@ -31,7 +32,7 @@ export const api = createApi({
     prepareHeaders: (headers, { getState }) => {
       const { token } = (getState() as RootState).auth;
       if (token) {
-        headers.set('authorization', `Bearer ${token}`);
+        headers.set('authorization', token);
       }
       headers.set('API_KEY', API_KEY);
       return headers;
@@ -49,17 +50,46 @@ export const api = createApi({
         };
       },
     }),
-    signUp: builder.mutation<LoginResponse, {email: string, password: string, username: string}>({
-      query: ({ username, email, password }) => {
+    signUp: builder.mutation<LoginResponse, {email: string, password: string, username: string, gender: string, birthday: Date}>({
+      query: ({
+        username, email, password, gender, birthday,
+      }) => {
         return {
           url: 'signup',
           method: 'POST',
-          body: { username, email, password },
+          body: {
+            username, email, password, gender, birthday: birthday.toUTCString(),
+          },
           responseHandler,
         };
       },
     }),
+    updateConsent: builder.mutation<User, boolean>({
+      query: (value) => {
+        return {
+          url: 'update-consent',
+          method: 'POST',
+          responseHandler,
+          body: { researchConsent: value },
+        };
+      },
+    }),
+    updateUser: builder.mutation<User, Partial<User>>({
+      query: (user) => {
+        return {
+          url: 'users',
+          method: 'PUT',
+          responseHandler,
+          body: user,
+        };
+      },
+    }),
+    getCategories: builder.query<string[], void>({
+      query: () => 'categories',
+    }),
   }),
 });
 
-export const { useSignInMutation, useSignUpMutation } = api;
+export const {
+  useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery,
+} = api;

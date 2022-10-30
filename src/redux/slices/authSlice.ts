@@ -4,13 +4,22 @@ import { api } from 'services/api';
 import axios from 'axios';
 import { apiUrl } from 'lib/constants';
 
-export interface AuthState {
-  authenticated: boolean
+export interface User {
   id: string
-  email: string
   username: string
+  email: string
+  researchConsent: boolean,
+  birthday: string,
+  gender: string,
+  interests: string[],
+  demographicAttributes: { [key: string]: string },
+}
+
+export interface AuthState extends User {
+  authenticated: boolean
   token: string
   loaded: boolean
+  isRegistering: boolean
 }
 
 const initialState: AuthState = {
@@ -20,12 +29,20 @@ const initialState: AuthState = {
   username: '',
   token: '',
   loaded: false,
+  isRegistering: false,
+  researchConsent: false,
+  birthday: '',
+  gender: '',
+  interests: [],
+  demographicAttributes: {},
 };
 
 export const retrieveToken = createAsyncThunk(
   'auth/retrieveToken',
   async () => {
     const token = await AsyncStorage.getItem('@token');
+    if (!token) return null;
+
     const { data } = await axios.get(`${apiUrl}user-info`, {
       headers: {
         authorization: token,
@@ -38,6 +55,11 @@ export const retrieveToken = createAsyncThunk(
         id: data.id,
         email: data.email,
         username: data.username,
+        researchConsent: data.researchConsent,
+        birthday: data.birthday,
+        gender: data.gender,
+        interests: data.interests,
+        ...data.demographicAttributes && { demographicAttributes: data.demographicAttributes },
       };
     }
 
@@ -55,6 +77,14 @@ export const authSlice = createSlice({
       state.email = '';
       state.username = '';
       state.token = '';
+      state.researchConsent = false;
+      state.birthday = '';
+      state.gender = '';
+      state.interests = [];
+      state.demographicAttributes = {};
+    },
+    setRegistering: (state, action) => {
+      state.isRegistering = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -84,9 +114,28 @@ export const authSlice = createSlice({
       }
       return state;
     });
+    builder.addMatcher(api.endpoints.signIn.matchPending, (state) => {
+      state.isRegistering = false;
+      return state;
+    });
+    builder.addMatcher(api.endpoints.signUp.matchPending, (state) => {
+      state.isRegistering = true;
+      return state;
+    });
+    builder.addMatcher(api.endpoints.updateConsent.matchFulfilled, (state, action) => {
+      state.researchConsent = action.payload.researchConsent;
+      return state;
+    });
+    builder.addMatcher(api.endpoints.updateUser.matchFulfilled, (state, action) => {
+      state = {
+        ...state,
+        ...action.payload,
+      };
+      return state;
+    });
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setRegistering } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -30,11 +30,11 @@ function RegistrationScreen(): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.row}>
-        <TouchableHighlight {...logInProps}>
-          <Text>Log In</Text>
-        </TouchableHighlight>
         <TouchableHighlight {...signUpProps}>
-          <Text>Sign Up</Text>
+          <Text style={isLoggingIn ? styles.textInactive : styles.textActive}>Register</Text>
+        </TouchableHighlight>
+        <TouchableHighlight {...logInProps}>
+          <Text style={isLoggingIn ? styles.textActive : styles.textInactive}>Log In</Text>
         </TouchableHighlight>
       </View>
       {isLoggingIn ? (<LogIn />) : (<SignUp />)}

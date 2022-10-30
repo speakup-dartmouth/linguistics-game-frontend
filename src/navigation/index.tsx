@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
+import React, {
+  useCallback, useEffect,
+} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  Landing, RecordingList, ProfilePage, Placeholder, Registration, Splash,
+  Landing, RecordingList, ProfilePage, Placeholder, Registration, Splash, ResearchConsent, Demographics, Categories,
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
@@ -27,19 +29,59 @@ function TabNavigator(): JSX.Element {
     <Tab.Navigator
       initialRouteName="Landing"
       screenOptions={{
-        tabBarShowLabel: false,
+        tabBarShowLabel: true,
         headerShown: false,
         tabBarActiveBackgroundColor: colors.lightBlue,
         tabBarInactiveBackgroundColor: colors.darkBlue,
         tabBarActiveTintColor: colors.white,
         tabBarInactiveTintColor: colors.white,
+        tabBarLabelStyle: {
+          marginBottom: 3,
+        },
+        tabBarIconStyle: {
+          marginTop: 3,
+        },
       }}
     >
-      <Tab.Screen name="Landing" component={Landing} options={{ tabBarIcon: CompassIcon }} />
-      <Tab.Screen name="Upvote" component={RecordingList} options={{ tabBarIcon: UpvoteIcon }} />
-      <Tab.Screen name="Search" component={Placeholder} options={{ tabBarIcon: SearchIcon }} />
-      <Tab.Screen name="ProfilePage" component={ProfilePage} options={{ tabBarIcon: ProfileIcon }} />
+      <Tab.Screen name="Landing" component={Landing} options={{ tabBarIcon: CompassIcon, tabBarLabel: 'Discover' }} />
+      <Tab.Screen name="Upvote" component={RecordingList} options={{ tabBarIcon: UpvoteIcon, tabBarLabel: 'Voting' }} />
+      <Tab.Screen name="Search" component={Placeholder} options={{ tabBarIcon: SearchIcon, tabBarLabel: 'Search' }} />
+      <Tab.Screen name="ProfilePage" component={ProfilePage} options={{ tabBarIcon: ProfileIcon, tabBarLabel: 'Profile' }} />
     </Tab.Navigator>
+  );
+}
+
+function MainStackNavigator(): JSX.Element {
+  const { isRegistering } = useAppSelector((state) => state.auth);
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName={isRegistering ? 'ResearchConsent' : 'TabNavigator'}
+    >
+      <Stack.Screen name="TabNavigator" component={TabNavigator} />
+      <Stack.Screen name="ResearchConsent" component={ResearchConsent} />
+      <Stack.Screen name="Demographics" component={Demographics} />
+      <Stack.Screen name="Categories" component={Categories} />
+    </Stack.Navigator>
+  );
+}
+
+function StackModalNavigator(): JSX.Element {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        presentation: 'modal',
+      }}
+    >
+      <Stack.Screen name="MainStackNavigator" component={MainStackNavigator} />
+      <Stack.Screen name="ResearchConsentModal" component={ResearchConsent} />
+      <Stack.Screen name="DemographicsModal" component={Demographics} />
+      <Stack.Screen name="CategoriesModal" component={Categories} />
+    </Stack.Navigator>
   );
 }
 
@@ -51,6 +93,7 @@ function Navigator(): JSX.Element {
   // When a new token is generated, store it in async storage
   useEffect(() => {
     if (token) {
+      console.log(token);
       storeToken(token);
     }
   }, [token]);
@@ -58,10 +101,10 @@ function Navigator(): JSX.Element {
   // When the app loads, check if there is a token stored in async storage
   useEffect(() => {
     dispatch(retrieveToken());
-  }, []);
+  }, [authenticated]);
 
   useEffect(() => {
-    if (isError) {
+    if (isError && message) {
       // eslint-disable-next-line no-alert
       alert(message);
     }
@@ -75,7 +118,7 @@ function Navigator(): JSX.Element {
     <NavigationContainer>
       <Stack.Navigator>
         {loaded && (authenticated ? (
-          <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="Home" component={StackModalNavigator} options={{ headerShown: false }} />
         ) : (
           <Stack.Screen name="Registration" component={Registration} options={{ headerShown: false }} />
         ))}

@@ -2,10 +2,15 @@ import React, {
   useState,
 } from 'react';
 import {
-  Text, TextInput, View, Pressable,
+  Text, View, Pressable,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useSignUpMutation } from 'services/api';
+import dayjs from 'dayjs';
+import { useAppDispatch } from 'redux/hooks';
+import { setError } from 'redux/slices/errorSlice';
+import Textbox from 'components/UI/Textbox';
 import styles from './styles';
 
 function SignUp(): JSX.Element {
@@ -14,45 +19,49 @@ function SignUp(): JSX.Element {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [signUp] = useSignUpMutation();
-  const [ageOpen, setAgeOpen] = useState(false);
-  const [age, setAge] = useState(null);
-  const [ageOptions, setAgeOptions] = useState([
-    { label: '19', value: 19 },
-    { label: '20', value: 20 },
-    { label: '21', value: 21 },
-  ]);
+  const [dateOfBirthOpen, setDateOfBirthOpen] = useState(false);
+  const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
   const [genderOpen, setGenderOpen] = useState(false);
   const [gender, setGender] = useState(null);
   const [genderOptions, setGenderOptions] = useState([
-    { label: 'Male', value: 'Male' },
-    { label: 'Female', value: 'Female' },
-    { label: 'Nonbinary', value: 'Nonbinary' },
-    { label: 'Other', value: 'Other' },
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+    { label: 'Nonbinary', value: 'nonbinary' },
+    { label: 'Other', value: 'other' },
   ]);
+  const dispatch = useAppDispatch();
+
+  const disabled = !email || !username || !password || !confirmPassword
+    || !dateOfBirth || !gender;
 
   return (
     <View style={styles.subview}>
       <Text style={styles.heading}>Sign Up</Text>
       <Text style={styles.subheading}>Create your account today!</Text>
-      <TextInput
-        style={styles.textBox}
+      <Textbox
         value={username}
-        placeholder="USERNAME"
+        placeholder="Username"
         onChangeText={(u) => {
           setName(u);
         }}
         returnKeyType="next"
+        autoCapitalize="none"
+        autoCorrect={false}
       />
       <View style={styles.dropdownRow}>
-        <DropDownPicker
-          open={ageOpen}
-          value={age}
-          items={ageOptions}
-          setOpen={setAgeOpen}
-          setValue={setAge}
-          setItems={setAgeOptions}
-          style={styles.dropdown}
-          containerStyle={styles.dropdownContainer}
+        <Pressable style={styles.dateOfBirth} onPress={() => { setDateOfBirthOpen(true); }}>
+          <Text style={styles.dropdownText}>{dateOfBirth ? dayjs(dateOfBirth).format('MM/DD/YYYY') : 'Date of Birth'}</Text>
+        </Pressable>
+        <DateTimePickerModal
+          isVisible={dateOfBirthOpen}
+          mode="date"
+          onConfirm={(date) => {
+            setDateOfBirth(date);
+            setDateOfBirthOpen(false);
+          }}
+          onCancel={() => {
+            setDateOfBirthOpen(false);
+          }}
         />
         <DropDownPicker
           open={genderOpen}
@@ -63,43 +72,51 @@ function SignUp(): JSX.Element {
           setItems={setGenderOptions}
           style={styles.dropdown}
           containerStyle={styles.dropdownContainer}
+          placeholder="Gender"
+          textStyle={styles.dropdownText}
         />
       </View>
-      <TextInput
-        style={styles.textBox}
+      <Textbox
         value={email}
-        placeholder="EMAIL"
+        placeholder="Email"
         onChangeText={(e) => {
           setEmail(e);
         }}
         returnKeyType="next"
         blurOnSubmit={false}
+        autoCapitalize="none"
+        autoCorrect={false}
       />
-      <TextInput
-        style={styles.textBox}
+      <Textbox
         value={password}
-        placeholder="PASSWORD"
+        placeholder="Password"
         onChangeText={(p) => {
           setPassword(p);
         }}
         secureTextEntry
+        autoCapitalize="none"
+        autoCorrect={false}
       />
-      <TextInput
-        style={styles.textBox}
+      <Textbox
         value={confirmPassword}
-        placeholder="CONFIRM PASSWORD"
+        placeholder="Confirm Password"
         onChangeText={(p) => {
           setConfirmPassword(p);
         }}
         secureTextEntry
+        autoCapitalize="none"
+        autoCorrect={false}
       />
-      <Pressable style={styles.submitButton}
+      <Pressable style={{ ...styles.submitButton, opacity: disabled ? 0.5 : 1 }}
+        disabled={disabled}
         onPress={() => {
           if (password !== confirmPassword) {
-            console.log('password and confirm password must match.');
+            dispatch(setError(('Password and confirm password must match.')));
             return;
           }
-          signUp({ username, email, password });
+          signUp({
+            username, email, password, gender, birthday: dateOfBirth,
+          });
         }}
       >
         <Text style={styles.buttonText}>Sign Up</Text>
