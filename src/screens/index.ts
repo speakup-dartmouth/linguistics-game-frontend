@@ -8,11 +8,13 @@ import ResearchConsent from './Profile/ResearchConsent';
 import Demographics from './Profile/Demographics';
 import Categories from './Profile/Categories';
 import QuestionDetail from './QuestionDetail';
+import LeaderboardScreen from './Leaderboard';
 
 export {
   LandingScreen as Landing,
   RecordingListScreen as RecordingList,
   PlaceholderScreen as Placeholder,
+  LeaderboardScreen as Leaderboard,
   ProfileScreen as ProfilePage,
   RegistrationScreen as Registration,
   SplashScreen as Splash,
