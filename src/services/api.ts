@@ -1,4 +1,5 @@
 /* eslint-disable no-return-await */
+
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { apiUrl } from 'lib/constants';
 import { RootState } from 'redux/store';
@@ -34,6 +35,8 @@ export const api = createApi({
         headers.set('authorization', `Bearer ${token}`);
       }
       headers.set('API_KEY', API_KEY);
+      headers.set('Content-Type', 'application/json');
+      headers.set('Access-Control-Allow-Origin', '*');
       return headers;
     },
   }),
