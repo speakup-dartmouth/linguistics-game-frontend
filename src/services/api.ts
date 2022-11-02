@@ -91,6 +91,9 @@ export const api = createApi({
     getQuestions: builder.query<Question[], void>({
       query: () => 'questions',
     }),
+    getLeaderboard: builder.query<User[], void>({
+      query: () => 'leaderboard',
+    }),
     addAnswer: builder.mutation<Answer, {questionId: string, recordingURL: string, stance: string}>({
       query: ({ questionId, recordingURL, stance }) => {
         return {
@@ -108,5 +111,5 @@ export const api = createApi({
 });
 
 export const {
-  useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery, useGetQuestionsQuery, useAddAnswerMutation, useGetAnswersQuery,
+  useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery, useGetQuestionsQuery, useGetLeaderboardQuery, useAddAnswerMutation, useGetAnswersQuery,
 } = api;
