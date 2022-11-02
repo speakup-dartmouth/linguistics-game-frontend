@@ -57,6 +57,9 @@ function TabNavigator(): JSX.Element {
         tabBarIconStyle: {
           marginTop: 3,
         },
+        tabBarStyle: {
+          backgroundColor: colors.darkBlue,
+        },
       }}
     >
       <Tab.Screen name="Landing" component={LandingStackNavigator} options={{ tabBarIcon: CompassIcon, tabBarLabel: 'Discover' }} />

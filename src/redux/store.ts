@@ -7,7 +7,7 @@ import errorReducer from './slices/errorSlice';
 import questionReducer from './slices/questionSlice';
 
 export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
-  if (action.error && action.meta.requestStatus === 'rejected') {
+  if (action.error && action.meta.requestStatus === 'rejected' && action.error.name !== 'ConditionError') {
     console.log(action.error, action.payload);
   }
 
