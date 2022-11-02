@@ -6,19 +6,40 @@ import Play from 'assets/play.svg';
 import Pause from 'assets/pause.svg';
 import VoteUp from 'assets/vote-up.svg';
 import VoteDown from 'assets/vote-down.svg';
-import { usePlayback } from 'lib/hooks';
 import { useVoteMutation } from 'services/api';
 import { colors } from 'lib/constants';
 import styles from './styles';
 
-function AnswerRow({ answer }: {answer: Answer}): JSX.Element {
-  const { isPlaying, startStopPlayback } = usePlayback(answer.recordingURL);
+interface AnswerRowProps {
+  answer: Answer;
+  isPlaying: boolean;
+  playSound: (uri: string) => void;
+  stopSound: () => void;
+  recordingUri: string | null;
+}
+
+function AnswerRow({
+  answer, isPlaying, playSound, stopSound, recordingUri,
+}: AnswerRowProps): JSX.Element {
   const [vote] = useVoteMutation();
   if (!answer.recordingURL) return null;
 
+  const startStop = () => {
+    if (isPlaying) {
+      stopSound();
+      if (recordingUri === answer.recordingURL) return;
+      playSound(answer.recordingURL);
+    } else {
+      playSound(answer.recordingURL);
+    }
+  };
+
   return (
     <View key={answer._id} style={styles.answerContainer}>
-      <Pressable onPress={startStopPlayback}>{isPlaying ? <Pause width={50} height={50} /> : <Play width={50} height={50} />}</Pressable>
+      <Pressable onPress={startStop}>{(isPlaying && recordingUri === answer.recordingURL)
+        ? <Pause width={50} height={50} />
+        : <Play width={50} height={50} />}
+      </Pressable>
 
       <View>
         <Text style={styles.username}>{`@${answer.user.username}`}</Text>

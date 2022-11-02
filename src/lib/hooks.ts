@@ -20,6 +20,10 @@ interface UsePlaybackHook {
   isLoaded: boolean;
   duration: string;
   progress: string;
+  setRecordingUri: (uri: string) => void;
+  startPlayback: () => void;
+  stopPlayback: () => void;
+  recordingUri: string | null;
 }
 
 // Get mm:ss from seconds
@@ -92,12 +96,18 @@ export const useRecorder = (): UseRecorderHook => {
   };
 };
 
-export const usePlayback = (recordingUri: string | null): UsePlaybackHook => {
+export const usePlayback = (uri: string | null): UsePlaybackHook => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackStatus, setPlaybackStatus] = useState<AVPlaybackStatus | null>(null);
   const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const [recordingUri, setRecordingUri] = useState(uri);
 
   const createSound = async (): Promise<void> => {
+    if (sound) {
+      await sound.pauseAsync();
+      await sound.unloadAsync();
+    }
+
     const { sound: s, status } = await Audio.Sound.createAsync({ uri: recordingUri }, {}, setPlaybackStatus);
     await s.setIsLoopingAsync(true);
     setSound(s);
@@ -126,16 +136,29 @@ export const usePlayback = (recordingUri: string | null): UsePlaybackHook => {
     }
 
     // See https://github.com/expo/expo/issues/9915#issuecomment-814270274
-    Audio.setAudioModeAsync({ allowsRecordingIOS: false });
+    Audio.setAudioModeAsync({ allowsRecordingIOS: false, playsInSilentModeIOS: true });
 
     if (isPlaying) {
       sound.playAsync();
     } else {
       sound.pauseAsync();
     }
-  }, [isPlaying, sound]);
+  }, [isPlaying, sound, recordingUri]);
 
   const startStopPlayback = (): void => setIsPlaying((p) => !p);
+
+  const startPlayback = (): void => {
+    setIsPlaying(true);
+    if (sound) {
+      sound.playAsync();
+    }
+  };
+  const stopPlayback = (): void => {
+    setIsPlaying(false);
+    if (sound) {
+      sound.pauseAsync();
+    }
+  };
 
   // Type casting here due to annoying quirk in expo-av with AVPlaybackStatus
   const duration = formatTime(playbackStatus && isAVPlaybackStatusSuccess(playbackStatus) ? (playbackStatus.durationMillis / 1000) : 0);
@@ -148,5 +171,9 @@ export const usePlayback = (recordingUri: string | null): UsePlaybackHook => {
     isLoaded,
     duration,
     progress,
+    setRecordingUri,
+    startPlayback,
+    stopPlayback,
+    recordingUri,
   };
 };
