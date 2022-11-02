@@ -33,22 +33,22 @@ function RegistrationScreen(): JSX.Element {
       style={{
         position: 'absolute', bottom: 0, left: 0, right: 0,
       }}
-      keyboardVerticalOffset={-(dimensions.height * 0.1)}
+      keyboardVerticalOffset={-(dimensions.height * 0.2)}
     >
-      <View style={styles.container}>
-        <View style={styles.row}>
-          <TouchableHighlight {...signUpProps}>
-            <Text style={isLoggingIn ? styles.textInactive : styles.textActive}>Register</Text>
-          </TouchableHighlight>
-          <TouchableHighlight {...logInProps}>
-            <Text style={isLoggingIn ? styles.textActive : styles.textInactive}>Log In</Text>
-          </TouchableHighlight>
-        </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.container}>
+          <View style={styles.row}>
+            <TouchableHighlight {...signUpProps}>
+              <Text style={isLoggingIn ? styles.textInactive : styles.textActive}>Register</Text>
+            </TouchableHighlight>
+            <TouchableHighlight {...logInProps}>
+              <Text style={isLoggingIn ? styles.textActive : styles.textInactive}>Log In</Text>
+            </TouchableHighlight>
+          </View>
 
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           {isLoggingIn ? (<LogIn />) : (<SignUp />)}
-        </TouchableWithoutFeedback>
-      </View>
+        </View>
+      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 }
