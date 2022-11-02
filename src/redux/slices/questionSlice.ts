@@ -8,6 +8,7 @@ export interface Question {
   photoUrl?: string;
   _id: string;
   options: string[];
+  categories: string[];
 }
 
 export interface Answer {

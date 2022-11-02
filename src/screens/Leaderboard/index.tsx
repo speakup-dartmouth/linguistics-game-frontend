@@ -5,8 +5,6 @@ import { useGetLeaderboardQuery } from 'services/api';
 import { useEffect } from 'react';
 import styles from './styles';
 
-let counter = 0;
-
 function Item({ username, rank, score }) {
   return (
     <TouchableOpacity style={styles.subcontainer} onPress={() => console.log(`ultimately, navigate to ${username}'s profile? to discuss with designers :)`)}>
@@ -20,15 +18,13 @@ function Item({ username, rank, score }) {
 function LeaderboardScreen(): JSX.Element {
   const { data: leaderboard, isLoading } = useGetLeaderboardQuery();
 
-  const renderItem = ({ item }) => {
-    counter += 1;
+  const renderItem = ({ item, index }) => {
     return (
-      <Item username={item.username} rank={counter} score={item.score} />
+      <Item username={item.username} rank={index + 1} score={item.score} />
     );
   };
 
   useEffect(() => {
-    counter = 0;
     if (isLoading) {
       console.log('still loading...');
     }
