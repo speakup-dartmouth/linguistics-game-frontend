@@ -40,6 +40,7 @@ export const api = createApi({
     },
   }),
   reducerPath: 'api',
+  tagTypes: ['Leaderboard'],
   endpoints: (builder) => ({
     signIn: builder.mutation<LoginResponse, {email: string, password: string}>({
       query: ({ email, password }) => {
@@ -93,6 +94,7 @@ export const api = createApi({
     }),
     getLeaderboard: builder.query<User[], void>({
       query: () => 'leaderboard',
+      providesTags: ['Leaderboard'],
     }),
     addAnswer: builder.mutation<Answer, {questionId: string, recordingURL: string, stance: string}>({
       query: ({ questionId, recordingURL, stance }) => {
@@ -115,6 +117,7 @@ export const api = createApi({
           responseHandler,
         };
       },
+      invalidatesTags: ['Leaderboard'],
     }),
   }),
 });

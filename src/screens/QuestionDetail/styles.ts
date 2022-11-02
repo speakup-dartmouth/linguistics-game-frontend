@@ -31,6 +31,7 @@ export default StyleSheet.create({
     top: dimensions.height * 0.05,
     left: 20,
     fontWeight: '300',
+    color: colors.darkBlue,
   },
   divider: {
     height: 100,
