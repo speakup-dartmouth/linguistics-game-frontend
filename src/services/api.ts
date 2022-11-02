@@ -107,9 +107,19 @@ export const api = createApi({
     getAnswers: builder.query<Answer[], {questionId: string}>({
       query: ({ questionId }) => `answers?question=${questionId}`,
     }),
+    vote: builder.mutation<Answer, {answerId: string, vote: 1 | -1}>({
+      query: ({ answerId, vote }) => {
+        return {
+          url: `answers/${answerId}/vote?v=${vote}`,
+          method: 'POST',
+          responseHandler,
+        };
+      },
+    }),
   }),
 });
 
 export const {
   useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery, useGetQuestionsQuery, useGetLeaderboardQuery, useAddAnswerMutation, useGetAnswersQuery,
+  useVoteMutation,
 } = api;

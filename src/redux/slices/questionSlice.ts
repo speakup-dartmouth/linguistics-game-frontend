@@ -16,6 +16,9 @@ export interface Answer {
   recordingURL?: string;
   stance: string;
   _id: string;
+  upvoteCount: number;
+  downvoteCount: number;
+  userVoteStatus: 1 | -1 | 0;
 }
 
 export interface QuestionState {
@@ -45,9 +48,11 @@ const questionSlice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.getCategories.matchFulfilled, (state, action) => {
       state.categories = action.payload;
+      return state;
     });
     builder.addMatcher(api.endpoints.getQuestions.matchFulfilled, (state, action) => {
       state.questions = action.payload;
+      return state;
     });
     builder.addMatcher(api.endpoints.addAnswer.matchFulfilled, (state, action) => {
       const { question } = action.payload;
@@ -55,10 +60,23 @@ const questionSlice = createSlice({
         state.questionAnswers[question] = [];
       }
       state.questionAnswers[question].push(action.payload);
+      return state;
     });
     builder.addMatcher(api.endpoints.getAnswers.matchFulfilled, (state, action) => {
       const { questionId } = action.meta.arg.originalArgs;
       state.questionAnswers[questionId] = action.payload;
+      return state;
+    });
+    builder.addMatcher(api.endpoints.vote.matchFulfilled, (state, action) => {
+      const { question } = action.payload;
+      const answers = state.questionAnswers[question];
+      if (answers) {
+        const index = answers.findIndex((a) => a._id === action.payload._id);
+        if (index !== -1) {
+          answers[index] = action.payload;
+        }
+      }
+      return state;
     });
   },
 });

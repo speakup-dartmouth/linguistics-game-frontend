@@ -11,9 +11,9 @@ import styles from './styles';
 function LogIn(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [logIn] = useSignInMutation();
+  const [logIn, { isLoading }] = useSignInMutation();
 
-  const disabled = email === '' || password === '';
+  const disabled = email === '' || password === '' || isLoading;
 
   return (
     <View style={styles.subview}>

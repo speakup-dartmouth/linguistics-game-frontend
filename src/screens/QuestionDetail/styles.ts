@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   back: {
     position: 'absolute',
-    top: 50,
+    top: dimensions.height * 0.05,
     left: 20,
     fontWeight: '300',
   },
@@ -119,5 +119,16 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 10,
+  },
+  voting: {
+    flex: -1,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    flexGrow: 1,
+  },
+  votes: {
+    fontWeight: '600',
+    fontSize: 16,
+    marginRight: 9,
   },
 });
