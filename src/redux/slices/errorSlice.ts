@@ -47,6 +47,13 @@ export const errorSlice = createSlice({
       }
       return state;
     });
+    builder.addMatcher(api.endpoints.vote.matchRejected, (state, action) => {
+      if (hasError(action.payload.data) && action.payload.data.error) {
+        state.message = `Error voting: ${action.payload.data.error}`;
+        state.isError = true;
+      }
+      return state;
+    });
   },
 });
 

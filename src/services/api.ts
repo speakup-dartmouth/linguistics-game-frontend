@@ -109,7 +109,7 @@ export const api = createApi({
     getAnswers: builder.query<Answer[], {questionId: string}>({
       query: ({ questionId }) => `answers?question=${questionId}`,
     }),
-    vote: builder.mutation<Answer, {answerId: string, vote: 1 | -1}>({
+    vote: builder.mutation<Answer, {answerId: string, vote: 1 | -1, questionId: string}>({
       query: ({ answerId, vote }) => {
         return {
           url: `answers/${answerId}/vote?v=${vote}`,

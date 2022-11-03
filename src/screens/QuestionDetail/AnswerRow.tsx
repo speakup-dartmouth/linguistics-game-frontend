@@ -16,10 +16,11 @@ interface AnswerRowProps {
   playSound: (uri: string) => void;
   stopSound: () => void;
   recordingUri: string | null;
+  questionId: string;
 }
 
 function AnswerRow({
-  answer, isPlaying, playSound, stopSound, recordingUri,
+  answer, isPlaying, playSound, stopSound, recordingUri, questionId,
 }: AnswerRowProps): JSX.Element {
   const [vote] = useVoteMutation();
   if (!answer.recordingURL) return null;
@@ -51,13 +52,24 @@ function AnswerRow({
       </View>
 
       <View style={styles.voting}>
-        {/* @ts-ignore */}
-        <VoteUp width={30} height={30} onPress={() => vote({ answerId: answer._id, vote: 1 })} style={{ color: answer.userVoteStatus === 1 ? colors.lightBlue : '#373F41' }} />
-
+        <Pressable onPressIn={() => vote({ answerId: answer._id, vote: 1, questionId })} hitSlop={5}>
+          <VoteUp
+            width={30}
+            height={30}
+          /* @ts-ignore */
+            style={{ color: answer.userVoteStatus === 1 ? colors.lightBlue : '#373F41' }}
+          />
+        </Pressable>
         <Text style={styles.votes}>{answer.upvoteCount - answer.downvoteCount}</Text>
 
-        {/* @ts-ignore */}
-        <VoteDown width={30} height={30} onPress={() => vote({ answerId: answer._id, vote: -1 })} style={{ color: answer.userVoteStatus === -1 ? colors.lightBlue : '#373F41' }} />
+        <Pressable onPressIn={() => vote({ answerId: answer._id, vote: -1, questionId })} hitSlop={5}>
+          <VoteDown
+            width={30}
+            height={30}
+          /* @ts-ignore */
+            style={{ color: answer.userVoteStatus === -1 ? colors.lightBlue : '#373F41' }}
+          />
+        </Pressable>
       </View>
     </View>
   );

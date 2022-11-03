@@ -54,7 +54,7 @@ function QuestionDetail(): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={onBackPress}><Text style={styles.back}>{'< BACK'}</Text></Pressable>
+      <Pressable onPress={onBackPress} hitSlop={15}><Text style={styles.back}>{'< BACK'}</Text></Pressable>
 
       <View style={styles.subcontainer}>
         <Text style={styles.title}>{currentQuestion.title}</Text>
@@ -77,6 +77,7 @@ function QuestionDetail(): JSX.Element {
                 playSound={playSound}
                 stopSound={stopSound}
                 recordingUri={recordingUri}
+                questionId={currentQuestion._id}
               />
             ))}
           </ScrollView>
