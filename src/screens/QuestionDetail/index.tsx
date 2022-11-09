@@ -8,6 +8,7 @@ import {
 import { useAppSelector } from 'redux/hooks';
 import { useGetAnswersQuery } from 'services/api';
 import Loader from 'components/UI/Loader';
+import { usePlayback } from 'lib/hooks';
 import RecordUI from './RecordingUI';
 import styles from './styles';
 import AnswerRow from './AnswerRow';
@@ -20,9 +21,23 @@ function QuestionDetail(): JSX.Element {
   const navigation = useAppNavigation();
 
   const { isSuccess } = useGetAnswersQuery({ questionId: currentQuestion._id || '' });
+  const {
+    isPlaying, startPlayback, setRecordingUri, stopPlayback, recordingUri,
+  } = usePlayback(null);
+
+  const playSound = (uri: string) => {
+    stopPlayback();
+    setRecordingUri(uri);
+    startPlayback();
+  };
+
+  const stopSound = () => {
+    stopPlayback();
+  };
 
   const onBackPress = () => {
     if (!isBackDisabled) {
+      stopSound();
       navigation.goBack();
     }
   };
@@ -39,7 +54,7 @@ function QuestionDetail(): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={onBackPress}><Text style={styles.back}>{'< BACK'}</Text></Pressable>
+      <Pressable onPress={onBackPress} hitSlop={15}><Text style={styles.back}>{'< BACK'}</Text></Pressable>
 
       <View style={styles.subcontainer}>
         <Text style={styles.title}>{currentQuestion.title}</Text>
@@ -55,7 +70,15 @@ function QuestionDetail(): JSX.Element {
 
           <ScrollView contentContainerStyle={styles.scrollView} showsVerticalScrollIndicator={false}>
             {answers.map((answer) => (
-              <AnswerRow answer={answer} key={answer._id} />
+              <AnswerRow
+                answer={answer}
+                key={answer._id}
+                isPlaying={isPlaying}
+                playSound={playSound}
+                stopSound={stopSound}
+                recordingUri={recordingUri}
+                questionId={currentQuestion._id}
+              />
             ))}
           </ScrollView>
         </>

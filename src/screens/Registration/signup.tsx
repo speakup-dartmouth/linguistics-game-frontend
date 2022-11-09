@@ -18,7 +18,7 @@ function SignUp(): JSX.Element {
   const [username, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [signUp] = useSignUpMutation();
+  const [signUp, { isLoading }] = useSignUpMutation();
   const [dateOfBirthOpen, setDateOfBirthOpen] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
   const [genderOpen, setGenderOpen] = useState(false);
@@ -32,7 +32,7 @@ function SignUp(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const disabled = !email || !username || !password || !confirmPassword
-    || !dateOfBirth || !gender;
+    || !dateOfBirth || !gender || isLoading;
 
   return (
     <View style={styles.subview}>

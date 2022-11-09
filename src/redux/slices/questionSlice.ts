@@ -8,6 +8,7 @@ export interface Question {
   photoUrl?: string;
   _id: string;
   options: string[];
+  categories: string[];
 }
 
 export interface Answer {
@@ -16,6 +17,9 @@ export interface Answer {
   recordingURL?: string;
   stance: string;
   _id: string;
+  upvoteCount: number;
+  downvoteCount: number;
+  userVoteStatus: 1 | -1 | 0;
 }
 
 export interface QuestionState {
@@ -45,9 +49,11 @@ const questionSlice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(api.endpoints.getCategories.matchFulfilled, (state, action) => {
       state.categories = action.payload;
+      return state;
     });
     builder.addMatcher(api.endpoints.getQuestions.matchFulfilled, (state, action) => {
       state.questions = action.payload;
+      return state;
     });
     builder.addMatcher(api.endpoints.addAnswer.matchFulfilled, (state, action) => {
       const { question } = action.payload;
@@ -55,11 +61,65 @@ const questionSlice = createSlice({
         state.questionAnswers[question] = [];
       }
       state.questionAnswers[question].push(action.payload);
+      return state;
     });
     builder.addMatcher(api.endpoints.getAnswers.matchFulfilled, (state, action) => {
       const { questionId } = action.meta.arg.originalArgs;
       state.questionAnswers[questionId] = action.payload;
+      return state;
     });
+    builder.addMatcher(api.endpoints.vote.matchPending, (state, action) => {
+      const { answerId, vote, questionId } = action.meta.arg.originalArgs;
+      const answers = state.questionAnswers[questionId];
+
+      if (answers) {
+        const index = answers.findIndex((a) => a._id === answerId);
+
+        if (index !== -1) {
+          if (vote === 1) {
+            if (answers[index].userVoteStatus === 1) {
+              answers[index].upvoteCount -= 1;
+              answers[index].userVoteStatus = 0;
+            } else {
+              if (answers[index].userVoteStatus === -1) {
+                answers[index].downvoteCount -= 1;
+              }
+              answers[index].upvoteCount += 1;
+              answers[index].userVoteStatus = 1;
+            }
+          }
+          if (vote === -1) {
+            if (answers[index].userVoteStatus === -1) {
+              answers[index].downvoteCount -= 1;
+              answers[index].userVoteStatus = 0;
+            } else {
+              if (answers[index].userVoteStatus === 1) {
+                answers[index].upvoteCount -= 1;
+              }
+              answers[index].downvoteCount += 1;
+              answers[index].userVoteStatus = -1;
+            }
+          }
+        }
+      }
+
+      return state;
+    });
+    /*
+    builder.addMatcher(api.endpoints.vote.matchFulfilled, (state, action) => {
+      const { question } = action.payload;
+      const answers = state.questionAnswers[question];
+
+      if (answers) {
+        const index = answers.findIndex((a) => a._id === action.payload._id);
+
+        if (index !== -1) {
+          answers[index] = action.payload;
+        }
+      }
+
+      return state;
+    }); */
   },
 });
 

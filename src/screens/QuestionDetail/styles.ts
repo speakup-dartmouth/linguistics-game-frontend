@@ -28,9 +28,10 @@ export default StyleSheet.create({
   },
   back: {
     position: 'absolute',
-    top: 30,
+    top: dimensions.height * 0.05,
     left: 20,
     fontWeight: '300',
+    color: colors.darkBlue,
   },
   divider: {
     height: 100,
@@ -119,5 +120,16 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 10,
+  },
+  voting: {
+    flex: -1,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    flexGrow: 1,
+  },
+  votes: {
+    fontWeight: '600',
+    fontSize: 16,
+    marginRight: 9,
   },
 });

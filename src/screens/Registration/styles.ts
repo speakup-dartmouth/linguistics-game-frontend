@@ -8,6 +8,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
+    height: dimensions.height,
   },
   row: {
     backgroundColor: 'white',
@@ -20,6 +21,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     marginTop: dimensions.height * 0.1,
     marginBottom: 30,
+    flexShrink: 0,
   },
   subview: {
     flex: -1,

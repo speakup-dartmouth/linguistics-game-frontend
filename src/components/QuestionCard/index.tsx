@@ -16,14 +16,26 @@ function QuestionCard({ question }: {question: Question}): JSX.Element {
     navigation.navigate('QuestionDetail');
   };
 
+  const categories = [];
+  if (question.categories) {
+    question.categories.forEach((val) => {
+      categories.push(<Text style={styles.categoryPill} key={val}>{val}</Text>);
+    });
+  }
+
+  const random = <Text style={styles.categoryPill} key="random">Random</Text>;
+
   return (
-    <TouchableOpacity style={styles.container} activeOpacity={0.7} onPress={onPress}>
+    <TouchableOpacity key={question._id} style={styles.container} activeOpacity={0.7} onPress={onPress}>
       <View>
         <View style={styles.imageContainer}>
           {question.photoUrl && <Image style={styles.image} source={{ uri: question.photoUrl }} />}
         </View>
         <Text style={styles.title}>{question.title}</Text>
         <Text style={styles.description}>{question.description}</Text>
+        {categories
+          ? <View style={styles.categoryContainer}>{categories}</View>
+          : <View style={styles.categoryContainer}>{random}</View>}
       </View>
     </TouchableOpacity>
   );
