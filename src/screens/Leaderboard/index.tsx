@@ -1,22 +1,52 @@
+/* eslint-disable no-nested-ternary */
 import {
-  FlatList, SafeAreaView, TouchableOpacity, Text, View,
+  FlatList, SafeAreaView, Text, View, TouchableOpacity,
 } from 'react-native';
 import { useGetLeaderboardQuery } from 'services/api';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  useFonts,
+  Mulish_400Regular,
+} from '@expo-google-fonts/mulish'; // this is the font used in the Figma - we should discuss a broader plan to adjust app fonts globally
 import styles from './styles';
+
+function getRankStyle(rank) {
+  switch (rank) {
+    case 1:
+      return [styles.rankCircleContainer, styles.rankCircleOne];
+    case 2:
+      return [styles.rankCircleContainer, styles.rankCircleTwo];
+    case 3:
+      return [styles.rankCircleContainer, styles.rankCircleThree];
+    default:
+      return [styles.rankContainer];
+  }
+}
 
 function Item({ username, rank, score }) {
   return (
-    <TouchableOpacity style={styles.subcontainer} onPress={() => console.log(`ultimately, navigate to ${username}'s profile? to discuss with designers :)`)}>
-      <Text style={styles.rank}>{rank}. </Text>
-      <Text style={styles.username}>@{username}</Text>
-      <Text style={styles.score}>{ score ? (`${score} XP`) : ('-')}</Text>
-    </TouchableOpacity>
+    <View style={styles.subcontainer}>
+      <View style={getRankStyle(rank)}>
+        <Text style={styles.rank}>{rank}</Text>
+      </View>
+      <Text style={[styles.username, { fontFamily: 'Mulish_400Regular' }]}>@{username}</Text>
+      <Text style={[styles.score, { fontFamily: 'Mulish_400Regular' }]}>
+        {!score ? ('-') : score === 1 ? (`${score} pt`) : (`${score} pts`)}
+      </Text>
+    </View>
   );
 }
 
 function LeaderboardScreen(): JSX.Element {
   const { data: leaderboard, isLoading } = useGetLeaderboardQuery();
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [fontsLoaded] = useFonts({
+    Mulish_400Regular,
+  });
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   const renderItem = ({ item, index }) => {
     return (
@@ -25,8 +55,8 @@ function LeaderboardScreen(): JSX.Element {
   };
 
   useEffect(() => {
-    if (isLoading) {
-      console.log('still loading...');
+    if (isLoading || !fontsLoaded) {
+      console.log('still loading data...');
     }
     console.log(leaderboard);
   }, []);
@@ -37,12 +67,23 @@ function LeaderboardScreen(): JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.heading}>Leaderboard</Text>
-      <View style={styles.labelContainer}>
-        <Text style={styles.rankLabel}>Rank</Text>
-        <Text style={styles.usernameLabel}>Username</Text>
-        <Text style={styles.scoreLabel}>Score</Text>
+      <View style={styles.headingContainer}>
+        <Text style={[styles.heading, { fontFamily: 'Mulish_400Regular' }]}>Leaderboard</Text>
+        <TouchableOpacity style={styles.infoButton} onPress={toggleModal}>
+          <Text style={styles.infoButtonText}>i</Text>
+        </TouchableOpacity>
       </View>
+      { isModalVisible
+        && (
+        <View style={styles.overlay}>
+          <View style={styles.popup}>
+            <Text style={styles.popupText}>{'Points are calculated by\nsubtracting a user’s total\ndownvotes from their upvotes'} </Text>
+            <TouchableOpacity style={styles.infoButtonInner} onPress={toggleModal}>
+              <Text style={styles.infoButtonText}>i</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        )}
       <FlatList
         data={leaderboard}
         renderItem={renderItem}
