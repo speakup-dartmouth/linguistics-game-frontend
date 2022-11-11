@@ -10,8 +10,6 @@ Linguistics Games, a.k.a. Speak Up, is an innovative gameified mobile app that i
 ### Tech Stack 🥞
 The app is built using React-Native
 
-[Description of any notable added services]
-
 [Backend Repo](https://github.com/dali-lab/linguistics-games-backend)
 
 #### Packages 📦
