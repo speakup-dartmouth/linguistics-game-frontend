@@ -45,7 +45,7 @@ We are using [CS52's React-Native ESLint Configuration](https://gist.github.com/
 For more detailed documentation on our file structure and specific functions in the code, feel free to check the project files themselves.
 
 ## Setup Steps 
-1. Clone repo by running `git clone https://github.com/dali-lab/linguistics-games-frontend.git` in your terminal and `cd linguistics-games-frontent`
+1. Clone repo by running `git clone https://github.com/dali-lab/linguistics-games-frontend.git` in your terminal and `cd linguistics-games-frontend`
 2. Run `expo install` to install all of the necessary packages
   * If you don't have expo installed, you can install it by following the instructions [here](https://docs.expo.dev/get-started/installation/)
 3. Make sure you have the expo-cli installed. You can install it by running `npm install expo-cli --global`
