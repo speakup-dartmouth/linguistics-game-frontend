@@ -35,7 +35,7 @@ export default StyleSheet.create({
     paddingVertical: 20,
   },
   divider: {
-    height: 100,
+    height: 50,
   },
   buttonContainer: {
     alignSelf: 'center',
@@ -137,5 +137,33 @@ export default StyleSheet.create({
     fleX: -1,
     flexDirection: 'row-reverse',
     justifyContent: 'space-between',
+  },
+  voteRow: {
+    flex: -1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  voteContainer: {
+    flex: -1,
+    flexDirection: 'column',
+    width: '100%',
+  },
+  stance: {
+    marginVertical: 10,
+  },
+  voteText: {
+    color: '#737B7D',
+  },
+  voteBar: {
+    height: 10,
+    borderRadius: 10,
+    backgroundColor: '#FFE7A5',
+    marginTop: 5,
+  },
+  voteBarFill: {
+    height: 10,
+    borderRadius: 10,
+    backgroundColor: '#FFD461',
   },
 });

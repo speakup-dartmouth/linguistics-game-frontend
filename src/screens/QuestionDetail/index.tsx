@@ -45,6 +45,16 @@ function QuestionDetail(): JSX.Element {
   }
 
   const answers = questionAnswers[currentQuestion._id] || [];
+  const pointsByStance = answers.reduce((acc, answer) => {
+    if (acc[answer.stance]) {
+      acc[answer.stance] += answer.upvoteCount;
+      acc[answer.stance] -= answer.downvoteCount;
+    } else {
+      acc[answer.stance] = answer.upvoteCount - answer.downvoteCount;
+    }
+    return acc;
+  }, currentQuestion.options.reduce((acc, option) => { acc[option] = 1; return acc; }, {} as Record<string, number>));
+  const totalVotes = Object.values(pointsByStance).reduce((acc, val) => acc + val, 0);
 
   return (
     <View style={styles.container}>
@@ -62,6 +72,24 @@ function QuestionDetail(): JSX.Element {
         {!isRecording && (
         <>
           <Text style={globalStyles.headingThree}>Votes</Text>
+
+          <View style={styles.voteContainer}>
+            {Object.keys(pointsByStance).map((stance) => (
+              <View key={stance} style={styles.stance}>
+                <View style={styles.voteRow}>
+                  <Text style={styles.voteText}>{stance}</Text>
+                  <Text style={styles.voteText}>{`${totalVotes > 0 ? Math.round((pointsByStance[stance] / totalVotes) * 100) : 0}%`}</Text>
+                </View>
+
+                <View style={styles.voteBar}>
+                  <View style={[styles.voteBarFill, { width: `${totalVotes > 0 ? Math.round((pointsByStance[stance] / totalVotes) * 100) : 0}%` }]} />
+                </View>
+
+                <Text style={styles.voteText}>{pointsByStance[stance]}</Text>
+              </View>
+            ))}
+          </View>
+
           <View style={styles.divider} />
           <View style={styles.buttonContainer}>
             <Button text="Speak your mind" onPress={() => { setIsRecording(true); }} />
