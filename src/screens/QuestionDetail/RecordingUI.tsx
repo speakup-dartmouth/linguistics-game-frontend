@@ -26,7 +26,7 @@ function RecordUI({
   const {
     isRecording, recordingUri, startStopRecording, reset, saveRecording, isUploading,
   } = useRecorder();
-  const { startStopPlayback, isPlaying } = usePlayback(recordingUri);
+  const { startStopPlayback, isPlaying, setRecordingUri } = usePlayback(recordingUri);
 
   const isRecordingActive = isRecording || !!recordingUri;
 
@@ -53,6 +53,12 @@ function RecordUI({
   useEffect(() => {
     setIsBackDisabled(isRecording || isUploading);
   }, [isRecording, isUploading]);
+
+  useEffect(() => {
+    if (recordingUri) {
+      setRecordingUri(recordingUri);
+    }
+  }, [recordingUri]);
 
   return (
     <>
