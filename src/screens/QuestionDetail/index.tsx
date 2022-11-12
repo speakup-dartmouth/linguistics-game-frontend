@@ -1,7 +1,7 @@
 import Button from 'components/UI/Button';
 import { globalStyles } from 'lib/styles';
 import { useAppNavigation } from 'navigation/types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View, Text, ScrollView, TouchableHighlight,
 } from 'react-native';
@@ -29,6 +29,12 @@ function QuestionDetail(): JSX.Element {
       dispatch(stopAllCurrentlyPlayingSounds());
     }
   };
+
+  useEffect(() => {
+    if (isRecording) {
+      dispatch(stopAllCurrentlyPlayingSounds());
+    }
+  }, [isRecording]);
 
   if (!currentQuestion || !isSuccess) {
     return (
