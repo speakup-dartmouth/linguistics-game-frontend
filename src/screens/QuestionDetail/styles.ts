@@ -28,10 +28,11 @@ export default StyleSheet.create({
   },
   back: {
     position: 'absolute',
-    top: dimensions.height * 0.05,
+    top: dimensions.height * 0.04,
     left: 20,
     fontWeight: '300',
     color: colors.darkBlue,
+    paddingVertical: 20,
   },
   divider: {
     height: 100,
@@ -131,5 +132,10 @@ export default StyleSheet.create({
     fontWeight: '600',
     fontSize: 16,
     marginRight: 9,
+  },
+  recordingButtons: {
+    fleX: -1,
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
   },
 });

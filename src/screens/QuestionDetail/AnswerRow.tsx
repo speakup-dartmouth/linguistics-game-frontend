@@ -1,6 +1,7 @@
-import { Answer } from 'redux/slices/questionSlice';
+/* eslint-disable no-nested-ternary */
+import { Answer, stopAllCurrentlyPlayingSounds } from 'redux/slices/questionSlice';
 import {
-  View, Text, Pressable,
+  View, Text, Pressable, ActivityIndicator,
 } from 'react-native';
 import Play from 'assets/play.svg';
 import Pause from 'assets/pause.svg';
@@ -8,37 +9,42 @@ import VoteUp from 'assets/vote-up.svg';
 import VoteDown from 'assets/vote-down.svg';
 import { useVoteMutation } from 'services/api';
 import { colors } from 'lib/constants';
+import { usePlayback } from 'lib/hooks';
+import { useAppDispatch } from 'redux/hooks';
 import styles from './styles';
 
 interface AnswerRowProps {
   answer: Answer;
-  isPlaying: boolean;
-  playSound: (uri: string) => void;
-  stopSound: () => void;
-  recordingUri: string | null;
   questionId: string;
 }
 
 function AnswerRow({
-  answer, isPlaying, playSound, stopSound, recordingUri, questionId,
+  answer, questionId,
 }: AnswerRowProps): JSX.Element {
   const [vote] = useVoteMutation();
+
+  const {
+    isPlaying, startPlayback, stopPlayback, isBuffering,
+  } = usePlayback(answer.recordingURL);
+  const dispatch = useAppDispatch();
+
   if (!answer.recordingURL) return null;
 
   const startStop = () => {
     if (isPlaying) {
-      stopSound();
-      if (recordingUri === answer.recordingURL) return;
-      playSound(answer.recordingURL);
+      stopPlayback();
     } else {
-      playSound(answer.recordingURL);
+      dispatch(stopAllCurrentlyPlayingSounds());
+      startPlayback();
     }
   };
 
   return (
     <View key={answer._id} style={styles.answerContainer}>
-      <Pressable onPress={startStop}>{(isPlaying && recordingUri === answer.recordingURL)
-        ? <Pause width={50} height={50} />
+      <Pressable onPress={startStop}>{(isPlaying || isBuffering)
+        ? (isBuffering
+          ? <ActivityIndicator size={50} />
+          : <Pause width={50} height={50} />)
         : <Play width={50} height={50} />}
       </Pressable>
 

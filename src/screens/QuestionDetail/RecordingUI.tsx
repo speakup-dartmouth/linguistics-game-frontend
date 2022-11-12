@@ -61,12 +61,21 @@ function RecordUI({
         <Text style={styles.recordingHeader}>Ready?</Text>
         <Text style={styles.recordingSubheader}>Pick a stance:</Text>
         <Toggle disabled={isRecording} options={question.options} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
-        <TouchableOpacity
-          style={styles.recordButton}
-          onPress={record}
-          disabled={!selectedOption}
-        ><Text style={styles.kernedText}>{'BEGIN RECORDING >'}</Text>
-        </TouchableOpacity>
+
+        <View style={styles.recordingButtons}>
+          <TouchableOpacity
+            style={styles.recordButton}
+            onPress={record}
+            disabled={!selectedOption}
+          ><Text style={styles.kernedText}>{'BEGIN RECORDING >'}</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.recordButton}
+            onPress={() => setIsRecordingMode(false)}
+          ><Text style={styles.kernedText}>{'< BACK'}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       )}
 

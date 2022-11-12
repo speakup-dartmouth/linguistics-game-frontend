@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Audio } from 'expo-av';
 import { api } from 'services/api';
 import { User } from './authSlice';
 
@@ -28,7 +29,8 @@ export interface QuestionState {
   currentQuestion: Question | null;
   questionAnswers: {
     [questionId: string]: Answer[];
-  }
+  },
+  currentlyPlayingSounds: Audio.Sound[];
 }
 
 const initialState: QuestionState = {
@@ -36,6 +38,7 @@ const initialState: QuestionState = {
   questions: [],
   currentQuestion: null,
   questionAnswers: {},
+  currentlyPlayingSounds: [],
 };
 
 const questionSlice = createSlice({
@@ -44,6 +47,18 @@ const questionSlice = createSlice({
   reducers: {
     setCurrentQuestion(state, action) {
       state.currentQuestion = action.payload;
+    },
+    addCurrentlyPlayingSound(state, action) {
+      state.currentlyPlayingSounds.push(action.payload);
+    },
+    removeCurrentlyPlayingSound(state, action) {
+      state.currentlyPlayingSounds = state.currentlyPlayingSounds.filter((sound) => sound !== action.payload);
+    },
+    stopAllCurrentlyPlayingSounds(state) {
+      state.currentlyPlayingSounds.forEach((sound) => {
+        sound.stopAsync();
+      });
+      state.currentlyPlayingSounds = [];
     },
   },
   extraReducers: (builder) => {
@@ -123,6 +138,8 @@ const questionSlice = createSlice({
   },
 });
 
-export const { setCurrentQuestion } = questionSlice.actions;
+export const {
+  setCurrentQuestion, addCurrentlyPlayingSound, removeCurrentlyPlayingSound, stopAllCurrentlyPlayingSounds,
+} = questionSlice.actions;
 
 export default questionSlice.reducer;
