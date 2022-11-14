@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import { uploadFile } from 'services/s3';
 import { isAVPlaybackStatusSuccess } from 'types/guards';
-import { useAppSelector } from 'redux/hooks';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useAddAnswerMutation } from 'services/api';
+import { addCurrentlyPlayingSound, removeCurrentlyPlayingSound } from 'redux/slices/questionSlice';
 
 interface UseRecorderHook {
   isRecording: boolean;
@@ -24,6 +25,7 @@ interface UsePlaybackHook {
   startPlayback: () => void;
   stopPlayback: () => void;
   recordingUri: string | null;
+  isBuffering: boolean;
 }
 
 // Get mm:ss from seconds
@@ -101,6 +103,10 @@ export const usePlayback = (uri: string | null): UsePlaybackHook => {
   const [playbackStatus, setPlaybackStatus] = useState<AVPlaybackStatus | null>(null);
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [recordingUri, setRecordingUri] = useState(uri);
+  const dispatch = useAppDispatch();
+
+  const isBuffering = isAVPlaybackStatusSuccess(playbackStatus) ? playbackStatus?.isBuffering : false;
+  const statusIsPlaying = isAVPlaybackStatusSuccess(playbackStatus) ? playbackStatus?.isPlaying : false;
 
   const createSound = async (): Promise<void> => {
     if (sound) {
@@ -109,24 +115,22 @@ export const usePlayback = (uri: string | null): UsePlaybackHook => {
     }
 
     const { sound: s, status } = await Audio.Sound.createAsync({ uri: recordingUri }, {}, setPlaybackStatus);
-    await s.setIsLoopingAsync(true);
+    await s.setIsLoopingAsync(false);
     setSound(s);
     setPlaybackStatus(status);
   };
+
+  useEffect(() => {
+    if (!statusIsPlaying) {
+      setIsPlaying(false);
+    }
+  }, [statusIsPlaying]);
 
   // When the recordingUri changes, create a new sound for playback.
   useEffect(() => {
     if (!recordingUri) { return; }
 
     createSound();
-
-    // To address memory leaks
-    // eslint-disable-next-line consistent-return
-    return () => {
-      if (sound) {
-        sound.unloadAsync();
-      }
-    };
   }, [recordingUri]);
 
   // Play/pause the sound when isPlaying changes.
@@ -145,17 +149,25 @@ export const usePlayback = (uri: string | null): UsePlaybackHook => {
     }
   }, [isPlaying, sound, recordingUri]);
 
-  const startStopPlayback = (): void => setIsPlaying((p) => !p);
+  const startStopPlayback = (): void => {
+    if (isPlaying) {
+      stopPlayback();
+    } else {
+      startPlayback();
+    }
+  };
 
   const startPlayback = (): void => {
     setIsPlaying(true);
     if (sound) {
+      dispatch(addCurrentlyPlayingSound(sound));
       sound.playAsync();
     }
   };
   const stopPlayback = (): void => {
     setIsPlaying(false);
     if (sound) {
+      dispatch(removeCurrentlyPlayingSound(sound));
       sound.pauseAsync();
     }
   };
@@ -175,5 +187,6 @@ export const usePlayback = (uri: string | null): UsePlaybackHook => {
     startPlayback,
     stopPlayback,
     recordingUri,
+    isBuffering,
   };
 };
