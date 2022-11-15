@@ -95,6 +95,7 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#E2E5E6',
     padding: 10,
+    maxWidth: '100%',
   },
   answerStance: {
     backgroundColor: '#B3D8FF',
@@ -106,6 +107,7 @@ export default StyleSheet.create({
   stanceText: {
     color: 'white',
     fontWeight: '500',
+    textAlign: 'center',
   },
   scrollView: {
     marginTop: 30,
@@ -121,6 +123,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 10,
+    flexShrink: 1,
+    flexGrow: 0,
+    maxWidth: '70%',
   },
   voting: {
     flex: -1,

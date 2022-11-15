@@ -46,6 +46,8 @@ function QuestionDetail(): JSX.Element {
 
   const answers = questionAnswers[currentQuestion._id] || [];
   const pointsByStance = answers.reduce((acc, answer) => {
+    if (!answer.stance) return acc;
+
     if (acc[answer.stance]) {
       acc[answer.stance] += answer.upvoteCount;
       acc[answer.stance] -= answer.downvoteCount;
@@ -53,7 +55,10 @@ function QuestionDetail(): JSX.Element {
       acc[answer.stance] = answer.upvoteCount - answer.downvoteCount;
     }
     return acc;
-  }, currentQuestion.options.reduce((acc, option) => { acc[option] = 1; return acc; }, {} as Record<string, number>));
+  }, currentQuestion.options.reduce((acc, option) => {
+    if (option) { acc[option] = 1; }
+    return acc;
+  }, {} as Record<string, number>));
   const totalVotes = Object.values(pointsByStance).reduce((acc, val) => acc + val, 0);
 
   return (
@@ -78,14 +83,22 @@ function QuestionDetail(): JSX.Element {
               <View key={stance} style={styles.stance}>
                 <View style={styles.voteRow}>
                   <Text style={styles.voteText}>{stance}</Text>
-                  <Text style={styles.voteText}>{`${totalVotes > 0 ? Math.round((pointsByStance[stance] / totalVotes) * 100) : 0}%`}</Text>
+                  <Text style={styles.voteText}>{`${totalVotes > 0
+                    ? Math.min(Math.max(Math.round((pointsByStance[stance] / totalVotes) * 100), 0), 100)
+                    : 0}%`}
+                  </Text>
                 </View>
 
                 <View style={styles.voteBar}>
-                  <View style={[styles.voteBarFill, { width: `${totalVotes > 0 ? Math.round((pointsByStance[stance] / totalVotes) * 100) : 0}%` }]} />
+                  <View style={[styles.voteBarFill, {
+                    width: `${totalVotes > 0
+                      ? Math.min(Math.max(Math.round((pointsByStance[stance] / totalVotes) * 100), 0), 100)
+                      : 0}%`,
+                  }]}
+                  />
                 </View>
 
-                <Text style={styles.voteText}>{pointsByStance[stance]}</Text>
+                <Text style={styles.voteText}>{Math.max(pointsByStance[stance], 0)}</Text>
               </View>
             ))}
           </View>
