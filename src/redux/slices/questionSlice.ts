@@ -26,6 +26,7 @@ export interface Answer {
 export interface QuestionState {
   categories: string[];
   questions: Question[];
+  filteredQuestions: Question[];
   currentQuestion: Question | null;
   questionAnswers: {
     [questionId: string]: Answer[];
@@ -36,6 +37,7 @@ export interface QuestionState {
 const initialState: QuestionState = {
   categories: [],
   questions: [],
+  filteredQuestions: [],
   currentQuestion: null,
   questionAnswers: {},
   currentlyPlayingSounds: [],
@@ -68,6 +70,10 @@ const questionSlice = createSlice({
     });
     builder.addMatcher(api.endpoints.getQuestions.matchFulfilled, (state, action) => {
       state.questions = action.payload;
+      return state;
+    });
+    builder.addMatcher(api.endpoints.queryQuestions.matchFulfilled, (state, action) => {
+      state.filteredQuestions = action.payload;
       return state;
     });
     builder.addMatcher(api.endpoints.addAnswer.matchFulfilled, (state, action) => {

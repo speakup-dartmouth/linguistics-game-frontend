@@ -15,6 +15,9 @@ export default StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
+  welcome: {
+    ...globalStyles.headingTwo,
+  },
   consentHeading: {
     ...globalStyles.headingTwo,
     marginTop: 20,
@@ -62,5 +65,33 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: '#3297C1',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 10,
+    elevation: 3,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  buttonText: {
+    fontSize: 20,
+    color: colors.white,
+  },
+  profileImg: {
+    width: 80,
+    height: 80,
+    margin: 10,
+    aspectRatio: 1,
+  },
+  divider: {
+    borderBottomColor: colors.lightBlack,
+    borderBottomWidth: 1.5,
+    width: '80%',
+    margin: 10,
+    marginTop: 20,
   },
 });

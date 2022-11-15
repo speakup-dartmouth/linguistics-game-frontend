@@ -8,6 +8,7 @@ import {
   useFonts,
   Mulish_400Regular,
 } from '@expo-google-fonts/mulish'; // this is the font used in the Figma - we should discuss a broader plan to adjust app fonts globally
+import { useAppSelector } from 'redux/hooks';
 import styles from './styles';
 
 function getRankStyle(rank) {
@@ -24,8 +25,9 @@ function getRankStyle(rank) {
 }
 
 function Item({ username, rank, score }) {
+  const authState = useAppSelector((state) => state.auth);
   return (
-    <View style={styles.subcontainer}>
+    <View style={(username === authState.username) ? styles.selfViewSubcontainer : styles.subcontainer}>
       <View style={getRankStyle(rank)}>
         <Text style={styles.rank}>{rank}</Text>
       </View>
