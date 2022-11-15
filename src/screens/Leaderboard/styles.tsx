@@ -19,6 +19,16 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#B3BBBB',
   },
+  selfViewSubcontainer: {
+    padding: 5,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    backgroundColor: '#B3BBBB',
+    borderColor: '#B3BBBB',
+  },
   headingContainer: {
     width: '90%',
     margin: 0,
