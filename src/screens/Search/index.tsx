@@ -1,7 +1,7 @@
 import QuestionCard from 'components/QuestionCard';
 import Loader from 'components/UI/Loader';
 import {
-  SafeAreaView, ScrollView, View, Text, TextInput, Button, GestureResponderEvent,
+  SafeAreaView, ScrollView, View, Text, TextInput,
 } from 'react-native';
 import { useAppSelector } from 'redux/hooks';
 import { useQueryQuestionsQuery } from 'services/api';
@@ -9,15 +9,9 @@ import { useState } from 'react';
 import styles from './styles';
 
 function SearchScreen(): JSX.Element {
-  const { questions } = useAppSelector((state) => state.question);
+  const { filteredQuestions } = useAppSelector((state) => state.question);
   const [query, onChangeQuery] = useState('');
   const { isLoading } = useQueryQuestionsQuery({ q: query });
-
-  const handleQuerySubmit = (e: GestureResponderEvent) => {
-    e.preventDefault();
-    console.log(`querying for ${query}`);
-    // @ Tyler!! how do I do this properly
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,11 +22,10 @@ function SearchScreen(): JSX.Element {
           value={query}
           style={styles.queryInput}
         />
-        <Button title="GO" onPress={handleQuerySubmit} />
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
           <View style={styles.questionsContainer}>
-            {!isLoading && questions.map((question) => (
+            {!isLoading && filteredQuestions.map((question) => (
               <QuestionCard key={question._id} question={question} />
             ))}
 

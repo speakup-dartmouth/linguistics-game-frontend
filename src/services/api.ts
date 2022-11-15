@@ -93,7 +93,7 @@ export const api = createApi({
       query: () => 'questions',
     }),
     queryQuestions: builder.query<Question[], {q: string}>({
-      query: (q) => `questions?q=${q}`,
+      query: (q) => `questions?q=${q.q}`,
     }),
     getLeaderboard: builder.query<User[], void>({
       query: () => 'leaderboard',
