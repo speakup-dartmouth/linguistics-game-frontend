@@ -70,6 +70,10 @@ const questionSlice = createSlice({
       state.questions = action.payload;
       return state;
     });
+    builder.addMatcher(api.endpoints.queryQuestions.matchFulfilled, (state, action) => {
+      state.questions = action.payload;
+      return state;
+    });
     builder.addMatcher(api.endpoints.addAnswer.matchFulfilled, (state, action) => {
       const { question } = action.payload;
       if (!state.questionAnswers[question]) {
