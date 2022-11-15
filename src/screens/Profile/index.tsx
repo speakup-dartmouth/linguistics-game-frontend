@@ -1,5 +1,5 @@
 import {
-  SafeAreaView, Text, TouchableHighlight, Image, View,
+  SafeAreaView, Text, TouchableHighlight, View, Image,
 } from 'react-native';
 import { logout } from 'redux/slices/authSlice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -7,8 +7,10 @@ import { clearToken } from 'services/storage';
 import { useAppNavigation } from 'navigation/types';
 // import GenericUser from '../assets/generic_user.svg';
 import { ImageAssets } from 'assets/imageAssets';
+// import User from 'assets/user.svg';
 import { colors } from 'lib/constants';
 import styles from './styles';
+import 'assets/profile.webp';
 
 function ProfileScreen(): JSX.Element {
   const { username } = useAppSelector((state) => state.auth);
@@ -26,7 +28,7 @@ function ProfileScreen(): JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image source={ImageAssets.profileImg} style={styles.profileImg} />
+      <Image source={ImageAssets.userImg} style={styles.profileImg} />
       <Text style={styles.welcome}>Welcome, {username}</Text>
       <View style={styles.divider} />
       <TouchableHighlight

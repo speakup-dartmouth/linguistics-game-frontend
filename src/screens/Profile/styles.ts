@@ -82,9 +82,9 @@ export default StyleSheet.create({
     color: colors.white,
   },
   profileImg: {
-    width: 80,
-    height: 80,
-    margin: 10,
+    width: 100,
+    height: 100,
+    margin: 15,
     aspectRatio: 1,
   },
   divider: {
