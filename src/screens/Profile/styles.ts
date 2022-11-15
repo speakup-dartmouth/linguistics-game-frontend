@@ -63,4 +63,19 @@ export default StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
   },
+  editButton: {
+    backgroundColor: '#3297C1',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 10,
+    elevation: 3,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  editButtonText: {
+    fontSize: 20,
+    color: colors.white,
+  },
 });
