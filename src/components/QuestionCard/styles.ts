@@ -29,20 +29,23 @@ export default StyleSheet.create({
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
-  categoryPill: {
+  stancePill: {
     borderWidth: 1,
     borderColor: colors.darkBlue,
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    margin: 1,
-    width: 100,
-    height: 20,
+    color: colors.white,
     backgroundColor: colors.lightBlue,
     borderRadius: 10,
     overflow: 'hidden',
+    marginRight: 7,
+    padding: 5,
+    paddingLeft: 8,
+    paddingRight: 8,
   },
-  categoryContainer: {
+  stanceContainer: {
+    marginTop: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginLeft: 10,
