@@ -55,6 +55,13 @@ For more detailed documentation on our file structure and specific functions in 
   * Type `i` to run the app on an iOS simulator. You will need to have Xcode installed for this to work. To install Xcode, go [here](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
   * Type `a` to run the app on an Android emulator. You will need Android Studio installed for this step to work.
 
+
+To access this app on other devices, download the [Expo Go](https://expo.dev/client) app and login using the Linguistics Games credetnials. New builds can be created in the Expo Go app with the below command (after having installed the [EAS CLI](https://github.com/expo/eas-cli)). Replace "v1.0.0" with your version number.
+
+```
+eas update --branch dev --message "v1.0.0"
+```
+
 ## Deployment 🚀
 This app is deployed on Expo, under the account `linguistics.games@dali.dartmouth.edu`. Credentials and further instructions may be found in the official Handoff Document.
 
