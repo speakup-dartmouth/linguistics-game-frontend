@@ -126,21 +126,6 @@ const questionSlice = createSlice({
 
       return state;
     });
-    /*
-    builder.addMatcher(api.endpoints.vote.matchFulfilled, (state, action) => {
-      const { question } = action.payload;
-      const answers = state.questionAnswers[question];
-
-      if (answers) {
-        const index = answers.findIndex((a) => a._id === action.payload._id);
-
-        if (index !== -1) {
-          answers[index] = action.payload;
-        }
-      }
-
-      return state;
-    }); */
   },
 });
 
