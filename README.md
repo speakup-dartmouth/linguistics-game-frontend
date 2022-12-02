@@ -50,7 +50,8 @@ For more detailed documentation on our file structure and specific functions in 
 2. Run `expo install` to install all of the necessary packages
   * If you don't have expo installed, you can install it by following the instructions [here](https://docs.expo.dev/get-started/installation/)
 3. Make sure you have the expo-cli installed. You can install it by running `npm install expo-cli --global`
-4. To start the app locally, run `expo start`. 
+4. Create a `.env` file with an `API_KEY` environment variable, which should match the API key set for the backend server.
+5. To start the app locally, run `expo start`. 
   * Type `i` to run the app on an iOS simulator. You will need to have Xcode installed for this to work. To install Xcode, go [here](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
   * Type `a` to run the app on an Android emulator. You will need Android Studio installed for this step to work.
 
