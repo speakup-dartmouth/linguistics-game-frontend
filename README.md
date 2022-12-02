@@ -1,6 +1,6 @@
 # 🗣 Linguistics Games Frontend
 
-Linguistics Games, a.k.a. Speak Up, is an innovative gameified mobile app that invites users to play via voice-controlled mechanisms. They can choose a stance to respond to a variety of questions, as well as upvote and downvote other users' posts. With the user's consent, these voice samples are anonymized aggregated and together to form large-scale datasets, with whole new magnitudes of `N > 10,000`. The aim of this app is to empower every researcher with larger and more comprehensive datasets for richer hypotheses, and in particular cutting-edge sociolinguistic analysis. Ultimately, the impact of this app can stretch far beyond linguistics. Other fields like economics, sociology, anthropology all experience the same challenge of small sample sizes. This technique can inspire similar approaches in these other fields, and usher in a new era of computational research.
+Linguistics Games, a.k.a. Speak Up, is an innovative gameified mobile app that invites users to play via voice-controlled mechanisms. They can choose a stance to respond to a variety of questions, as well as upvote and downvote other users' posts. With the user's consent, these voice samples are anonymized and aggregated together to form large-scale datasets, with whole new magnitudes of `N > 10,000`. The aim of this app is to empower every researcher with larger and more comprehensive datasets for richer hypotheses, and in particular cutting-edge sociolinguistic analysis. Ultimately, the impact of this app can stretch far beyond linguistics. Other fields like economics, sociology, anthropology all experience the same challenge of small sample sizes. This technique can inspire similar approaches in these other fields, and usher in a new era of computational research.
 
 ## Designs
 
@@ -8,7 +8,7 @@ Linguistics Games, a.k.a. Speak Up, is an innovative gameified mobile app that i
 
 ## Architecture
 ### Tech Stack 🥞
-The app is built using React-Native
+The frontend for this application is built using [React Native](https://reactnative.dev/). Redux Toolkit is also used for state management and API requests.
 
 [Backend Repo](https://github.com/dali-lab/linguistics-games-backend)
 
@@ -19,6 +19,7 @@ The app is built using React-Native
 * [react-native-loading-spinner-overlay](https://www.npmjs.com/package/react-native-loading-spinner-overlay)
 * [react-native-dropdown-picker](https://www.npmjs.com/package/react-native-dropdown-picker)
 * [react-native-dotenv](https://www.npmjs.com/package/react-native-dotenv)
+* [axios](https://github.com/axios/axios)
 
 ### Style
 
@@ -44,14 +45,14 @@ We are using [CS52's React-Native ESLint Configuration](https://gist.github.com/
 
 For more detailed documentation on our file structure and specific functions in the code, feel free to check the project files themselves.
 
-## Setup Steps 
+## Setup 
 1. Clone repo by running `git clone https://github.com/dali-lab/linguistics-games-frontend.git` in your terminal and `cd linguistics-games-frontend`
 2. Run `expo install` to install all of the necessary packages
   * If you don't have expo installed, you can install it by following the instructions [here](https://docs.expo.dev/get-started/installation/)
 3. Make sure you have the expo-cli installed. You can install it by running `npm install expo-cli --global`
 4. To start the app locally, run `expo start`. 
   * Type `i` to run the app on an iOS simulator. You will need to have Xcode installed for this to work. To install Xcode, go [here](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
-  * Type `a` to run the app on an Android simulator. 
+  * Type `a` to run the app on an Android emulator. You will need Android Studio installed for this step to work.
 
 ## Deployment 🚀
 This app is deployed on Expo, under the account `linguistics.games@dali.dartmouth.edu`. Credentials and further instructions may be found in the official Handoff Document.
