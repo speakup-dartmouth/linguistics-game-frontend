@@ -28,10 +28,12 @@ function LogIn(): JSX.Element {
         returnKeyType="next"
         autoCapitalize="none"
         autoCorrect={false}
+        placeholderTextColor='#737B7D'
       />
       <Textbox
         value={password}
-        placeholder="Password"
+        placeholder="Password"        
+        placeholderTextColor='#737B7D'
         onChangeText={(p) => {
           setPassword(p);
         }}
