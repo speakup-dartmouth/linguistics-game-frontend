@@ -41,6 +41,7 @@ function SignUp(): JSX.Element {
       <Textbox
         value={username}
         placeholder="Username"
+        placeholderTextColor='#737B7D'
         onChangeText={(u) => {
           setName(u);
         }}
@@ -79,6 +80,7 @@ function SignUp(): JSX.Element {
       <Textbox
         value={email}
         placeholder="Email"
+        placeholderTextColor='#737B7D'
         onChangeText={(e) => {
           setEmail(e);
         }}
@@ -90,6 +92,7 @@ function SignUp(): JSX.Element {
       <Textbox
         value={password}
         placeholder="Password"
+        placeholderTextColor='#737B7D'
         onChangeText={(p) => {
           setPassword(p);
         }}
@@ -100,6 +103,7 @@ function SignUp(): JSX.Element {
       <Textbox
         value={confirmPassword}
         placeholder="Confirm Password"
+        placeholderTextColor='#737B7D'
         onChangeText={(p) => {
           setConfirmPassword(p);
         }}
