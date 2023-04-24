@@ -2,7 +2,7 @@ import React, {
   useState,
 } from 'react';
 import {
-  Text, View, Pressable,
+  CheckBox, Text, View, Pressable,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -29,6 +29,7 @@ function SignUp(): JSX.Element {
     { label: 'Nonbinary', value: 'nonbinary' },
     { label: 'Other', value: 'other' },
   ]);
+  const [agree, setAgree] = useState(false);
   const dispatch = useAppDispatch();
 
   const disabled = !email || !username || !password || !confirmPassword
@@ -111,11 +112,23 @@ function SignUp(): JSX.Element {
         autoCapitalize="none"
         autoCorrect={false}
       />
+      <View style={styles.checkboxContainer} >
+         <CheckBox
+          value={agree}
+          onValueChange={setAgree}
+        />
+        <Text style={styles.checkboxLabel}>Do you like React Native?</Text>
+      </View>
+  
       <Pressable style={{ ...styles.submitButton, opacity: disabled ? 0.5 : 1 }}
         disabled={disabled}
         onPress={() => {
           if (password !== confirmPassword) {
             dispatch(setError(('Password and confirm password must match.')));
+            return;
+          }
+          if (!agree) {
+            dispatch(setError(('Please review and agree to our Community Guidelines')));
             return;
           }
           signUp({

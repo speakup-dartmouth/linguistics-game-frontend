@@ -106,4 +106,14 @@ export default StyleSheet.create({
   dropdownText: {
     color: colors.lightBlack,
   },
+  checkboxContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: 'center',
+  },
+  checkboxLabel: {
+    margin: 8,
+  },
 });
