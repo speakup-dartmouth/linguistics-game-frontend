@@ -53,7 +53,8 @@
     "redux-thunk": "^2.4.1",
     "typescript": "^4.6.3",
     "react-native-reanimated": "~2.9.1",
-    "undefined": "react-native-community/checkbox"
+    "undefined": "react-native-community/checkbox",
+    "expo-checkbox": "~2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

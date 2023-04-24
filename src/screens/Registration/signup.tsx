@@ -2,8 +2,9 @@ import React, {
   useState,
 } from 'react';
 import {
-  CheckBox, Text, View, Pressable,
+  Text, View, Pressable,
 } from 'react-native';
+import Checkbox from 'expo-checkbox';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useSignUpMutation } from 'services/api';
