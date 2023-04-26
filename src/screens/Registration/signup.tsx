@@ -2,9 +2,9 @@ import React, {
   useState,
 } from 'react';
 import {
-  Text, View, Pressable,
+  Text, View, Pressable, Linking, TouchableHighlight
 } from 'react-native';
-import Checkbox from 'expo-checkbox';
+import CheckBox from 'expo-checkbox';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useSignUpMutation } from 'services/api';
@@ -34,7 +34,7 @@ function SignUp(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const disabled = !email || !username || !password || !confirmPassword
-    || !dateOfBirth || !gender || isLoading;
+    || !dateOfBirth || !gender || !agree || isLoading;
 
   return (
     <View style={styles.subview}>
@@ -118,7 +118,21 @@ function SignUp(): JSX.Element {
           value={agree}
           onValueChange={setAgree}
         />
-        <Text style={styles.checkboxLabel}>Do you like React Native?</Text>
+        <View>
+          <Text style={styles.checkboxLabel}>
+            I have read and accept the{' '}
+            <TouchableHighlight
+              onPress={() =>
+                Linking.openURL(
+                  'https://docs.google.com/document/d/e/2PACX-1vQupXdBR2v-9mViedBKJsPfizik-3FCsZ6WCceiZ7Ra0qHFkEvACIT2bZbhs0hnWO4Wp3tTWUNQLfAQ/pub'
+                )
+              }
+              underlayColor="#f1f1f1"
+            >
+              <Text style={styles.highlightedText}>Speak Up Community Guidelines</Text>
+            </TouchableHighlight>
+          </Text>
+        </View>
       </View>
   
       <Pressable style={{ ...styles.submitButton, opacity: disabled ? 0.5 : 1 }}

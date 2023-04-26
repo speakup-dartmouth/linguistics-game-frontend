@@ -112,8 +112,17 @@ export default StyleSheet.create({
   },
   checkbox: {
     alignSelf: 'center',
+    margin: 32,
   },
   checkboxLabel: {
-    margin: 8,
+    marginLeft: 8,
+    fontSize: 10,
+    color: '#737B7D',
+  },
+  highlightedText: {
+    color: 'blue',
+    fontSize: 10,
+    marginTop: 2,
+    textDecorationLine: 'underline',
   },
 });
