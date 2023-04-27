@@ -118,10 +118,11 @@ function SignUp(): JSX.Element {
           value={agree}
           onValueChange={setAgree}
         />
-        <View>
+        <View style={styles.checkboxTextContainer}>
           <Text style={styles.checkboxLabel}>
             I have read and accept the{' '}
             <TouchableHighlight
+              
               onPress={() =>
                 Linking.openURL(
                   'https://docs.google.com/document/d/e/2PACX-1vQupXdBR2v-9mViedBKJsPfizik-3FCsZ6WCceiZ7Ra0qHFkEvACIT2bZbhs0hnWO4Wp3tTWUNQLfAQ/pub'

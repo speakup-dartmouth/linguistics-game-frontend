@@ -115,7 +115,6 @@ export default StyleSheet.create({
     margin: 32,
   },
   checkboxLabel: {
-    marginLeft: 8,
     fontSize: 10,
     color: '#737B7D',
   },
@@ -125,4 +124,9 @@ export default StyleSheet.create({
     marginTop: 2,
     textDecorationLine: 'underline',
   },
+  checkboxTextContainer: {
+    marginLeft: 8,
+    marginTop: 2,
+    alignItems: 'baseline',
+  }
 });
