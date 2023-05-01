@@ -106,4 +106,27 @@ export default StyleSheet.create({
   dropdownText: {
     color: colors.lightBlack,
   },
+  checkboxContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: 'center',
+    margin: 32,
+  },
+  checkboxLabel: {
+    fontSize: 10,
+    color: '#737B7D',
+  },
+  highlightedText: {
+    color: 'blue',
+    fontSize: 10,
+    marginTop: 2,
+    textDecorationLine: 'underline',
+  },
+  checkboxTextContainer: {
+    marginLeft: 8,
+    marginTop: 2,
+    alignItems: 'baseline',
+  }
 });
