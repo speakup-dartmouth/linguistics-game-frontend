@@ -1,5 +1,5 @@
 import {
-  SafeAreaView, Text, TouchableHighlight, View, Image,
+  SafeAreaView, Text, TouchableHighlight, View, Image, SectionList, Pressable, FlatList, TouchableOpacity,
 } from 'react-native';
 import { logout } from 'redux/slices/authSlice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -11,16 +11,39 @@ import { ImageAssets } from 'assets/imageAssets';
 import { colors } from 'lib/constants';
 import styles from './styles';
 import 'assets/profile.webp';
+import { Entypo } from '@expo/vector-icons'; 
 
 function ProfileScreen(): JSX.Element {
   const { username } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigation = useAppNavigation();
+  // data: ['Account', 'Demographics', 'Linguistic Research Consent', 'Preferences', 'Logout'],
+  // const DATA = [
+  //   {
+  //     nav: 'DemographicsModal',
+  //     data: ['Demographics'],
+  //   },
+  //   {
+  //     nav: 'ResearchConsentModal',
+  //     data: ['Linguistic Research Consent'],
+  //   },
+  //   {
+  //     nav: 'CategoriesModal',
+  //     data: ['Preferences'],
+  //   }
+  // ];
 
   const signOut = () => {
     dispatch(logout());
     clearToken();
   };
+  
+  const DATA = [
+    { id: '1', nav: 'DemographicsModal', data: 'Demographics' },
+    { id: '2', nav: 'ResearchConsentModal', data: 'Linguistic Research Consent'},
+    { id: '3', nav: 'CategoriesModal', data: 'Preferences' },
+    { id: '4', nav: '', data: 'Log Out', onPress: signOut },
+  ];
 
   const navigateToConsent = () => {
     navigation.navigate('ResearchConsentModal');
@@ -31,38 +54,21 @@ function ProfileScreen(): JSX.Element {
       <Image source={ImageAssets.userImg} style={styles.profileImg} />
       <Text style={styles.welcome}>Welcome, {username}</Text>
       <View style={styles.divider} />
-      <TouchableHighlight
-        style={styles.button}
-        activeOpacity={0.7}
-        underlayColor={colors.lightBlue}
-        onPress={() => navigation.navigate('DemographicsModal')}
+      <FlatList
+          data={DATA}
+          keyExtractor={(item) => item.id}
+          renderItem={({item, index}) => (
+            <TouchableOpacity 
+              onPress={() => item.onPress || navigation.navigate(item.nav)}
+              style={[styles.itemContainer, index !== DATA.length - 1 && styles.itemWithIcon]}>
+                <Text style={[styles.profileItem, item.data === 'Log Out' && styles.logoutText]}>
+                  {item.data}
+                </Text>
+                {index !== DATA.length - 1 && <Entypo name="chevron-thin-right" size={24} color="black" />}
+            </TouchableOpacity>
+          )}
       >
-        <Text style={styles.buttonText}>Edit Demographics</Text>
-      </TouchableHighlight>
-      <TouchableHighlight
-        style={styles.button}
-        activeOpacity={0.7}
-        underlayColor={colors.lightBlue}
-        onPress={navigateToConsent}
-      >
-        <Text style={styles.buttonText}>Adjust Consent</Text>
-      </TouchableHighlight>
-      <TouchableHighlight
-        style={styles.button}
-        activeOpacity={0.7}
-        underlayColor={colors.lightBlue}
-        onPress={() => navigation.navigate('CategoriesModal')}
-      >
-        <Text style={styles.buttonText}>Update Interests</Text>
-      </TouchableHighlight>
-      <TouchableHighlight
-        style={styles.button}
-        activeOpacity={0.7}
-        underlayColor={colors.lightBlue}
-        onPress={signOut}
-      >
-        <Text style={styles.buttonText}>Log Out</Text>
-      </TouchableHighlight>
+      </FlatList>
     </SafeAreaView>
   );
 }
