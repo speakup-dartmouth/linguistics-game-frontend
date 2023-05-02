@@ -69,7 +69,7 @@ function ProfileScreen(): JSX.Element {
           keyExtractor={(item) => item.id}
           renderItem={({item, index}) => (
             <TouchableOpacity 
-              onPress={() => item.onPress || navigation.navigate(item.nav)}
+              onPress={() => item.onPress ? item.onPress() : navigation.navigate(item.nav)}
               style={[styles.itemContainer, index !== DATA.length - 1 && styles.itemWithIcon]}>
                 <Text style={[styles.profileItem, item.data === 'Log Out' && styles.logoutText]}>
                   {item.data}
