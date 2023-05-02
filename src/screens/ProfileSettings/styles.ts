@@ -122,4 +122,21 @@ export default StyleSheet.create({
   itemWithIcon: {
     paddingRight: 32,
   },
+  tabContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 48,
+    paddingRight: 48,
+    paddingTop: 16,
+  },
+  tabText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#737B7D',
+  },
+  tabTextSelected: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#5BC0EB',
+  }
 });
