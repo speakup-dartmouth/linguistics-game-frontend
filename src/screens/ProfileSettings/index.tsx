@@ -39,15 +39,13 @@ function ProfileScreen(): JSX.Element {
   };
   
   const DATA = [
+    { id: '0', nav: '', data: 'Account', onPress: null },
     { id: '1', nav: 'DemographicsModal', data: 'Demographics' },
     { id: '2', nav: 'ResearchConsentModal', data: 'Linguistic Research Consent'},
     { id: '3', nav: 'CategoriesModal', data: 'Preferences' },
     { id: '4', nav: '', data: 'Log Out', onPress: signOut },
   ];
 
-  const navigateToConsent = () => {
-    navigation.navigate('ResearchConsentModal');
-  };
 
   return (
     <SafeAreaView style={styles.container}>
