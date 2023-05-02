@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "linguistics-games",
-    "slug": "linguistics-games",
+    "slug": "speakup-23s",
     "owner": "linguistics.games",
     "version": "1.1.0",
     "orientation": "portrait",
@@ -14,7 +14,7 @@
     },
     "updates": {
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/f2c0d962-f476-4c43-8ec9-5213d31de34d"
+      "url": "https://u.expo.dev/cb8ca595-1b2a-4572-86ff-75bf02b46e5d"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -27,14 +27,15 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "edu.dartmouth.dali.speakup"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "f2c0d962-f476-4c43-8ec9-5213d31de34d"
+        "projectId": "cb8ca595-1b2a-4572-86ff-75bf02b46e5d"
       }
     },
     "runtimeVersion": {
