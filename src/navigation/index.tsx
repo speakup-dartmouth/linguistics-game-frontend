@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  Landing, ProfilePage, Registration, Splash, /* SearchPage */ SuggestPage, ResearchConsent, Demographics, Categories, QuestionDetail, Leaderboard,
+  Landing, ProfilePage, Registration, Splash, /*SearchPage,*/ SuggestPage, ResearchConsent, Demographics, Categories, QuestionDetail, Leaderboard,
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
@@ -40,7 +40,7 @@ function TabNavigator(): JSX.Element {
   const CompassIcon = useCallback(() => <Compass width={24} height={24} />, []);
   const ProfileIcon = useCallback(() => <Profile width={24} height={24} />, []);
   //const SearchIcon = useCallback(() => <Search width={24} height={24} />, []);
-  const SuggestIcon = useCallback(() => <Suggest width={24} height={24} />, []);
+  const SuggestIcon = useCallback(() => <Suggest width={30} height={30} />, []);
   const UpvoteIcon = useCallback(() => <Upvote width={24} height={24} />, []);
 
   return (

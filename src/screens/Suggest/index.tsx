@@ -23,17 +23,6 @@ function SuggestScreen(): JSX.Element {
           style={styles.queryInput}
         />
 
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
-          <View style={styles.questionsContainer}>
-            {!isLoading && filteredQuestions.map((question) => (
-              <QuestionCard key={question._id} question={question} />
-            ))}
-
-            {isLoading && (
-              <Loader fullWidth />
-            )}
-          </View>
-        </ScrollView>
       </View>
     </SafeAreaView>
   );
