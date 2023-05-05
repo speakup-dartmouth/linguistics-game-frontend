@@ -51,6 +51,7 @@ function ProfileScreen(): JSX.Element {
     <SafeAreaView style={styles.container}>
       <Image source={ImageAssets.userImg} style={styles.profileImg} />
       <Text style={styles.welcome}>Welcome, {username}</Text>
+      <Text></Text>
       <View style={styles.tabContainer}>
         <TouchableOpacity >
           <Text style={styles.tabText}>Stats</Text>
@@ -64,6 +65,7 @@ function ProfileScreen(): JSX.Element {
           <Text style={styles.tabTextSelected}>Settings</Text>
         </TouchableOpacity>
       </View>
+      <Text></Text>
       <FlatList
           data={DATA}
           keyExtractor={(item) => item.id}
