@@ -6,25 +6,26 @@ export default StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   subcontainer: {
-    width: '80%',
-    flex: 1,
-    alignItems: 'flex-start',
+    width: '100%',
+    flex: -1,
+    alignItems: 'center',
     justifyContent: 'center',
+    padding: 32,
   },
   welcome: {
     ...globalStyles.headingTwo,
+    textAlign: 'center',
   },
   consentHeading: {
     ...globalStyles.headingTwo,
     marginTop: 20,
+    textAlign: 'center',
   },
   consentSubheading: {
     ...globalStyles.bodyLarge,
-    textAlign: 'left',
+    textAlign: 'center',
     marginTop: 5,
   },
   buttonContainer: {
@@ -65,6 +66,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     justifyContent: 'center',
+    padding: 32,
   },
   button: {
     backgroundColor: '#3297C1',
@@ -86,6 +88,7 @@ export default StyleSheet.create({
     height: 100,
     margin: 15,
     aspectRatio: 1,
+    alignSelf: 'center',
   },
   divider: {
     borderBottomColor: colors.lightBlack,
@@ -93,5 +96,47 @@ export default StyleSheet.create({
     width: '80%',
     margin: 10,
     marginTop: 20,
+    alignSelf: 'center',
   },
+  profileItem: {
+    flex: 1,
+    padding: 12,
+    fontSize: 20,
+  },
+  wrapperCustom: {
+    borderRadius: 8,
+    padding: 6,
+    marginVertical: 8,
+  },
+  logoutText: {
+    color: 'red',
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    backgroundColor: 'white',
+  },
+  itemWithIcon: {
+    paddingRight: 32,
+  },
+  tabContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 48,
+    paddingRight: 48,
+    paddingTop: 16,
+  },
+  tabText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#737B7D',
+  },
+  tabTextSelected: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#5BC0EB',
+  }
 });
