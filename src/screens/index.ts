@@ -10,6 +10,7 @@ import Categories from './ProfileSettings/Categories';
 import QuestionDetail from './QuestionDetail';
 import LeaderboardScreen from './Leaderboard';
 import SearchScreen from './Search';
+import SuggestScreen from './Suggest';
 
 export {
   LandingScreen as Landing,
@@ -17,6 +18,7 @@ export {
   PlaceholderScreen as Placeholder,
   LeaderboardScreen as Leaderboard,
   SearchScreen as SearchPage,
+  SuggestScreen as SuggestPage,
   ProfileScreen as ProfilePage,
   RegistrationScreen as Registration,
   SplashScreen as Splash,

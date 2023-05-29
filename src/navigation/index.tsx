@@ -5,12 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
-  Landing, ProfilePage, Registration, Splash, SearchPage, ResearchConsent, Demographics, Categories, QuestionDetail, Leaderboard,
+  Landing, ProfilePage, Registration, Splash, /*SearchPage,*/ SuggestPage, ResearchConsent, Demographics, Categories, QuestionDetail, Leaderboard,
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
 import Profile from 'assets/profile.svg';
-import Search from 'assets/search.svg';
+//import Search from 'assets/search.svg';
+import Suggest from 'assets/suggest.svg';
 import Upvote from 'assets/upvote.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { storeToken } from 'services/storage';
@@ -38,7 +39,8 @@ function LandingStackNavigator(): JSX.Element {
 function TabNavigator(): JSX.Element {
   const CompassIcon = useCallback(() => <Compass width={24} height={24} />, []);
   const ProfileIcon = useCallback(() => <Profile width={24} height={24} />, []);
-  const SearchIcon = useCallback(() => <Search width={24} height={24} />, []);
+  //const SearchIcon = useCallback(() => <Search width={24} height={24} />, []);
+  const SuggestIcon = useCallback(() => <Suggest width={30} height={30} />, []);
   const UpvoteIcon = useCallback(() => <Upvote width={24} height={24} />, []);
 
   return (
@@ -64,7 +66,8 @@ function TabNavigator(): JSX.Element {
     >
       <Tab.Screen name="Landing" component={LandingStackNavigator} options={{ tabBarIcon: CompassIcon, tabBarLabel: 'Discover' }} />
       <Tab.Screen name="Upvote" component={Leaderboard} options={{ tabBarIcon: UpvoteIcon, tabBarLabel: 'Leaderboard' }} />
-      <Tab.Screen name="Search" component={SearchPage} options={{ tabBarIcon: SearchIcon, tabBarLabel: 'Search' }} />
+      {/* <Tab.Screen name="Search" component={SearchPage} options={{ tabBarIcon: SearchIcon, tabBarLabel: 'Search' }} /> */}      
+      <Tab.Screen name="Suggest" component={SuggestPage} options={{ tabBarIcon: SuggestIcon, tabBarLabel: 'Suggest' }} />
       <Tab.Screen name="ProfilePage" component={ProfilePage} options={{ tabBarIcon: ProfileIcon, tabBarLabel: 'Profile' }} />
     </Tab.Navigator>
   );

@@ -5,7 +5,8 @@ import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 export type TabParamList = {
   Landing: undefined,
   Upvote: undefined,
-  Search: undefined,
+  //Search: undefined,
+  Suggest: undefined,
   Profile: undefined,
 };
 
