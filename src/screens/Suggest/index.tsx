@@ -5,8 +5,6 @@ import { useAppSelector } from 'redux/hooks';
 import { useQueryQuestionsQuery } from 'services/api';
 import { useState } from 'react';
 import styles from './styles';
-import Logo from 'assets/logo-for-suggest.svg';
-import Mic from 'assets/mic.svg'
 import {
   useFonts,
   Mulish_400Regular,
@@ -15,13 +13,12 @@ import InfoCard from './infoCard';
 import { useAppNavigation } from 'navigation/types';
 import LaunchedCard from './launchedCard';
 import SuggestedCard from './suggestedCard';
+import ConsentCard from './consentCard';
 
 function SuggestScreen(): JSX.Element {
-  const { filteredQuestions } = useAppSelector((state) => state.question);
   const [query, onChangeQuery] = useState('');
-  const { isLoading } = useQueryQuestionsQuery({ q: query });
-
   const navigation = useAppNavigation();
+  const { researchConsent } = useAppSelector((state) => state.auth);
 
   var suggested = [
     {
@@ -29,11 +26,8 @@ function SuggestScreen(): JSX.Element {
     prompt: 'What came first?',
     stances: {'Chicken': '#5BC0EB', 'Egg': '#FFBC1F'},
     submitted: 'September 9, 2020, 10:13 AM',
-    launched: -1,
     status: 'review',
     icon: 'art',
-    responses: 0,
-    percent: 0,
   },
   {
     id: 1,
@@ -125,19 +119,15 @@ function SuggestScreen(): JSX.Element {
   },
 ];
 
-  var approved = suggested.filter((item) => item.status == 'approved')
-
   var hasSuggested = (suggested.length > 0);
-
-  console.log(suggested, hasSuggested);
 
   return (
     <SafeAreaView style={styles.container} >
-      {!hasSuggested && (
+      {!hasSuggested && researchConsent && (
         <InfoCard />
       )}
 
-      {hasSuggested && (
+      {hasSuggested && researchConsent && (
         <View style={styles.topicViewContainer}>
           <TextInput
             onChangeText={(text) => onChangeQuery(text)}
@@ -166,13 +156,17 @@ function SuggestScreen(): JSX.Element {
           </SafeAreaView>
         </View>
       )}
+
+      {!researchConsent && (
+        <ConsentCard />
+      )}
       
       <Pressable
-        style={{ ...styles.submitButton }}
+        style={{ ...styles.submitButton, opacity: researchConsent ? 1 : .5 }}
         onPress={() => {
           navigation.navigate('CreateSuggestion')
         }}
-        // disabled={true}
+        disabled={!researchConsent}
       >
         <Text style={styles.buttonText}>Suggest a Topic!</Text>
       </Pressable>

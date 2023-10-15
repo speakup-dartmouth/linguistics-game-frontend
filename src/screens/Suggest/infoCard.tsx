@@ -3,6 +3,7 @@ import React from "react";
 import styles from './styles';
 import Logo from 'assets/logo-for-suggest.svg';
 import Mic from 'assets/mic.svg'
+import Steps from "./steps";
 
 function InfoCard(): JSX.Element {
   return (
@@ -16,35 +17,8 @@ function InfoCard(): JSX.Element {
           </View>
           <Mic />
         </View>
-        <View style={[styles.directions, styles.shadowContainer]}>
-          <View style={styles.step}>
-            <View style={[styles.rankCircleContainer, styles.rankCircleOne]}>
-              <Text style={styles.rank}>1</Text>
-            </View>
-            <Text style={styles.directionText}>Submit Topic</Text>
-          </View>
-          <View style={styles.step}>
-            <View style={[styles.rankCircleContainer, styles.rankCircleTwo]}>
-              <Text style={styles.rank}>2</Text>
-            </View>
-            <Text style={styles.directionText}>Admin Review</Text>
-          </View>
-          <View style={styles.step}>
-            <View style={[styles.rankCircleContainer, styles.rankCircleThree]}>
-              <Text style={styles.rank}>3</Text>
-            </View>
-            <Text style={styles.directionText}>Speak Up!</Text>
-          </View>
-        </View>
+        <Steps />
       </View>
-      {/* <Pressable
-        style={{ ...styles.submitButton }}
-        onPress={() => {
-        }}
-      >
-        <Text style={styles.buttonText}>Suggest a Topic!</Text>
-      </Pressable> */}
-      
     </SafeAreaView>
   );
 }

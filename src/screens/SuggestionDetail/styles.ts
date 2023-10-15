@@ -98,7 +98,43 @@ export default StyleSheet.create({
     fontSize: 15,
     fontWeight: '500'
   },
-  timelineRow: {
-    
+  timelineText: {
+    color: 'rgba(0, 0, 0, 0.50)',
+    fontSize: 14,
+    fontWeight: '500'
+  },
+  checkColumn: {
+    height: '100%',
+    width: '20%',
+    // justifyContent: 'space-evenly',
+    marginTop: 10,
+    alignItems: 'center',
+    // backgroundColor: 'black'
+  },
+  line: {
+    width: 2,
+    height: '13%',
+    backgroundColor: '#30CFCD'
+  },
+  statusContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  timeline: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    // backgroundColor: 'black',
+    height: '82%',
+    overflow: 'hidden',
+  },
+  status: {
+    height: '100%',
+    width: '70%',
+    marginTop: 10,
+    // justifyContent: 'space-evenly'
+    // backgroundColor: 'black'
+  },
+  invisibleLine: {
+    height: '15%',
   }
 });

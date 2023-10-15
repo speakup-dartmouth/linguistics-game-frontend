@@ -5,7 +5,7 @@ import Back from 'assets/backArrow.svg'
 import LaunchedCard from "screens/Suggest/launchedCard";
 import SuggestedCard from "screens/Suggest/suggestedCard";
 import * as Progress from 'react-native-progress';
-import Check from 'assets/approve.svg'
+import Check from 'assets/approve.svg';
 
 function SuggestionDetail(): JSX.Element {
     const navigation = useAppNavigation();
@@ -24,26 +24,6 @@ function SuggestionDetail(): JSX.Element {
         status: 'approved',
         icon: 'art',
     }
-
-    var time = [
-        {
-            title: 'Topic Submitted',
-            description: 'Sep 1 2020',
-            // icon: require('assets/check.png'),
-        },
-        {
-            title: 'Approved by Admin',
-            description: 'Sep 4 2020' 
-        },
-        {
-            title: 'Scheduled for launch',
-            description: 'September 4 2020'
-        },
-        {
-            title: 'Launched',
-            description: 'Sep 9 2020' 
-        }
-    ]
 
     function formatText() {
         return (
@@ -96,8 +76,38 @@ function SuggestionDetail(): JSX.Element {
                     </View>                    
                 </View>
                 <View style={[styles.timelineContainer, styles.shadowContainer]}>
-                    <View style={styles.timelineRow}>
-                        <Check />
+                    <Text style={styles.promptText}>Submission Timeline</Text>
+                    <View style={styles.timeline}>
+                        <View style={styles.checkColumn}>
+                            <Check />
+                            <View style={styles.line} />
+                            <Check />
+                            <View style={styles.line} />
+                            <Check />
+                            <View style={styles.line} />
+                            <Check />
+                        </View>
+                        <View style={styles.status}>
+                            <View style={styles.statusContainer}>
+                                <Text style={styles.timelineText}>Topic Submitted</Text>
+                                <Text style={styles.timelineText}>Sep 1 2022</Text>
+                            </View>
+                            <View style={styles.invisibleLine} />
+                            <View style={styles.statusContainer}>
+                                <Text style={styles.timelineText}>Topic Submitted</Text>
+                                <Text style={styles.timelineText}>Sep 1 2022</Text>
+                            </View>
+                            <View style={styles.invisibleLine} />
+                            <View style={styles.statusContainer}>
+                                <Text style={styles.timelineText}>Topic Submitted</Text>
+                                <Text style={styles.timelineText}>Sep 1 2022</Text>
+                            </View>
+                            <View style={styles.invisibleLine} />
+                            <View style={styles.statusContainer}>
+                                <Text style={styles.timelineText}>Topic Submitted</Text>
+                                <Text style={styles.timelineText}>Sep 1 2022</Text>
+                            </View>
+                        </View>
                     </View>
                 </View>
             </SafeAreaView>

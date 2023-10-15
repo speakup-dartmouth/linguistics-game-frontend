@@ -48,6 +48,7 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 4,
+    marginLeft: 6,
   },
   welcomeSubheader: {
     fontSize: 14,
@@ -192,11 +193,6 @@ export default StyleSheet.create({
   },
   icon: {
     margin: 3
-    // height: '15%',
-    // width: '15%',
-    // aspectRatio: 1,
-    // padding: 10
-    // backgroundColor: 'blue'
   },
   promptText: {
     fontSize: 15,
@@ -209,11 +205,9 @@ export default StyleSheet.create({
     marginTop: 3,
     flexDirection: 'column',
     justifyContent: 'space-evenly',
-    // backgroundColor: 'black'
   },
   pill: {
     width: '30%',
-    // padding: 1,
     height: '80%',
     borderRadius: 10,
     justifyContent: 'center',
@@ -250,5 +244,31 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 70
+  },
+  lockedContainer: {
+    height: '55%',
+    width: '90%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+  consentButton: {
+    backgroundColor: colors.darkBlue,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    elevation: 3,
+    marginTop: 10,
+    marginBottom: 10,
+    height: '15%',
+    width: '50%',
+  },
+  consentText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: 'white',
   }
 });
