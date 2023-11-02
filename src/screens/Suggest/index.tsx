@@ -2,7 +2,8 @@ import {
   SafeAreaView, View, Text, TextInput, Pressable, FlatList
 } from 'react-native';
 import { useAppSelector } from 'redux/hooks';
-import { useQueryQuestionsQuery } from 'services/api';
+import Loader from 'components/UI/Loader';
+import { useGetSuggestionsByUserQuery } from 'services/api';
 import { useState } from 'react';
 import styles from './styles';
 import {
@@ -18,116 +19,22 @@ import ConsentCard from './consentCard';
 function SuggestScreen(): JSX.Element {
   const [query, onChangeQuery] = useState('');
   const navigation = useAppNavigation();
-  const { researchConsent } = useAppSelector((state) => state.auth);
-
-  var suggested = [
-    {
-    id: 0,
-    prompt: 'What came first?',
-    stances: {'Chicken': '#5BC0EB', 'Egg': '#FFBC1F'},
-    submitted: 'September 9, 2020, 10:13 AM',
-    status: 'review',
-    icon: 'art',
-  },
-  {
-    id: 1,
-    prompt: 'Socks with sandals?',
-    stances: {'Stylish': '#FB4E4E', 'Fashion Nightmare': '#FFBC1F'},
-    submitted: 'September 9, 2020, 10:13 AM',
-    launched: -1,
-    status: 'denied',
-    icon: 'art',
-    responses: 0,
-    percent: 0,
-  },
-  {
-    id: 2,
-    prompt: 'Socks with sandals?',
-    stances: {'Stylish': '#FB4E4E', 'Fashion Nightmare': '#FFBC1F'},
-    submitted: 'September 9, 2020, 10:13 AM',
-    launched: -1,
-    status: 'denied',
-    icon: 'art',
-    responses: 0,
-    percent: 0,
-  },
-  {
-    id: 3,
-    prompt: 'Socks with sandals?',
-    stances: {'Stylish': '#FB4E4E', 'Fashion Nightmare': '#FFBC1F'},
-    submitted: 'September 9, 2020, 10:13 AM',
-    launched: -1,
-    status: 'denied',
-    icon: 'art',
-    responses: 0,
-    percent: 0,
-  },
-  {
-    id: 4,
-    prompt: 'Socks with sandals?',
-    stances: {'Stylish': '#FB4E4E', 'Fashion Nightmare': '#FFBC1F'},
-    submitted: 'September 9, 2020, 10:13 AM',
-    launched: -1,
-    status: 'denied',
-    icon: 'art',
-    responses: 0,
-    percent: 0,
-  },
-  {
-    id: 5,
-    prompt: 'Socks with sandals?',
-    stances: {'Stylish': '#FB4E4E', 'Fashion Nightmare': '#FFBC1F'},
-    submitted: 'September 9, 2020, 10:13 AM',
-    launched: -1,
-    status: 'denied',
-    icon: 'art',
-    responses: 0,
-    percent: 0,
-  },
-  {
-    id: 6,
-    prompt: 'Socks with sandals?',
-    stances: {'Stylish': '#FB4E4E', 'Fashion Nightmare': '#FFBC1F'},
-    submitted: 'September 9, 2020, 10:13 AM',
-    launched: -1,
-    status: 'approved',
-    icon: 'art',
-    responses: 0,
-    percent: 0,
-  },
-  {
-    id: 7,
-    prompt: 'What came first?',
-    stances: {'Chicken': '#5BC0EB', 'Egg': '#FFBC1F'},
-    submitted: 'September 9, 2020, 10:13 AM',
-    launched: -1,
-    status: 'approved',
-    icon: 'art',
-    responses: 0,
-    percent: 0,
-  },
-  {
-    id: 8,
-    prompt: 'What came first?',
-    stances: {'Chicken': '#5BC0EB', 'Egg': '#FFBC1F'},
-    submitted: 'September 9, 2020, 10:13 AM',
-    launched: -1,
-    status: 'approved',
-    icon: 'art',
-    responses: 0,
-    percent: 0,
-  },
-];
-
-  var hasSuggested = (suggested.length > 0);
+  const { researchConsent, id } = useAppSelector((state) => state.auth);
+  const { suggestions } = useAppSelector((state) => state.suggestion)
+  const { isLoading } = useGetSuggestionsByUserQuery({ userId: id });
 
   return (
     <SafeAreaView style={styles.container} >
-      {!hasSuggested && researchConsent && (
+
+      {isLoading && (
+        <Loader fullWidth />
+      )}
+
+      {!isLoading && suggestions.length == 0 && researchConsent && (
         <InfoCard />
       )}
 
-      {hasSuggested && researchConsent && (
+      {!isLoading && suggestions.length > 0 && researchConsent && (
         <View style={styles.topicViewContainer}>
           <TextInput
             onChangeText={(text) => onChangeQuery(text)}
@@ -135,29 +42,31 @@ function SuggestScreen(): JSX.Element {
             style={styles.queryInput}
             placeholder='Search'
           />
+
           <View style={styles.label} >
             <Text style={styles.welcomeSubheader}>IN REVIEW</Text>
           </View>
 
-          <SafeAreaView style={styles.scrollView}>
+          <View style={styles.scrollView}>
               <FlatList
-              data={suggested}
-              renderItem={({item}) => <SuggestedCard suggestion={item} />} />
-          </SafeAreaView>
+              data={suggestions}
+              renderItem={({item}) => <SuggestedCard suggestion={item} />} 
+              />
+          </View>
 
           <View style={styles.label} >
             <Text style={styles.welcomeSubheader}>LAUNCHED</Text>
           </View>
           
-          <SafeAreaView style={styles.scrollViewLaunched}>
+          <View style={styles.scrollViewLaunched}>
               <FlatList
-              data={suggested}
+              data={suggestions.filter((item) => {return item.status === 'approved'})}
               renderItem={({item}) => <LaunchedCard suggestion={item} />} />
-          </SafeAreaView>
+          </View>
         </View>
       )}
 
-      {!researchConsent && (
+      {!isLoading && !researchConsent && (
         <ConsentCard />
       )}
       

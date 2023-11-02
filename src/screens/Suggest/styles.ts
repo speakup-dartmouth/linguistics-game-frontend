@@ -192,16 +192,20 @@ export default StyleSheet.create({
     color: '#737B7D',
   },
   icon: {
-    margin: 3
+    width: '10%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'blue'
   },
   promptText: {
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: 'bold'
   },
   reviewInfoContainer: {
     height: '90%',
     width: '85%',
-    marginLeft: 5,
+    marginLeft: 10,
     marginTop: 3,
     flexDirection: 'column',
     justifyContent: 'space-evenly',
@@ -239,6 +243,7 @@ export default StyleSheet.create({
   statusText: {
     fontSize: 16,
     marginLeft: 4,
+    fontWeight: '500',
   },
   recordingContainer: {
     flexDirection: 'row',

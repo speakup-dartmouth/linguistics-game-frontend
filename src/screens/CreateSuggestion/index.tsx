@@ -5,10 +5,14 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import styles from "./styles";
 import Back from 'assets/backArrow.svg';
 import { useAppNavigation } from 'navigation/types';
+import { useAppSelector } from 'redux/hooks';
 import Steps from "screens/Suggest/steps";
+import { useAddSuggestionMutation } from "services/api";
 
 function CreateSuggestion(): JSX.Element {
     const navigation = useAppNavigation();
+    const { id } = useAppSelector((state) => state.auth);
+    const [addSuggestion] = useAddSuggestionMutation();
     const [prompt, onPromptChange] = useState('');
     const [stance1, onStance1Change] = useState('');
     const [stance2, onStance2Change] = useState('');
@@ -40,18 +44,12 @@ function CreateSuggestion(): JSX.Element {
     }
 
     const submit = () => {
-        const timestamp = new Date().toLocaleString()
-        const suggestion = {
-            prompt: prompt,
-            stances: {
-                [stance1]: [pickedColor[0]],
-                [stance2]: [pickedColor[1]],
-            },
-            submitted: timestamp,
-            icon: category,
-            status: 'review'
-        }
-        console.log(suggestion)
+        const timestamp = new Date();
+        const stances = [{stance: stance1, color: pickedColor[0]}, {stance: stance2, color: pickedColor[1]}];
+        addSuggestion({
+            prompt, stances, submitted: timestamp, icon: category, status: 'review', id,
+        });
+        back();
     }
 
     function ColorModal() {

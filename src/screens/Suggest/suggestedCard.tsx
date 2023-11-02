@@ -1,56 +1,51 @@
 import { SafeAreaView, Text, View, TouchableOpacity, FlatList } from "react-native";
 import { useAppNavigation } from 'navigation/types';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MIcon  from 'react-native-vector-icons/MaterialIcons';
+import IIcon from 'react-native-vector-icons/Ionicons';
 import styles from "./styles";
-import Art from 'assets/art.svg';
-import Fashion from 'assets/fashion.svg';
-import Music from 'assets/music.svg';
-import Movies from 'assets/movie.svg';
-import Food from 'assets/food.svg';
-import Pop from 'assets/pop-culture.svg';
-import Sports from 'assets/sports.svg';
-import TV from 'assets/tv.svg';
-import YouTube from 'assets/youtube.svg';
-import History from 'assets/history.svg';
-import Travel from 'assets/travel.svg';
-import Astrology from 'assets/astrology.svg';
 import Approve from 'assets/approve.svg';
 import Denied from 'assets/denied.svg';
+import { useAppDispatch } from 'redux/hooks';
+import { Suggestion, setCurrentSuggestion } from 'redux/slices/suggestionSlice';
 
 function SuggestedCard( {suggestion} ): JSX.Element {
+    const dispatch = useAppDispatch();
     const navigation = useAppNavigation();
 
     const onPress = () => {
+        dispatch(setCurrentSuggestion(suggestion));
         navigation.navigate('SuggestionDetail');
     }
 
     function getIcon(suggestion) {
         switch (suggestion.icon) {
-            case 'fashion':
-                return <Fashion />
-            case 'music':
-                return <Music />
-            case 'movies':
-                return <Movies />
-            case 'art':
-                return <Art />
-            case 'food':
-                return <Food />
-            case 'pop':
-                return <Pop />
-            case 'sports':
-                return <Sports />
-            case 'tv':
-                return <TV />
-            case 'youtube':
-                return <YouTube />
-            case 'history':
-                return <History />
-            case 'travel':
-                return <Travel />
-            case 'astrology':
-                return <Astrology />
+            case 'Fashion':
+                return <Icon name="diamond-stone" size={32} color="black" />
+            case 'Music':
+                return <Icon name="music-note" size={32} color="black" />
+            case 'Movies':
+                return <Icon name="movie-outline" size={32} color="black" />
+            case 'Art':
+                return <Icon name="palette-outline" size={32} color="black" />
+            case 'Food':
+                return <Icon name="food-outline" size={32} color="black" />
+            case 'Pop Culture':
+                return <MIcon name="theater-comedy" size={37} color="black" />
+            case 'Sports':
+                return <MIcon name="sports-soccer" size={37} color="black" />
+            case 'TV':
+                return <MIcon name="tv" size={32} color="black" />
+            case 'Youtube':
+                return <Icon name="youtube" size={32} color="black" />
+            case 'History':
+                return <MIcon name="history-edu" size={38} color="black" />
+            case 'Travel':
+                return <Icon name="airplane-takeoff" size={32} color="black" />
+            case 'Astrology':
+                return <IIcon name="planet-outline" size={32} color="black" />
             default:
-                return <Movies />
+                return <MIcon name="theater-comedy" size={37} color="black" />
         }
     }
 
@@ -62,10 +57,10 @@ function SuggestedCard( {suggestion} ): JSX.Element {
             <View style={styles.reviewInfoContainer}>
                 <Text style={styles.promptText}>{suggestion.prompt}</Text>
                 <View style={styles.stanceContainer}>
-                    {Object.entries(suggestion.stances).map(([stance, color]) => {
+                    {Object.entries(suggestion.stances).map((item) => {
                         return (
-                            <View key={stance} style={[styles.pill, { backgroundColor: color }]}>
-                                <Text style={styles.pillText}>{stance}</Text>
+                            <View key={item[1]['_id']} style={[styles.pill, { backgroundColor: item[1]['color'] }]}>
+                                <Text style={styles.pillText}>{item[1]['stance']}</Text>
                             </View>
                         )
                     })}

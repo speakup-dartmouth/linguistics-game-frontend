@@ -31,6 +31,7 @@ function RecordUI({
   const isRecordingActive = isRecording || !!recordingUri;
 
   const submitRecording = async () => {
+    console.log('submit recording pressed')
     await saveRecording(question._id, selectedOption);
     setIsRecordingMode(false);
   };

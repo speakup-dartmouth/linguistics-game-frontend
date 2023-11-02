@@ -53,11 +53,11 @@ export default StyleSheet.create({
     // marginBottom: 10
   },
   timelineContainer: {
-    height: '30%',
+    height: '20%',
     width: '90%',
     backgroundColor: 'white',
     borderRadius: 10,
-    marginTop: 20,
+    marginTop: 30,
     // marginBottom: 10
   },
   promptText: {
@@ -113,7 +113,7 @@ export default StyleSheet.create({
   },
   line: {
     width: 2,
-    height: '13%',
+    height: '17%',
     backgroundColor: '#30CFCD'
   },
   statusContainer: {
@@ -126,6 +126,7 @@ export default StyleSheet.create({
     // backgroundColor: 'black',
     height: '82%',
     overflow: 'hidden',
+    marginTop: 5,
   },
   status: {
     height: '100%',
@@ -135,6 +136,6 @@ export default StyleSheet.create({
     // backgroundColor: 'black'
   },
   invisibleLine: {
-    height: '15%',
+    height: '20%',
   }
 });
