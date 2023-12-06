@@ -31,9 +31,8 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
     }
   };
   
-
   const handleRace = (selectedRace) => {
-    const currentrace = demographicsAnswers.race;
+    const currentRace = demographicsAnswers.race;
     if (selectedRace === currentRace) {
       updateDemographics({ race: null });
     } else {
@@ -41,17 +40,21 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
     }
   };
 
-  const handleBirthYear = (selectedYear) => {
-    selectedYear = demographicsAnswers.birthYear;
-    updateDemographics('birthYear', selectedYear);
-  };
+  const handleBirthYear = (selectedBirthYear) => {
+    const currentBirthYear = demographicsAnswers.birthYear;
+    if (selectedBirthYear === currentBirthYear) {
+      updateDemographics({ birthYear: null });
+    } else {
+      updateDemographics({ birthYear: selectedBirthYear });
+    }
+  };  
 
   return (
     <View style={styles.container}>
       <View style={styles.subcontainer}>
       <Text style={globalStyles.headingOne}>Demographics</Text>
         <View style={styles.pillGroup}>
-          <Text style={globalStyles.headingTwo}>What is your gender?</Text>
+          <Text style={globalStyles.headingThree}>What is your gender?</Text>
           <View style={styles.pillGroup}>
             {genders.map((pill) => (
               <Pill key={pill} pill={pill} onPress={() => handleGender(pill)} isPressed={pill === demographicsAnswers.gender} />          
@@ -59,28 +62,25 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
           </View>
         </View>
 
-        <View style={styles.pillGroup}>
-          <Text style={globalStyles.headingTwo}>Wh...?</Text>
-          <View style={styles.pillGroup}>
-          {races.map((pill) => (
-              <Pill key={pill} pill={pill} onPress={() => handleRace(pill)} isPressed={pill === demographicsAnswers.race} />          
-              ))}
-          </View>
-        </View>
-        <View style={styles.subcontainer}>
-        
+      <View style={styles.subcontainer}>
         <Text style={globalStyles.headingThree}>In what year were you born?</Text>
-        <Dropdown text="select a year" options={years} onSelect={handleBirthYear}/>
-
-        <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
-          <View style={styles.buttonContainer}>
-            <Button  onPress={handleBack} text="Back"/>
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button  onPress={handleNext} text="Next"/>
-          </View>
-        </View>
+        <Dropdown text="select a year" options={years} onSelect={handleBirthYear} currentValue={demographicsAnswers.birthYear}/>
       </View>
+
+      <View style={styles.subcontainer}>
+        <Text style={globalStyles.headingThree}>Which of the following U.S. Census categories most closely represents your race/ethnicity?</Text>
+        <Dropdown text="select a race/ethnicity" options={races} onSelect={handleRace} currentValue={demographicsAnswers.race}/> 
+      </View>
+
+      <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
+        <View style={styles.buttonContainer}>
+          <Button  onPress={handleBack} text="Back"/>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button  onPress={handleNext} text="Next"/>
+        </View>
+      </View>  
+
       </View>
     </View>
   );
