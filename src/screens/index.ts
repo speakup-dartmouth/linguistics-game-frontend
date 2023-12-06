@@ -6,6 +6,8 @@ import RegistrationScreen from './Registration';
 import SplashScreen from './Splash';
 import ResearchConsent from './ProfileSettings/ResearchConsent';
 import Demographics from './ProfileSettings/Demographics';
+import Demographics1 from './ProfileSettings/Demographics1';
+import DemographicsSurvey from './ProfileSettings/DemographicsSurvey';
 import Categories from './ProfileSettings/Categories';
 import QuestionDetail from './QuestionDetail';
 import LeaderboardScreen from './Leaderboard';
@@ -24,6 +26,8 @@ export {
   SplashScreen as Splash,
   ResearchConsent,
   Demographics,
+  Demographics1,
+  DemographicsSurvey,
   Categories,
   QuestionDetail,
 };

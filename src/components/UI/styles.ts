@@ -57,6 +57,36 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
+  pill: {
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    borderColor: '#E5F7FF',
+    backgroundColor: '#E5F7FF',
+    borderWidth: 2,
+    margin: 7,
+  },
+  pillPressed: {
+    backgroundColor: '#A6DDF4',
+    borderColor: '#A6DDF4',
+    borderWidth: 4,
+    margin: 5,
+  },
+  pillText: {
+    fontWeight: '500',
+  },
+  dropdown: {
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    borderColor: '#E5F7FF',
+    backgroundColor: '#E5F7FF',
+    borderWidth: 2,
+    margin: 7,
+  },
+  dropdownText: {
+    fontWeight: '500',
+  },
 });
 
 export default styles;
