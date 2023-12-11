@@ -5,13 +5,13 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import styles from './styles';
 
 interface DropdownProps {
-  text: string;
+  placeholder: string;
   options: string[];
   onSelect: (selectedValue: string) => void;
-  currentValue: string | null; // Add a prop to handle the current value
+  currentValue: string | null; 
 }
 
-const Dropdown = ({ text, options, onSelect, currentValue }: DropdownProps) => {
+const Dropdown = ({ placeholder, options, onSelect, currentValue }: DropdownProps) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(currentValue);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const Dropdown = ({ text, options, onSelect, currentValue }: DropdownProps) => {
     <View>
       <ModalDropdown options={options} defaultIndex={0} onSelect={handleSelect}>
         <View style={styles.dropdown}>
-          <Text style={styles.dropdownText}>{selectedOption || text}</Text>
+          <Text style={styles.dropdownText}>{selectedOption || placeholder}</Text>
         </View>
       </ModalDropdown>
     </View>

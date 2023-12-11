@@ -176,5 +176,22 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#5BC0EB',
-  }
+  },
+  questionText: {
+    fontSize: 20,
+    fontWeight: 'normal',
+    color: 'black',
+  },
+  dropdown: {
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    borderColor: '#E5F7FF',
+    backgroundColor: '#E5F7FF',
+    borderWidth: 2,
+    margin: 7,
+  },
+  dropdownText: {
+    fontWeight: '500',
+  },
 });

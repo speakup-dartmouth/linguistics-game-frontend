@@ -12,15 +12,35 @@ import styles from './styles';
 
 function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, prevScreen }): JSX.Element {
   const genders = ['female', 'male', 'non-binary', 'other'];
-  const years = ['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007'];
-  const races = ['White', 'Black or African American', 'American Indian or Alaska Native', 'Asian', 'Hispanic', 'Native Hawaiian or Other Pacific Islander'];
+  const races = ['select a race', 'White', 'Black or African American', 'American Indian or Alaska Native', 'Asian', 'Hispanic', 'Native Hawaiian or Other Pacific Islander'];
 
+  // Generate birth year options
+  const getCurrentYear = () => new Date().getFullYear();
+  const generateYears = () => {
+    const currentYear = getCurrentYear();
+    const startYear = 1900;
+    const endYear = currentYear - 18;
+
+    const years = [];
+    for (let year = endYear; year >= startYear; year--) {
+      years.push(year.toString());
+    }
+    
+    return years;
+  };
+
+  const years = generateYears();
+  years.unshift('select a year');
+
+  ////////////// Navigation ///////////////
   const handleNext = () => {
     nextScreen();
   };
   const handleBack = () => {
     prevScreen();
   };
+
+  ////////////// Update Demographics ////////////
 
   const handleGender = (selectedGender) => {
     const currentGender = demographicsAnswers.gender;
@@ -33,7 +53,7 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
   
   const handleRace = (selectedRace) => {
     const currentRace = demographicsAnswers.race;
-    if (selectedRace === currentRace) {
+    if (selectedRace === 'select a race') {
       updateDemographics({ race: null });
     } else {
       updateDemographics({ race: selectedRace });
@@ -42,19 +62,20 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
 
   const handleBirthYear = (selectedBirthYear) => {
     const currentBirthYear = demographicsAnswers.birthYear;
-    if (selectedBirthYear === currentBirthYear) {
+    if (selectedBirthYear === 'select a year') {
       updateDemographics({ birthYear: null });
     } else {
       updateDemographics({ birthYear: selectedBirthYear });
     }
   };  
 
+  ////////////// Render ///////////////
   return (
     <View style={styles.container}>
       <View style={styles.subcontainer}>
       <Text style={globalStyles.headingOne}>Demographics</Text>
         <View style={styles.pillGroup}>
-          <Text style={globalStyles.headingThree}>What is your gender?</Text>
+          <Text style={styles.questionText}>What is your gender?</Text>
           <View style={styles.pillGroup}>
             {genders.map((pill) => (
               <Pill key={pill} pill={pill} onPress={() => handleGender(pill)} isPressed={pill === demographicsAnswers.gender} />          
@@ -63,13 +84,13 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
         </View>
 
       <View style={styles.subcontainer}>
-        <Text style={globalStyles.headingThree}>In what year were you born?</Text>
-        <Dropdown text="select a year" options={years} onSelect={handleBirthYear} currentValue={demographicsAnswers.birthYear}/>
+        <Text style={styles.questionText}>In what year were you born?</Text>
+        <Dropdown placeholder="select a year" options={years} onSelect={handleBirthYear} currentValue={demographicsAnswers.birthYear}/>
       </View>
 
       <View style={styles.subcontainer}>
-        <Text style={globalStyles.headingThree}>Which of the following U.S. Census categories most closely represents your race/ethnicity?</Text>
-        <Dropdown text="select a race/ethnicity" options={races} onSelect={handleRace} currentValue={demographicsAnswers.race}/> 
+        <Text style={styles.questionText}>Which of the following U.S. Census categories most closely represents your race/ethnicity?</Text>
+        <Dropdown placeholder="select a race/ethnicity" options={races} onSelect={handleRace} currentValue={demographicsAnswers.race}/> 
       </View>
 
       <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
