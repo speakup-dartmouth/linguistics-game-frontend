@@ -19,9 +19,9 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
   states.push('Outside the US');
   
   const childState = demographicsAnswers.childState;
-  var childStateAbbr = null;
+  var stateAbbr = null;
   if (childState != 'Outside the US') {
-    childStateAbbr = stateAbbreviations[childState];
+    stateAbbr = stateAbbreviations[childState];
   }
 
   const locales = ['rural', 'suburban', 'urban'];
@@ -29,57 +29,76 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
   ///////////// Type and Search Towns by State //////////////
   const [towns, setTowns] = useState([]); // Towns fetched from API
 
-  async function fetchTowns(childStateAbbr) {
+  async function fetchTowns(stateAbbr) {
     const apiKey = 'eHVyVGxyeVZXSmFoM0ZteWtVMGh0bnE4aVpmNERyMWFIV2plSTRlNw==';
-    const url = `https://api.countrystatecity.in/v1/countries/US/states/${childStateAbbr}/cities"`;
-
+    const url = `https://api.countrystatecity.in/v1/countries/US/states/${stateAbbr}/cities`;
+  
+    const headers = new Headers();
+    headers.append('X-CSCAPI-KEY', apiKey);
+  
+    const requestOptions = {
+      method: 'GET',
+      headers: headers,
+      redirect: 'follow',
+    };
+  
     try {
-      const headers = new Headers();
-      headers.append('X-CSCAPI-KEY', apiKey);
-  
-      const requestOptions = {
-        method: 'GET',
-        headers: headers,
-        redirect: 'follow',
-      };
-  
       const response = await fetch(url, requestOptions);
-      const result = await response.text();
-  
-      console.log(result); // Log the result or process it further as needed
-    } catch (error) {
-      console.error('Error:', error);
+      const data = await response.json();
+      console.log('Data:', data); // Log the retrieved data
+
+    if (Array.isArray(data)) {
+      return data.map((townsData) => townsData.name);
+    } else {
+      console.error('Data received is not an array:', data);
+      return [];
     }
-  }  
+      // return data.map((townsData) => townsData.name);
+      // return data;
+    } 
+    catch (error) {
+      console.error('Error:', error);
+      return []; // Return an empty array if there's an error
+    }
+  }
 
   // Fetch town data when component mounts or when the state changes
   useEffect(() => {
     async function fetchData() {
-      if (childStateAbbr != null) {
+      if (stateAbbr != null) {
         try {
-          const fetchedTowns = await fetchTowns(childStateAbbr);
-          setTowns(fetchTowns);
+          const fetchedTowns = await fetchTowns(stateAbbr);
+          setTowns(fetchedTowns);
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       }
     }
     fetchData();
-  }, [childStateAbbr]);  
+  }, [stateAbbr]);  
 
   // Convert towns list into proper format for SearchableDropdown
-  const towns_cities = towns.map((town, index) => ({
-    id: index + 1,
-    name: town,
-  }));
+  var towns_cities;
+
+  if (towns != null) {
+    towns_cities = towns.map((town, index) => ({
+      id: index + 1,
+      name: town,
+    }));
+  }
+
+  else {
+    console.log("towns is null")
+  }
+ 
 
   //////////////// Type and Search Zip Code by State ////////////////
 
   const [zipCodes, setZipCodes] = useState([]); // Zip codes fetched from API
 
-  async function fetchZipCodes(childStateAbbr) {
+  async function fetchZipCodes(stateAbbr) {
     const apiKey = 'TaS3MPqSd3yehmati1v/cg==51aFgiUwempcD3h4';
-    const url = `https://api.api-ninjas.com/v1/zipcode?city=&state=${childStateAbbr}`;
+    const url = `https://api.api-ninjas.com/v1/zipcode?city=&state=${stateAbbr}`;
   
     try {
       const response = await fetch(url, {
@@ -101,9 +120,9 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
   // Fetch zip code data when component mounts or when the state changes
   useEffect(() => {
     async function fetchData() {
-      if (childStateAbbr != null) {
+      if (stateAbbr != null) {
         try {
-          const fetchedZip = await fetchZipCodes(childStateAbbr);
+          const fetchedZip = await fetchZipCodes(stateAbbr);
           setZipCodes(fetchedZip);
         } catch (error) {
           console.error('Error fetching data:', error);
@@ -111,7 +130,7 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
       }
     }
     fetchData();
-  }, [childStateAbbr]);  
+  }, [stateAbbr]);  
 
   // Convert zipCodes list into proper format for SearchableDropdown
   const zips = zipCodes.map((zip, index) => ({
@@ -131,10 +150,10 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
 
   const handleTown = (selectedTown) => {
     const currentTown = demographicsAnswers.childTown;
-    if (selectedTown === null) {
+    if (selectedTown.name === currentTown) {
       updateDemographics({ childTown: null });
     } else {
-      updateDemographics({ childTown: selectedTown });
+      updateDemographics({ childTown: selectedTown.name });
     }
   };
   
