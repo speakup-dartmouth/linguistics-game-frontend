@@ -1,6 +1,8 @@
 import Button from 'components/UI/Button';
 import Pill from 'components/UI/Pill';
 import Dropdown from 'components/UI/Dropdown';
+import ModalDropdown from 'react-native-modal-dropdown';
+import SelectDropdown from 'react-native-select-dropdown';
 import { globalStyles } from 'lib/styles';
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text } from 'react-native';
@@ -9,10 +11,13 @@ import { useUpdateUserMutation } from 'services/api';
 import { useAppNavigation } from 'navigation/types';
 import Textbox from 'components/UI/Textbox';
 import styles from './styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, prevScreen }): JSX.Element {
+  const navigation = useAppNavigation();
+
   const genders = ['female', 'male', 'non-binary', 'other'];
-  const races = ['select a race', 'White', 'Black or African American', 'American Indian or Alaska Native', 'Asian', 'Hispanic', 'Native Hawaiian or Other Pacific Islander'];
+  const races = ['select a race/ethnicity', 'White', 'Black or African American', 'American Indian or Alaska Native', 'Asian', 'Hispanic', 'Native Hawaiian or Other Pacific Islander'];
 
   // Generate birth year options
   const getCurrentYear = () => new Date().getFullYear();
@@ -37,7 +42,7 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
     nextScreen();
   };
   const handleBack = () => {
-    prevScreen();
+    navigation.navigate('ProfilePage')
   };
 
   ////////////// Update Demographics ////////////
@@ -71,36 +76,80 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
 
   ////////////// Render ///////////////
   return (
-    <View style={styles.container}>
+    <View style={{width: '100%', backgroundColor: 'white', alignItems: 'center', }}>
       <View style={styles.subcontainer}>
-      <Text style={globalStyles.headingOne}>Demographics</Text>
-        <View style={styles.pillGroup}>
+        <Text style={globalStyles.headingOne}>Demographics</Text>
+      </View>
+      <View style={styles.surveyContainer}>
+        <View style={styles.questionContainer}>
           <Text style={styles.questionText}>What is your gender?</Text>
           <View style={styles.pillGroup}>
             {genders.map((pill) => (
               <Pill key={pill} pill={pill} onPress={() => handleGender(pill)} isPressed={pill === demographicsAnswers.gender} />          
               ))}
+          </View>   
+        </View>
+
+        <View style={styles.questionContainer}>
+          <Text style={styles.questionText}>In what year were you born?</Text>
+          <SelectDropdown
+            data={years}
+            onSelect={(selectedItem, index) => handleBirthYear(selectedItem)}
+            defaultButtonText={demographicsAnswers.birthYear ? demographicsAnswers.birthYear.toString() : 'select a year'}
+            buttonStyle={styles.dropdownButton}
+            buttonTextStyle={styles.dropdownText}
+            dropdownStyle={styles.dropdownDropdown}
+            rowStyle={styles.dropdownRow}
+            rowTextStyle={styles.dropdownText}
+            rowTextForMatFunction={(item) => item}
+            dropdownIconPosition={'right'}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item;
+            }}
+            dropdownOverlayColor={'transparent'}
+            renderDropdownIcon={() => (
+              <Icon name="chevron-down" size={20} color="black" fontWeight={50} />
+            )}
+          ></SelectDropdown>
+        </View>
+
+        <View style={styles.questionContainer}>
+          <Text style={styles.questionText}>Which of the following U.S. Census categories most closely represents your race/ethnicity?</Text>
+          <SelectDropdown
+            data={races}
+            onSelect={(selectedItem, index) => handleRace(selectedItem)}
+            defaultButtonText={demographicsAnswers.race ? demographicsAnswers.race.toString() : 'select a race/ethnicity'}
+            buttonStyle={styles.dropdownButton}
+            buttonTextStyle={styles.dropdownText}
+            dropdownStyle={styles.dropdownDropdown}
+            rowStyle={styles.dropdownRow}
+            rowTextStyle={styles.dropdownText}
+            rowTextForMatFunction={(item) => item}
+            renderDropdownIcon={() => (
+              <Icon name="chevron-down" size={20} color="black" fontWeight={50} />
+            )}
+            dropdownIconPosition={'right'}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item;
+            }}
+            dropdownOverlayColor={'transparent'}
+          ></SelectDropdown>      
+        </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={styles.buttonContainer}>
+            <Button  onPress={handleBack} text="Back"/>
           </View>
-        </View>
-
-      <View style={styles.subcontainer}>
-        <Text style={styles.questionText}>In what year were you born?</Text>
-        <Dropdown placeholder="select a year" options={years} onSelect={handleBirthYear} currentValue={demographicsAnswers.birthYear}/>
-      </View>
-
-      <View style={styles.subcontainer}>
-        <Text style={styles.questionText}>Which of the following U.S. Census categories most closely represents your race/ethnicity?</Text>
-        <Dropdown placeholder="select a race/ethnicity" options={races} onSelect={handleRace} currentValue={demographicsAnswers.race}/> 
-      </View>
-
-      <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
-        <View style={styles.buttonContainer}>
-          <Button  onPress={handleBack} text="Back"/>
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button  onPress={handleNext} text="Next"/>
-        </View>
-      </View>  
+          <View style={styles.buttonContainer}>
+            <Button  onPress={handleNext} text="Next"/>
+          </View>
+        </View>  
 
       </View>
     </View>

@@ -26,7 +26,7 @@ const Dropdown = ({ placeholder, options, onSelect, currentValue }: DropdownProp
   return (
     <View>
       <ModalDropdown options={options} defaultIndex={0} onSelect={handleSelect}>
-        <View style={styles.dropdown}>
+        <View style={styles.dropdown} dropdownStyle={styles.dropdownDropdown}>
           <Text style={styles.dropdownText}>{selectedOption || placeholder}</Text>
         </View>
       </ModalDropdown>

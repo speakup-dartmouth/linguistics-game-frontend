@@ -11,6 +11,8 @@ import { useAppNavigation } from 'navigation/types';
 import Textbox from 'components/UI/Textbox';
 import styles from './styles';
 import SearchableDropdown from 'react-native-searchable-dropdown';
+import SelectDropdown from 'react-native-select-dropdown';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, stateAbbreviations }): JSX.Element {
   // List of state dropdown options
@@ -186,120 +188,143 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
   ////////////// Render ///////////////
 
   return (
-    <View style={styles.container}>
+    <View style={{width: '100%', backgroundColor: 'white', alignItems: 'center', }}>
       <View style={styles.subcontainer}>
       <Text style={globalStyles.headingOne}>Demographics</Text>
+      </View>
 
-        <View style={styles.subcontainer}>
-        <Text style={styles.questionText}>
-          <Text>During</Text>
-          <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
-          <Text>, in which state did you spend the most time?</Text>
-        </Text>
-          <Dropdown placeholder="select a state" options={states} onSelect={handleState} currentValue={demographicsAnswers.childState}/>
-        </View>
-
-        <View style={styles.subcontainer}>
-        <Text style={styles.questionText}>
-          <Text>During</Text>
-          <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
-          <Text>, what is the name of the city/town you spend the most time in?</Text>
-        </Text>
-        <SearchableDropdown
-            onItemSelect={handleTown}
-            containerStyle={{ padding: 5 }}
-            itemStyle={{
-              padding: 10,
-              marginTop: 2,
-              backgroundColor: '#ddd',
-              borderColor: '#bbb',
-              borderWidth: 1,
-              borderRadius: 15,
+      <View style={styles.surveyContainer}> 
+        <View style={styles.questionContainer}>
+          <Text style={styles.questionText}>
+            <Text>During</Text>
+            <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
+            <Text>, in which state did you spend the most time?</Text>
+          </Text>
+          <SelectDropdown
+            data={states}
+            onSelect={(selectedItem, index) => handleState(selectedItem)}
+            defaultButtonText={demographicsAnswers.childState ? demographicsAnswers.childState.toString() : 'select a state'}
+            buttonStyle={styles.dropdownButton}
+            buttonTextStyle={styles.dropdownText}
+            dropdownStyle={styles.dropdownDropdown}
+            rowStyle={styles.dropdownRow}
+            rowTextStyle={styles.dropdownText}
+            rowTextForMatFunction={(item) => item}
+            renderDropdownIcon={() => (
+              <Icon name="chevron-down" size={20} color="black" fontWeight={50} />
+            )}
+            dropdownIconPosition={'right'}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem;
             }}
-            itemTextStyle={styles.dropdownText}
-            itemsContainerStyle={{ maxHeight: 200 }}
-            items={towns_cities}
-            defaultIndex={2}
-            resetValue={false}
-            textInputProps={
-              {
-                // placeholder: demographicsAnswers.childZip,
-                underlineColorAndroid: "transparent",
-                style: styles.dropdown,
-                placeholderTextColor: 'black',
-                fontWeight: '500',
-              }
-            }
-            placeholder={demographicsAnswers.childTown.toString() ? demographicsAnswers.childTown.toString() : 'begin typing a city/town'}
-            listProps={
-              {
-                nestedScrollEnabled: true,
-              }
-            }
-        />
-        </View>
-
-        <View style={styles.subcontainer}>
-        <Text style={styles.questionText}>
-          <Text>During</Text>
-          <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
-          <Text>, what is the 5 digit zip code in which you spent the most time?</Text>
-        </Text>
-
-        <SearchableDropdown
-            onItemSelect={handleZip}
-            containerStyle={{ padding: 5 }}
-            itemStyle={{
-              padding: 10,
-              marginTop: 2,
-              backgroundColor: '#ddd',
-              borderColor: '#bbb',
-              borderWidth: 1,
-              borderRadius: 15,
+            rowTextForSelection={(item, index) => {
+              return item;
             }}
-            itemTextStyle={styles.dropdownText}
-            itemsContainerStyle={{ maxHeight: 200 }}
-            items={zips}
-            defaultIndex={2}
-            resetValue={false}
-            textInputProps={
-              {
-                // placeholder: demographicsAnswers.childZip,
-                underlineColorAndroid: "transparent",
-                style: styles.dropdown,
-                placeholderTextColor: 'black',
-                fontWeight: '500',
-              }
-            }
-            placeholder={demographicsAnswers.childZip.toString() ? demographicsAnswers.childZip.toString() : 'begin typing a zip code'}
-            listProps={
-              {
-                nestedScrollEnabled: true,
-              }
-            }/>
-        </View>
-
-        <View style={styles.pillGroup}>
-        <Text style={styles.questionText}>
-          <Text>During</Text>
-          <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
-          <Text>, which of the following best describes your location?</Text>
-        </Text>
-          <View style={styles.pillGroup}>
-            {locales.map((pill) => (
-              <Pill key={pill} pill={pill} onPress={() => handleLocale(pill)} isPressed={pill === demographicsAnswers.childLocale} />          
-              ))}
+            dropdownOverlayColor={'transparent'}
+          ></SelectDropdown>              
           </View>
-        </View>
 
-      <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
-        <View style={styles.buttonContainer}>
-          <Button  onPress={handleBack} text="Back"/>
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button  onPress={handleNext} text="Next"/>
-        </View>
-      </View>  
+          <View style={styles.questionContainer}>
+          <Text style={styles.questionText}>
+            <Text>During</Text>
+            <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
+            <Text>, what is the name of the city/town you spend the most time in?</Text>
+          </Text>
+          <SearchableDropdown
+              onItemSelect={handleTown}
+              // containerStyle={{ padding: 5 }}
+              itemStyle={{
+                padding: 8,
+                marginTop: 2,
+                backgroundColor: '#ddd',
+                borderColor: '#bbb',
+                borderWidth: 1,
+                borderRadius: 15,
+              }}
+              itemTextStyle={styles.dropdownText}
+              itemsContainerStyle={{ maxHeight: 200 }}
+              items={towns_cities}
+              defaultIndex={2}
+              resetValue={false}
+              textInputProps={
+                {
+                  // placeholder: demographicsAnswers.childZip,
+                  underlineColorAndroid: "transparent",
+                  style: styles.dropdownButton,
+                  placeholderTextColor: 'black',
+                  fontWeight: '500',
+                }
+              }
+              placeholder={demographicsAnswers.childTown.toString() ? demographicsAnswers.childTown.toString() : 'begin typing a city/town'}
+              listProps={
+                {
+                  nestedScrollEnabled: true,
+                }
+              }
+          />
+          </View>
+
+          <View style={styles.questionContainer}>
+          <Text style={styles.questionText}>
+            <Text>During</Text>
+            <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
+            <Text>, what is the 5 digit zip code in which you spent the most time?</Text>
+          </Text>
+
+          <SearchableDropdown
+              onItemSelect={handleZip}
+              containerStyle={{ padding: 5 }}
+              itemStyle={{
+                padding: 8,
+                marginTop: 2,
+                backgroundColor: '#ddd',
+                borderColor: '#bbb',
+                borderWidth: 1,
+                borderRadius: 15,
+              }}
+              itemTextStyle={styles.dropdownText}
+              itemsContainerStyle={{ maxHeight: 200 }}
+              items={zips}
+              defaultIndex={2}
+              resetValue={false}
+              textInputProps={
+                {
+                  // placeholder: demographicsAnswers.childZip,
+                  underlineColorAndroid: "transparent",
+                  style: styles.dropdownButton,
+                  placeholderTextColor: 'black',
+                  fontWeight: '500',
+                }
+              }
+              placeholder={demographicsAnswers.childZip.toString() ? demographicsAnswers.childZip.toString() : 'begin typing a zip code'}
+              listProps={
+                {
+                  nestedScrollEnabled: true,
+                }
+              }/>
+          </View>
+
+          <View style={styles.questionContainer}>
+            <Text style={styles.questionText}>
+              <Text>During</Text>
+              <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
+              <Text>, which of the following best describes your location?</Text>
+            </Text>
+            <View style={styles.pillGroup}>
+              {locales.map((pill) => (
+                <Pill key={pill} pill={pill} onPress={() => handleLocale(pill)} isPressed={pill === demographicsAnswers.childLocale} />          
+                ))}
+            </View>
+          </View>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={styles.buttonContainer}>
+            <Button  onPress={handleBack} text="Back"/>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button  onPress={handleNext} text="Next"/>
+          </View>
+        </View>  
 
       </View>
     </View>
