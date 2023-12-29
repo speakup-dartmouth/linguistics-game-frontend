@@ -14,18 +14,42 @@ export default StyleSheet.create({
     justifyContent: 'center',
     padding: 32,
   },
-  surveyContainer: {
+  titleContainer: {
     width: '100%',
     flex: -1,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    paddingVertical: 32,
+  },
+  surveyContainer: {
+    width: '100%',
     height: '85%',
-    marginHorizontal: 20,
+    flex: -1,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start', // Adjust as needed
+    marginHorizontal: 0, 
   },
   questionContainer: {
-    flex: -1,
-    alignItems: 'center',
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
     justifyContent: 'flex-start',
+  },
+  questionNumberContainer: {
+    flex: -1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+    height: 30,
+    width: 30,
+    borderRadius: 15,
+    backgroundColor: '#FFC555',
+  },
+  questionTextContainer: {
+    flex: -1,
+    alignItems: 'flex-start',
+    alignContent: 'flex-start',
   },
   welcome: {
     ...globalStyles.headingTwo,
@@ -40,6 +64,14 @@ export default StyleSheet.create({
     ...globalStyles.bodyLarge,
     textAlign: 'center',
     marginTop: 5,
+  },
+  prevNextContainer: {
+    bottom: 0,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingHorizontal: 50,
+    paddingBottom: 15, // Padding to separate from the screen edge
   },
   buttonContainer: {
     flex: -1,
@@ -87,10 +119,10 @@ export default StyleSheet.create({
   pillGroup: {
     flex: -1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignContent: 'center',
+    alignContent: 'flex-start',
   },
   pill: {
     paddingVertical: 8,
@@ -189,12 +221,18 @@ export default StyleSheet.create({
     color: '#5BC0EB',
   },
   questionText: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'normal',
     color: 'black',
     marginBottom: 10,
     marginTop: 10,
     textAlign: 'left',
+  },
+  questionNumber: {
+    fontSize: 18,
+    fontWeight: 'normal',
+    color: 'black',
+    textAlign: 'center',
   },
   dropdownButton: {
     paddingVertical: 8,
@@ -203,8 +241,6 @@ export default StyleSheet.create({
     borderColor: '#E5F7FF',
     backgroundColor: '#E5F7FF',
     borderWidth: 2,
-    marginTop: 0,
-    marginBottom: 0,
     height: 'auto',
   },
   dropdownText: {

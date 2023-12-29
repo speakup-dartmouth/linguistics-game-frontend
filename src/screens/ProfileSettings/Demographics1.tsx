@@ -76,73 +76,93 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
 
   ////////////// Render ///////////////
   return (
-    <View style={{width: '100%', backgroundColor: 'white', alignItems: 'center', }}>
-      <View style={styles.subcontainer}>
+    <View style={{width: '100%', backgroundColor: 'white', alignItems: 'center', height: '100%', flex:1,}}>
+      <View style={styles.titleContainer}>
         <Text style={globalStyles.headingOne}>Demographics</Text>
       </View>
+
       <View style={styles.surveyContainer}>
+
         <View style={styles.questionContainer}>
-          <Text style={styles.questionText}>What is your gender?</Text>
-          <View style={styles.pillGroup}>
-            {genders.map((pill) => (
-              <Pill key={pill} pill={pill} onPress={() => handleGender(pill)} isPressed={pill === demographicsAnswers.gender} />          
-              ))}
-          </View>   
+          <View style={styles.questionNumberContainer}>
+            <Text style={styles.questionNumber}>1</Text>
+          </View>
+          <View style={styles.questionTextContainer}>
+            <Text style={styles.questionText}>What is your gender?</Text>
+            <View style={styles.pillGroup}>
+              {genders.map((pill) => (
+                <Pill key={pill} pill={pill} onPress={() => handleGender(pill)} isPressed={pill === demographicsAnswers.gender} />          
+                ))}
+            </View>   
+          </View>
         </View>
 
         <View style={styles.questionContainer}>
-          <Text style={styles.questionText}>In what year were you born?</Text>
-          <SelectDropdown
-            data={years}
-            onSelect={(selectedItem, index) => handleBirthYear(selectedItem)}
-            defaultButtonText={demographicsAnswers.birthYear ? demographicsAnswers.birthYear.toString() : 'select a year'}
-            buttonStyle={styles.dropdownButton}
-            buttonTextStyle={styles.dropdownText}
-            dropdownStyle={styles.dropdownDropdown}
-            rowStyle={styles.dropdownRow}
-            rowTextStyle={styles.dropdownText}
-            rowTextForMatFunction={(item) => item}
-            dropdownIconPosition={'right'}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            dropdownOverlayColor={'transparent'}
-            renderDropdownIcon={() => (
-              <Icon name="chevron-down" size={20} color="black" fontWeight={50} />
-            )}
-          ></SelectDropdown>
+          <View style={styles.questionNumberContainer}>
+            <Text style={styles.questionNumber}>2</Text>
+          </View>
+
+          <View style={styles.questionTextContainer}>
+            <Text style={styles.questionText}>In what year were you born?</Text>
+            <SelectDropdown
+              data={years}
+              onSelect={(selectedItem, index) => handleBirthYear(selectedItem)}
+              defaultButtonText={demographicsAnswers.birthYear ? demographicsAnswers.birthYear.toString() : 'select a year'}
+              buttonStyle={styles.dropdownButton}
+              buttonTextStyle={styles.dropdownText}
+              dropdownStyle={styles.dropdownDropdown}
+              rowStyle={styles.dropdownRow}
+              rowTextStyle={styles.dropdownText}
+              rowTextForMatFunction={(item) => item}
+              dropdownIconPosition={'right'}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem;
+              }}
+              rowTextForSelection={(item, index) => {
+                return item;
+              }}
+              dropdownOverlayColor={'transparent'}
+              renderDropdownIcon={() => (
+                <Icon name="chevron-down" size={20} color="black" fontWeight={50} />
+              )}
+            ></SelectDropdown>
+          </View>
         </View>
 
+         
         <View style={styles.questionContainer}>
-          <Text style={styles.questionText}>Which of the following U.S. Census categories most closely represents your race/ethnicity?</Text>
-          <SelectDropdown
-            data={races}
-            onSelect={(selectedItem, index) => handleRace(selectedItem)}
-            defaultButtonText={demographicsAnswers.race ? demographicsAnswers.race.toString() : 'select a race/ethnicity'}
-            buttonStyle={styles.dropdownButton}
-            buttonTextStyle={styles.dropdownText}
-            dropdownStyle={styles.dropdownDropdown}
-            rowStyle={styles.dropdownRow}
-            rowTextStyle={styles.dropdownText}
-            rowTextForMatFunction={(item) => item}
-            renderDropdownIcon={() => (
-              <Icon name="chevron-down" size={20} color="black" fontWeight={50} />
-            )}
-            dropdownIconPosition={'right'}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            dropdownOverlayColor={'transparent'}
-          ></SelectDropdown>      
+          <View style={styles.questionNumberContainer}>
+            <Text style={styles.questionNumber}>3</Text>
+          </View>
+          <View style={styles.questionTextContainer}> 
+            <Text style={styles.questionText}>Which of the following U.S. Census categories most closely represents your race/ethnicity?</Text>
+            <SelectDropdown
+              data={races}
+              onSelect={(selectedItem, index) => handleRace(selectedItem)}
+              defaultButtonText={demographicsAnswers.race ? demographicsAnswers.race.toString() : 'select a race/ethnicity'}
+              buttonStyle={styles.dropdownButton}
+              buttonTextStyle={styles.dropdownText}
+              dropdownStyle={styles.dropdownDropdown}
+              rowStyle={styles.dropdownRow}
+              rowTextStyle={styles.dropdownText}
+              rowTextForMatFunction={(item) => item}
+              renderDropdownIcon={() => (
+                <Icon name="chevron-down" size={20} color="black" fontWeight={50} />
+              )}
+              dropdownIconPosition={'right'}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem;
+              }}
+              rowTextForSelection={(item, index) => {
+                return item;
+              }}
+              dropdownOverlayColor={'transparent'}
+            ></SelectDropdown>      
+          </View>
         </View>
+          
 
-        <View style={{ flexDirection: 'row', justifyContent: 'center'}}>
+        <View style={styles.prevNextContainer}>
           <View style={styles.buttonContainer}>
             <Button  onPress={handleBack} text="Back"/>
           </View>
