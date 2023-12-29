@@ -3,6 +3,10 @@ import { View, Text } from 'react-native';
 import Demographics from './Demographics';
 import Demographics1 from './Demographics1';
 import Demographics2 from './Demographics2';
+import Demographics3 from './Demographics3';
+import Demographics4 from './Demographics4';
+import Demographics5 from './Demographics5';
+
 import { useAppSelector } from 'redux/hooks';
 import styles from './styles';
 
@@ -21,7 +25,7 @@ function DemographicsSurvey(): JSX.Element {
     teenTown: '',
     teenZip: '',
     teenLocale: '',
-    adultState: '',
+    parentState: '',
     adultTown: '',
     adultZip: '',
     adultLocale: '',
@@ -100,7 +104,7 @@ function DemographicsSurvey(): JSX.Element {
         teenTown,
         teenZip,
         teenLocale,
-        adultState,
+        parentState,
         adultTown,
         adultZip,
         adultLocale,
@@ -139,7 +143,38 @@ function DemographicsSurvey(): JSX.Element {
         prevScreen={prevScreen}
         stateAbbreviations={stateAbbreviations}
       />;
-      // Add more cases for additional survey screens
+      case 3:
+        return <Demographics3
+        demographicsAnswers={demographicsAnswers}
+        updateDemographics={handleDemUpdate}
+        nextScreen={nextScreen}
+        prevScreen={prevScreen}
+        stateAbbreviations={stateAbbreviations}
+      />;
+      case 4:
+        return <Demographics4
+        demographicsAnswers={demographicsAnswers}
+        updateDemographics={handleDemUpdate}
+        nextScreen={nextScreen}
+        prevScreen={prevScreen}
+        stateAbbreviations={stateAbbreviations}
+      />;
+      case 5:
+        return <Demographics5
+        demographicsAnswers={demographicsAnswers}
+        updateDemographics={handleDemUpdate}
+        nextScreen={nextScreen}
+        prevScreen={prevScreen}
+        stateAbbreviations={stateAbbreviations}
+      />;
+      case 6:
+        return <Demographics6
+        demographicsAnswers={demographicsAnswers}
+        updateDemographics={handleDemUpdate}
+        nextScreen={nextScreen}
+        prevScreen={prevScreen}
+        stateAbbreviations={stateAbbreviations}
+      />;
       default:
         return <Text>No more screens</Text>;
     }

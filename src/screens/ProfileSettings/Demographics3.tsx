@@ -14,16 +14,16 @@ import SearchableDropdown from 'react-native-searchable-dropdown';
 import SelectDropdown from 'react-native-select-dropdown';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, stateAbbreviations }): JSX.Element {
+function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, stateAbbreviations }): JSX.Element {
   // List of state dropdown options
   const states = Object.keys(stateAbbreviations);
   states.unshift('select a state');
   states.push('Outside the US');
   
-  const childState = demographicsAnswers.childState;
+  const teenState = demographicsAnswers.teenState;
   var stateAbbr = null;
-  if (childState != 'Outside the US') {
-    stateAbbr = stateAbbreviations[childState];
+  if (teenState != 'Outside the US') {
+    stateAbbr = stateAbbreviations[teenState];
   }
 
   const locales = ['rural', 'suburban', 'urban'];
@@ -77,18 +77,18 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
   }, [stateAbbr]);  
 
   // Convert towns list into proper format for SearchableDropdown
-  // var towns_cities;
+  var towns_cities;
 
-  // if (towns != null) {
-  //   towns_cities = towns.map((town, index) => ({
-  //     id: index + 1,
-  //     name: town,
-  //   }));
-  // }
+  if (towns != null) {
+    towns_cities = towns.map((town, index) => ({
+      id: index + 1,
+      name: town,
+    }));
+  }
 
-  // else {
-  //   console.log("towns is null")
-  // }
+  else {
+    console.log("towns is null")
+  }
  
 
   //////////////// Type and Search Zip Code by State ////////////////
@@ -131,46 +131,46 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
     fetchData();
   }, [stateAbbr]);  
 
-  // // Convert zipCodes list into proper format for SearchableDropdown
-  // const zips = zipCodes.map((zip, index) => ({
-  //   id: index + 1,
-  //   name: zip,
-  // }));
+  // Convert zipCodes list into proper format for SearchableDropdown
+  const zips = zipCodes.map((zip, index) => ({
+    id: index + 1,
+    name: zip,
+  }));
   
   ////////// Update Demographics //////////
   const handleState = (selectedState) => {
-    const currentState = demographicsAnswers.childState;
+    const currentState = demographicsAnswers.teenState;
     if (selectedState === 'select a state') {
-      updateDemographics({ childState: null });
+      updateDemographics({ teenState: null });
     } else {
-      updateDemographics({ childState: selectedState });
+      updateDemographics({ teenState: selectedState });
     }
   };
 
   const handleTown = (selectedTown) => {
-    const currentTown = demographicsAnswers.childTown;
+    const currentTown = demographicsAnswers.teenTown;
     if (selectedTown.name === currentTown) {
-      updateDemographics({ childTown: null });
+      updateDemographics({ teenTown: null });
     } else {
-      updateDemographics({ childTown: selectedTown.name });
+      updateDemographics({ teenTown: selectedTown.name });
     }
   };
   
   const handleLocale = (selectedLocale) => {
-    const currentLocale = demographicsAnswers.childLocale;
+    const currentLocale = demographicsAnswers.teenLocale;
     if (selectedLocale === currentLocale) {
-      updateDemographics({ childLocale: null });
+      updateDemographics({ teenLocale: null });
     } else {
-      updateDemographics({ childLocale: selectedLocale });
+      updateDemographics({ teenLocale: selectedLocale });
     }
   };
 
   const handleZip = (selectedZipCode) => {
-    const currentZipCode = demographicsAnswers.childZip;
+    const currentZipCode = demographicsAnswers.teenZip;
     if (selectedZipCode.name === currentZipCode) {
-      updateDemographics({ childZip: null });
+      updateDemographics({ teenZip: null });
     } else {
-      updateDemographics({ childZip: selectedZipCode.name });
+      updateDemographics({ teenZip: selectedZipCode.name });
     }
   };  
 
@@ -199,13 +199,13 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
           <View style={styles.questionTextContainer}>
             <Text style={styles.questionText}>
               <Text>During</Text>
-              <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
+              <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
               <Text>, in which state did you spend the most time?</Text>
             </Text>
             <SelectDropdown
               data={states}
               onSelect={(selectedItem, index) => handleState(selectedItem)}
-              defaultButtonText={demographicsAnswers.childState ? demographicsAnswers.childState.toString() : 'select a state'}
+              defaultButtonText={demographicsAnswers.teenState ? demographicsAnswers.teenState.toString() : 'select a state'}
               buttonStyle={styles.dropdownButton}
               buttonTextStyle={styles.dropdownText}
               dropdownStyle={styles.dropdownDropdown}
@@ -234,45 +234,13 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
                 <Text>During</Text>
-                <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
+                <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
                 <Text>, what is the name of the city/town you spent the most time in?</Text>
               </Text>
-              {/* <SearchableDropdown
-                onItemSelect={handleTown}
-                // containerStyle={{ padding: 5 }}
-                itemStyle={{
-                  padding: 8,
-                  marginTop: 2,
-                  backgroundColor: '#ddd',
-                  borderColor: '#bbb',
-                  borderWidth: 1,
-                  borderRadius: 15,
-                }}
-                itemTextStyle={styles.dropdownText}
-                itemsContainerStyle={{ maxHeight: 200 }}
-                items={towns_cities}
-                defaultIndex={2}
-                resetValue={false}
-                textInputProps={
-                  {
-                    // placeholder: demographicsAnswers.childZip,
-                    underlineColorAndroid: "transparent",
-                    style: styles.dropdownButton,
-                    placeholderTextColor: 'black',
-                    fontWeight: '500',
-                  }
-                }
-                placeholder={demographicsAnswers.childTown.toString() ? demographicsAnswers.childTown.toString() : 'begin typing a city/town'}
-                listProps={
-                  {
-                    nestedScrollEnabled: true,
-                  }
-                }
-              /> */}
               <SelectDropdown
                 data={towns}
                 onSelect={(selectedItem, index) => handleTown(selectedItem)}
-                defaultButtonText={demographicsAnswers.childTown ? demographicsAnswers.childTown.toString() : 'begin typing a city/town'}
+                defaultButtonText={demographicsAnswers.teenTown ? demographicsAnswers.teenTown.toString() : 'begin typing a city/town'}
                 buttonStyle={styles.dropdownButton}
                 buttonTextStyle={styles.dropdownText}
                 dropdownStyle={styles.dropdownDropdown}
@@ -298,59 +266,28 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
             <View style={styles.questionTextContainer}>
             <Text style={styles.questionText}>
               <Text>During</Text>
-              <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
+              <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
               <Text>, what is the 5 digit zip code in which you spent the most time?</Text>
             </Text>
-            {/* <SearchableDropdown
-              onItemSelect={handleZip}
-              containerStyle={{ padding: 5 }}
-              itemStyle={{
-                padding: 8,
-                marginTop: 2,
-                backgroundColor: '#ddd',
-                borderColor: '#bbb',
-                borderWidth: 1,
-                borderRadius: 15,
+            <SelectDropdown
+              data={zipCodes}
+              onSelect={(selectedItem, index) => handleZip(selectedItem)}
+              defaultButtonText={demographicsAnswers.teenZip ? demographicsAnswers.teenZip.toString() : 'begin typing a zip code'}
+              buttonStyle={styles.dropdownButton}
+              buttonTextStyle={styles.dropdownText}
+              dropdownStyle={styles.dropdownDropdown}
+              rowStyle={styles.dropdownRow}
+              rowTextStyle={styles.dropdownText}
+              rowTextForMatFunction={(item) => item}
+              search={true}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem;
               }}
-              itemTextStyle={styles.dropdownText}
-              itemsContainerStyle={{ maxHeight: 200 }}
-              items={zips}
-              defaultIndex={2}
-              resetValue={false}
-              textInputProps={
-                {
-                  // placeholder: demographicsAnswers.childZip,
-                  underlineColorAndroid: "transparent",
-                  style: styles.dropdownButton,
-                  placeholderTextColor: 'black',
-                  fontWeight: '500',
-                }
-              }
-              placeholder={demographicsAnswers.childZip.toString() ? demographicsAnswers.childZip.toString() : 'begin typing a zip code'}
-              listProps={
-                {
-                  nestedScrollEnabled: true,
-                }
-              }/> */}
-              <SelectDropdown
-                data={zipCodes}
-                onSelect={(selectedItem, index) => handleZip(selectedItem)}
-                defaultButtonText={demographicsAnswers.childZip ? demographicsAnswers.childZip.toString() : 'begin typing a zip code'}
-                buttonStyle={styles.dropdownButton}
-                buttonTextStyle={styles.dropdownText}
-                dropdownStyle={styles.dropdownDropdown}
-                rowStyle={styles.dropdownRow}
-                rowTextStyle={styles.dropdownText}
-                rowTextForMatFunction={(item) => item}
-                search={true}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return selectedItem;
-                }}
-                rowTextForSelection={(item, index) => {
-                  return item;
-                }}
-                dropdownOverlayColor={'transparent'}
-              ></SelectDropdown>  
+              rowTextForSelection={(item, index) => {
+                return item;
+              }}
+              dropdownOverlayColor={'transparent'}
+            ></SelectDropdown>  
             </View>
           </View>
 
@@ -361,12 +298,12 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
                 <Text>During</Text>
-                <Text style={{fontWeight: "bold"}}> ages 0-12</Text>
+                <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
                 <Text>, which of the following best describes your location?</Text>
               </Text>
               <View style={styles.pillGroup}>
                 {locales.map((pill) => (
-                  <Pill key={pill} pill={pill} onPress={() => handleLocale(pill)} isPressed={pill === demographicsAnswers.childLocale} />          
+                  <Pill key={pill} pill={pill} onPress={() => handleLocale(pill)} isPressed={pill === demographicsAnswers.teenLocale} />          
                   ))}
               </View>
             </View>
@@ -386,4 +323,4 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
   );
 }
 
-export default Demographics2;
+export default Demographics3;
