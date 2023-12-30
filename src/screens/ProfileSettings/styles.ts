@@ -242,6 +242,8 @@ export default StyleSheet.create({
     backgroundColor: '#E5F7FF',
     borderWidth: 2,
     height: 'auto',
+    fontSize: 15,
+    fontWeight: '500',
   },
   dropdownText: {
     fontWeight: '500',

@@ -194,7 +194,7 @@ function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, pr
 
         <View style={styles.questionContainer}>
           <View style={styles.questionNumberContainer}>
-            <Text style={styles.questionNumber}>4</Text>
+            <Text style={styles.questionNumber}>8</Text>
           </View>
           <View style={styles.questionTextContainer}>
             <Text style={styles.questionText}>
@@ -229,7 +229,7 @@ function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, pr
 
           <View style={styles.questionContainer}>
             <View style={styles.questionNumberContainer}>
-              <Text style={styles.questionNumber}>5</Text>
+              <Text style={styles.questionNumber}>9</Text>
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
@@ -261,7 +261,7 @@ function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, pr
 
           <View style={styles.questionContainer}>
             <View style={styles.questionNumberContainer}>
-              <Text style={styles.questionNumber}>7</Text>
+              <Text style={styles.questionNumber}>10</Text>
             </View>
             <View style={styles.questionTextContainer}>
             <Text style={styles.questionText}>
@@ -293,7 +293,7 @@ function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, pr
 
           <View style={styles.questionContainer}>
             <View style={styles.questionNumberContainer}>
-              <Text style={styles.questionNumber}>8</Text>
+              <Text style={styles.questionNumber}>11</Text>
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>

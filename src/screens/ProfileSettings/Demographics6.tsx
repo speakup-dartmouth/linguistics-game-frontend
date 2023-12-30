@@ -13,7 +13,7 @@ import styles from './styles';
 import SelectDropdown from 'react-native-select-dropdown';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function Demographics5({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, stateAbbreviations }): JSX.Element {
+function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, stateAbbreviations }): JSX.Element {
   // List of state dropdown options
   const states = Object.keys(stateAbbreviations);
   states.unshift('select a state');
@@ -159,4 +159,4 @@ function Demographics5({ demographicsAnswers, updateDemographics, nextScreen, pr
   );
 }
 
-export default Demographics5;
+export default Demographics6;

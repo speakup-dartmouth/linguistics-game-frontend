@@ -293,7 +293,7 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
 
           <View style={styles.questionContainer}>
             <View style={styles.questionNumberContainer}>
-              <Text style={styles.questionNumber}>7</Text>
+              <Text style={styles.questionNumber}>6</Text>
             </View>
             <View style={styles.questionTextContainer}>
             <Text style={styles.questionText}>
@@ -356,7 +356,7 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
 
           <View style={styles.questionContainer}>
             <View style={styles.questionNumberContainer}>
-              <Text style={styles.questionNumber}>8</Text>
+              <Text style={styles.questionNumber}>7</Text>
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
