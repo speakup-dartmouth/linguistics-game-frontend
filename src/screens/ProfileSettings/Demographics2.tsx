@@ -4,7 +4,7 @@ import Dropdown from 'components/UI/Dropdown';
 import TypeandSelect from 'components/UI/TypeandSelect';
 import { globalStyles } from 'lib/styles';
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { useAppSelector } from 'redux/hooks';
 import { useUpdateUserMutation } from 'services/api';
 import { useAppNavigation } from 'navigation/types';
@@ -269,25 +269,35 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
                   }
                 }
               /> */}
-              <SelectDropdown
-                data={towns}
-                onSelect={(selectedItem, index) => handleTown(selectedItem)}
-                defaultButtonText={demographicsAnswers.childTown ? demographicsAnswers.childTown.toString() : 'begin typing a city/town'}
-                buttonStyle={styles.dropdownButton}
-                buttonTextStyle={styles.dropdownText}
-                dropdownStyle={styles.dropdownDropdown}
-                rowStyle={styles.dropdownRow}
-                rowTextStyle={styles.dropdownText}
-                rowTextForMatFunction={(item) => item}
-                search={true}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return selectedItem;
-                }}
-                rowTextForSelection={(item, index) => {
-                  return item;
-                }}
-                dropdownOverlayColor={'transparent'}
-              ></SelectDropdown>  
+              {childState === 'Outside the US' ? (
+                <TextInput
+                  style={styles.dropdownButton}
+                  onChangeText={handleTown}
+                  value={demographicsAnswers.childTown}
+                  placeholder="type in a city/town"
+                  placeholderTextColor="black"
+                />
+              ) : (
+                <SelectDropdown
+                  data={towns}
+                  onSelect={(selectedItem, index) => handleTown(selectedItem)}
+                  defaultButtonText={demographicsAnswers.childTown ? demographicsAnswers.childTown.toString() : 'begin typing a city/town'}
+                  buttonStyle={styles.dropdownButton}
+                  buttonTextStyle={styles.dropdownText}
+                  dropdownStyle={styles.dropdownDropdown}
+                  rowStyle={styles.dropdownRow}
+                  rowTextStyle={styles.dropdownText}
+                  rowTextForMatFunction={(item) => item}
+                  search={true}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
+                  dropdownOverlayColor={'transparent'}
+                ></SelectDropdown>  
+              )}
             </View>
           </View>
 
@@ -332,25 +342,36 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
                   nestedScrollEnabled: true,
                 }
               }/> */}
-              <SelectDropdown
-                data={zipCodes}
-                onSelect={(selectedItem, index) => handleZip(selectedItem)}
-                defaultButtonText={demographicsAnswers.childZip ? demographicsAnswers.childZip.toString() : 'begin typing a zip code'}
-                buttonStyle={styles.dropdownButton}
-                buttonTextStyle={styles.dropdownText}
-                dropdownStyle={styles.dropdownDropdown}
-                rowStyle={styles.dropdownRow}
-                rowTextStyle={styles.dropdownText}
-                rowTextForMatFunction={(item) => item}
-                search={true}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return selectedItem;
-                }}
-                rowTextForSelection={(item, index) => {
-                  return item;
-                }}
-                dropdownOverlayColor={'transparent'}
-              ></SelectDropdown>  
+
+              {childState === 'Outside the US' ? (
+                <TextInput
+                  style={styles.dropdownButton}
+                  onChangeText={handleZip}
+                  value={demographicsAnswers.childZip}
+                  placeholder="type in a zip code"
+                  placeholderTextColor="black"
+                />
+              ) : (
+                <SelectDropdown
+                  data={zipCodes}
+                  onSelect={(selectedItem, index) => handleZip(selectedItem)}
+                  defaultButtonText={demographicsAnswers.childZip ? demographicsAnswers.childZip.toString() : 'begin typing a zip code'}
+                  buttonStyle={styles.dropdownButton}
+                  buttonTextStyle={styles.dropdownText}
+                  dropdownStyle={styles.dropdownDropdown}
+                  rowStyle={styles.dropdownRow}
+                  rowTextStyle={styles.dropdownText}
+                  rowTextForMatFunction={(item) => item}
+                  search={true}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
+                  dropdownOverlayColor={'transparent'}
+                ></SelectDropdown>  
+              )} 
             </View>
           </View>
 

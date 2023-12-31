@@ -235,25 +235,37 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
                 <Text style={{fontWeight: "bold"}}>After age 18</Text>
                 <Text>, what is the name of the city/town you spent the most time in?</Text>
               </Text>
-              <SelectDropdown
-                data={towns}
-                onSelect={(selectedItem, index) => handleTown(selectedItem)}
-                defaultButtonText={demographicsAnswers.adultTown ? demographicsAnswers.adultTown.toString() : 'begin typing a city/town'}
-                buttonStyle={styles.dropdownButton}
-                buttonTextStyle={styles.dropdownText}
-                dropdownStyle={styles.dropdownDropdown}
-                rowStyle={styles.dropdownRow}
-                rowTextStyle={styles.dropdownText}
-                rowTextForMatFunction={(item) => item}
-                search={true}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return selectedItem;
-                }}
-                rowTextForSelection={(item, index) => {
-                  return item;
-                }}
-                dropdownOverlayColor={'transparent'}
-              ></SelectDropdown>  
+
+              {adultState === 'Outside the US' ? (
+                <TextInput
+                  style={styles.dropdownButton}
+                  onChangeText={handleTown}
+                  value={demographicsAnswers.adultTown}
+                  placeholder="type in a city/town"
+                  placeholderTextColor="black"
+               />
+              ) : (
+                <SelectDropdown
+                  data={towns}
+                  onSelect={(selectedItem, index) => handleTown(selectedItem)}
+                  defaultButtonText={demographicsAnswers.adultTown ? demographicsAnswers.adultTown.toString() : 'begin typing a city/town'}
+                  buttonStyle={styles.dropdownButton}
+                  buttonTextStyle={styles.dropdownText}
+                  dropdownStyle={styles.dropdownDropdown}
+                  rowStyle={styles.dropdownRow}
+                  rowTextStyle={styles.dropdownText}
+                  rowTextForMatFunction={(item) => item}
+                  search={true}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
+                  dropdownOverlayColor={'transparent'}
+                ></SelectDropdown>  
+              )}
+              
             </View>
           </View>
 
@@ -262,29 +274,40 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
               <Text style={styles.questionNumber}>14</Text>
             </View>
             <View style={styles.questionTextContainer}>
-            <Text style={styles.questionText}>
-              <Text style={{fontWeight: "bold"}}>After age 18</Text>
-              <Text>, what is the 5 digit zip code in which you spent the most time?</Text>
-            </Text>
-            <SelectDropdown
-              data={zipCodes}
-              onSelect={(selectedItem, index) => handleZip(selectedItem)}
-              defaultButtonText={demographicsAnswers.adultZip ? demographicsAnswers.adultZip.toString() : 'begin typing a zip code'}
-              buttonStyle={styles.dropdownButton}
-              buttonTextStyle={styles.dropdownText}
-              dropdownStyle={styles.dropdownDropdown}
-              rowStyle={styles.dropdownRow}
-              rowTextStyle={styles.dropdownText}
-              rowTextForMatFunction={(item) => item}
-              search={true}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                return selectedItem;
-              }}
-              rowTextForSelection={(item, index) => {
-                return item;
-              }}
-              dropdownOverlayColor={'transparent'}
-            ></SelectDropdown>  
+              <Text style={styles.questionText}>
+                <Text style={{fontWeight: "bold"}}>After age 18</Text>
+                <Text>, what is the 5 digit zip code in which you spent the most time?</Text>
+              </Text>
+              
+              {adultState === 'Outside the US' ? (
+                <TextInput
+                  style={styles.dropdownButton}
+                  onChangeText={handleZip}
+                  value={demographicsAnswers.adultZip}
+                  placeholder="type in a zip code"
+                  placeholderTextColor="black"
+                />
+              ) : (
+                <SelectDropdown
+                  data={zipCodes}
+                  onSelect={(selectedItem, index) => handleZip(selectedItem)}
+                  defaultButtonText={demographicsAnswers.adultZip ? demographicsAnswers.adultZip.toString() : 'begin typing a zip code'}
+                  buttonStyle={styles.dropdownButton}
+                  buttonTextStyle={styles.dropdownText}
+                  dropdownStyle={styles.dropdownDropdown}
+                  rowStyle={styles.dropdownRow}
+                  rowTextStyle={styles.dropdownText}
+                  rowTextForMatFunction={(item) => item}
+                  search={true}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
+                  dropdownOverlayColor={'transparent'}
+                ></SelectDropdown> 
+              )} 
             </View>
           </View>
 

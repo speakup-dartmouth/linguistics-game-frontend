@@ -6,6 +6,7 @@ import Demographics2 from './Demographics2';
 import Demographics3 from './Demographics3';
 import Demographics4 from './Demographics4';
 import Demographics5 from './Demographics5';
+import Demographics6 from './Demographics6';
 
 import { useAppSelector } from 'redux/hooks';
 import styles from './styles';
@@ -32,7 +33,7 @@ function DemographicsSurvey(): JSX.Element {
     parentState: '',
     educationLevel: '',
     occupation: '',
-    childhoodLanguages: '',
+    childhoodLanguages: [],
   });
 
   const stateAbbreviations = {
@@ -114,6 +115,7 @@ function DemographicsSurvey(): JSX.Element {
         childhoodLanguages,
       },
     });
+    navigation.navigate('ProfileScreen')
   };
 
   //////// Navigation ////////
@@ -168,12 +170,21 @@ function DemographicsSurvey(): JSX.Element {
         stateAbbreviations={stateAbbreviations}
       />;
       case 6:
+        return <Demographics
+        demographicsAnswers={demographicsAnswers}
+        updateDemographics={handleDemUpdate}
+        nextScreen={nextScreen}
+        prevScreen={prevScreen}
+        stateAbbreviations={stateAbbreviations}
+      />;
+      case 7:
         return <Demographics6
         demographicsAnswers={demographicsAnswers}
         updateDemographics={handleDemUpdate}
         nextScreen={nextScreen}
         prevScreen={prevScreen}
         stateAbbreviations={stateAbbreviations}
+        handleDemSubmit={handleDemSubmit}
       />;
       default:
         return <Text>No more screens</Text>;

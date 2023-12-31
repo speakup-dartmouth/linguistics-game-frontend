@@ -50,6 +50,7 @@ export default StyleSheet.create({
     flex: -1,
     alignItems: 'flex-start',
     alignContent: 'flex-start',
+    // alignSelf: 'flex-start',
   },
   welcome: {
     ...globalStyles.headingTwo,
@@ -131,7 +132,6 @@ export default StyleSheet.create({
     borderColor: '#E5F7FF',
     backgroundColor: '#E5F7FF',
     borderWidth: 2,
-    margin: 7,
   },
   pillPressed: {
     backgroundColor: '#A6DDF4',
@@ -141,13 +141,6 @@ export default StyleSheet.create({
   },
   pillText: {
     fontWeight: '500',
-  },
-  pillContainer: {
-    flex: -1,
-    alignItems: 'left',
-    width: '100%',
-    justifyContent: 'center',
-    padding: 20,
   },
   button: {
     backgroundColor: '#3297C1',
@@ -225,7 +218,6 @@ export default StyleSheet.create({
     fontWeight: 'normal',
     color: 'black',
     marginBottom: 10,
-    marginTop: 10,
     textAlign: 'left',
   },
   questionNumber: {
@@ -233,6 +225,24 @@ export default StyleSheet.create({
     fontWeight: 'normal',
     color: 'black',
     textAlign: 'center',
+  },
+  multiselect: {
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 20,
+    borderColor: '#E5F7FF',
+    backgroundColor: '#E5F7FF',
+    borderWidth: 2,
+    height: 50,
+    width: 300,
+    alignSelf: 'center',
+    marginVertical: 10,
+  },
+  multiselectContainer: {
+    width: 300,
+    borderRadius: 15,
+    borderWidth: 0,
+    flex: 1,
   },
   dropdownButton: {
     paddingVertical: 8,
@@ -244,6 +254,7 @@ export default StyleSheet.create({
     height: 'auto',
     fontSize: 15,
     fontWeight: '500',
+    // alignSelf: 'flex-start',
   },
   dropdownText: {
     fontWeight: '500',
@@ -252,7 +263,7 @@ export default StyleSheet.create({
     paddingHorizontal: 0,
   },
   dropdownDropdown: {
-    maxHeight: 200,
+    maxHeight: 400,
     width: 200,
     borderRadius: 15,
     borderWidth: 0,
@@ -266,5 +277,6 @@ export default StyleSheet.create({
     borderRadius: 20,
     paddingVertical: 8,
     flexGrow: 1,
+    alignItems: 'center',
   },
 });

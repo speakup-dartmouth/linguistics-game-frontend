@@ -134,7 +134,7 @@ function Demographics5({ demographicsAnswers, updateDemographics, nextScreen, pr
               <Text style={styles.questionNumber}>18</Text>
             </View>
             <View style={styles.questionTextContainer}>
-            <Text style={styles.questionText}> Please enter your occupation. If currently unemployed, please enter your most recent occupation.</Text>
+            <Text style={styles.questionText}>Please enter your occupation. If currently unemployed, please enter your most recent occupation.</Text>
             <TextInput
               style={styles.dropdownButton}
               onChangeText={handleOccupation}

@@ -8,6 +8,7 @@ import { useUpdateUserMutation } from 'services/api';
 import { useAppNavigation } from 'navigation/types';
 import Textbox from 'components/UI/Textbox';
 import styles from './styles';
+import Demographics1 from './Demographics1';
 
 function Demographics({ demographicsAnswers, updateDemographics, nextScreen, prevScreen }): JSX.Element {
   const { demographicAttributes, isRegistering } = useAppSelector((state) => state.auth);
@@ -31,16 +32,16 @@ function Demographics({ demographicsAnswers, updateDemographics, nextScreen, pre
     }
   }, [demographicAttributes]);
 
-  // const onPress = () => {
-  //   updateUser({
-  //     demographicAttributes: {
-  //       isBilingualOrMultilingual,
-  //       childhoodLanguage,
-  //       currentLanguage,
-  //     },
-  //   });
-  //   navigation.navigate('Demographics1')
-  // };
+  const onPress = () => {
+    updateUser({
+      demographicAttributes: {
+        isBilingualOrMultilingual,
+        childhoodLanguage,
+        currentLanguage,
+      },
+    });
+    navigation.navigate('Demographics1')
+  };
 
   const handleNext = () => {
     nextScreen();
@@ -72,7 +73,7 @@ function Demographics({ demographicsAnswers, updateDemographics, nextScreen, pre
         />
 
         <View style={styles.buttonContainer}>
-          <Button onPress={handleNext} text="Next" />
+          <Button onPress={onPress} text="Done" />
         </View>
       </View>
     </View>
