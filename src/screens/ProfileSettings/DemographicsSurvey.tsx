@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useAppSelector } from 'redux/hooks';
+import { useUpdateUserMutation } from 'services/api';
 import { View, Text } from 'react-native';
+import { useAppNavigation } from 'navigation/types';
 import Demographics from './Demographics';
 import Demographics1 from './Demographics1';
 import Demographics2 from './Demographics2';
@@ -7,33 +10,42 @@ import Demographics3 from './Demographics3';
 import Demographics4 from './Demographics4';
 import Demographics5 from './Demographics5';
 import Demographics6 from './Demographics6';
-
-import { useAppSelector } from 'redux/hooks';
 import styles from './styles';
 
 // Parent component managing the survey flow
 function DemographicsSurvey(): JSX.Element {
   const [screen, setScreen] = useState(1);
+  const { demographicAttributes } = useAppSelector((state) => state.auth);
+  const [updateUser] = useUpdateUserMutation();
+  const navigation = useAppNavigation();
+
+  function convertToArray(stringLanguages) {
+    if (stringLanguages) {
+      return stringLanguages.split(', ');
+    }
+    return [];
+  }  
+
   const [demographicsAnswers, setDemAnswers] = useState({
-    gender: '',
-    birthYear: '',
-    race: '',
-    childState: '',
-    childTown: '',
-    childZip: '',
-    childLocale: '',
-    teenState: '',
-    teenTown: '',
-    teenZip: '',
-    teenLocale: '',
-    parentState: '',
-    adultTown: '',
-    adultZip: '',
-    adultLocale: '',
-    parentState: '',
-    educationLevel: '',
-    occupation: '',
-    childhoodLanguages: [],
+    gender: demographicAttributes.gender,
+    birthYear: demographicAttributes.birthYear,
+    race: demographicAttributes.race,
+    childState: demographicAttributes.childState,
+    childTown: demographicAttributes.childTown,
+    childZip: demographicAttributes.childZip,
+    childLocale: demographicAttributes.childLocale,
+    teenState: demographicAttributes.teenState,
+    teenTown: demographicAttributes.teenTown,
+    teenZip: demographicAttributes.teenZip,
+    teenLocale: demographicAttributes.teenLocale,
+    parentState: demographicAttributes.parentState,
+    adultTown: demographicAttributes.adultTown,
+    adultZip: demographicAttributes.adultZip,
+    adultLocale: demographicAttributes.adultLocale,
+    parentState: demographicAttributes.parentState,
+    educationLevel: demographicAttributes.educationLevel,
+    occupation: demographicAttributes.occupation,
+    childhoodLanguages: convertToArray(demographicAttributes.childhoodLanguages),
   });
 
   const stateAbbreviations = {
@@ -94,28 +106,28 @@ function DemographicsSurvey(): JSX.Element {
   const handleDemSubmit = () => {
     updateUser({
       demographicAttributes: {
-        gender,
-        birthYear,
-        race,
-        childState,
-        childTown,
-        childZip,
-        childLocale,
-        teenState,
-        teenTown,
-        teenZip,
-        teenLocale,
-        parentState,
-        adultTown,
-        adultZip,
-        adultLocale,
-        parentState,
-        educationLevel,
-        occupation,
-        childhoodLanguages,
+        gender: demographicsAnswers.gender,
+        birthYear: demographicsAnswers.birthYear,
+        race: demographicsAnswers.race,
+        childState: demographicsAnswers.childState,
+        childTown: demographicsAnswers.childTown,
+        childZip: demographicsAnswers.childZip,
+        childLocale: demographicsAnswers.childLocale,
+        teenState: demographicsAnswers.teenState,
+        teenTown: demographicsAnswers.teenTown,
+        teenZip: demographicsAnswers.teenZip,
+        teenLocale: demographicsAnswers.teenLocale,
+        parentState: demographicsAnswers.parentState,
+        adultTown: demographicsAnswers.adultTown,
+        adultZip: demographicsAnswers.adultZip,
+        adultLocale: demographicsAnswers.adultLocale,
+        parentState: demographicsAnswers.parentState,
+        educationLevel: demographicsAnswers.educationLevel,
+        occupation: demographicsAnswers.occupation,
+        childhoodLanguages: demographicsAnswers.childhoodLanguages.join(', '),
       },
     });
-    navigation.navigate('ProfileScreen')
+    navigation.navigate('ProfilePage')
   };
 
   //////// Navigation ////////
@@ -170,14 +182,6 @@ function DemographicsSurvey(): JSX.Element {
         stateAbbreviations={stateAbbreviations}
       />;
       case 6:
-        return <Demographics
-        demographicsAnswers={demographicsAnswers}
-        updateDemographics={handleDemUpdate}
-        nextScreen={nextScreen}
-        prevScreen={prevScreen}
-        stateAbbreviations={stateAbbreviations}
-      />;
-      case 7:
         return <Demographics6
         demographicsAnswers={demographicsAnswers}
         updateDemographics={handleDemUpdate}

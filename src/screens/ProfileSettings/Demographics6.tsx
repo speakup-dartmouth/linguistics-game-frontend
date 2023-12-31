@@ -14,7 +14,6 @@ import { MultiSelect } from 'react-native-element-dropdown';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, handleDemSubmit }): JSX.Element {
-  const { demographicAttributes } = useAppSelector((state) => state.auth);
   const [selected, setSelected] = useState([...demographicsAnswers.childhoodLanguages]);
 
   const languages = [
