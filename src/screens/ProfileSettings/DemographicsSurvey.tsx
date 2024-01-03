@@ -14,7 +14,7 @@ import styles from './styles';
 
 // Parent component managing the survey flow
 function DemographicsSurvey(): JSX.Element {
-  const [screen, setScreen] = useState(1);
+  const [screen, setScreen] = useState(0);
   const { demographicAttributes } = useAppSelector((state) => state.auth);
   const [updateUser] = useUpdateUserMutation();
   const navigation = useAppNavigation();
@@ -142,6 +142,14 @@ function DemographicsSurvey(): JSX.Element {
   ///////// Render /////////
   const renderScreen = () => {
     switch (screen) {
+      case 0:
+        return <Demographics
+        demographicsAnswers={demographicsAnswers}
+        updateDemographics={handleDemUpdate}
+        nextScreen={nextScreen}
+        prevScreen={prevScreen}
+      />;
+      
       case 1:
         return <Demographics1
         demographicsAnswers={demographicsAnswers}

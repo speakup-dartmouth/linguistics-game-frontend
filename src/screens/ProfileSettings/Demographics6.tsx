@@ -54,33 +54,6 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
     prevScreen();
   };
 
-  // const handleDemSubmit = () => {
-  //   updateUser({
-  //     demographicAttributes: {
-  //       gender,
-  //       birthYear,
-  //       race,
-  //       childState,
-  //       childTown,
-  //       childZip,
-  //       childLocale,
-  //       teenState,
-  //       teenTown,
-  //       teenZip,
-  //       teenLocale,
-  //       parentState,
-  //       adultTown,
-  //       adultZip,
-  //       adultLocale,
-  //       parentState,
-  //       educationLevel,
-  //       occupation,
-  //       childhoodLanguages,
-  //     },
-  //   });
-  //   navigation.navigate('ProfileScreen')
-  // };
-
   ////////////// Render ///////////////
 
   return (

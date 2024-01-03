@@ -40,7 +40,7 @@ function Demographics({ demographicsAnswers, updateDemographics, nextScreen, pre
         currentLanguage,
       },
     });
-    navigation.navigate('Demographics1')
+    navigation.navigate('ProfilePage')
   };
 
   const handleNext = () => {
