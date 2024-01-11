@@ -14,7 +14,7 @@ import styles from './styles';
 
 // Parent component managing the survey flow
 function DemographicsSurvey(): JSX.Element {
-  const [screen, setScreen] = useState(0);
+  const [screen, setScreen] = useState(1);
   const { demographicAttributes } = useAppSelector((state) => state.auth);
   const [updateUser] = useUpdateUserMutation();
   const navigation = useAppNavigation();
