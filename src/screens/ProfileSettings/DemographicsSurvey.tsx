@@ -16,6 +16,7 @@ import styles from './styles';
 function DemographicsSurvey(): JSX.Element {
   const [screen, setScreen] = useState(1);
   const { demographicAttributes } = useAppSelector((state) => state.auth);
+  console.log(demographicAttributes);
   const [updateUser] = useUpdateUserMutation();
   const navigation = useAppNavigation();
 
@@ -42,11 +43,11 @@ function DemographicsSurvey(): JSX.Element {
     adultTown: demographicAttributes.adultTown,
     adultZip: demographicAttributes.adultZip,
     adultLocale: demographicAttributes.adultLocale,
-    parentState: demographicAttributes.parentState,
     educationLevel: demographicAttributes.educationLevel,
     occupation: demographicAttributes.occupation,
     childhoodLanguages: convertToArray(demographicAttributes.childhoodLanguages),
   });
+  console.log(demographicsAnswers);
 
   const stateAbbreviations = {
     Alabama: 'AL',
@@ -121,13 +122,12 @@ function DemographicsSurvey(): JSX.Element {
         adultTown: demographicsAnswers.adultTown,
         adultZip: demographicsAnswers.adultZip,
         adultLocale: demographicsAnswers.adultLocale,
-        parentState: demographicsAnswers.parentState,
         educationLevel: demographicsAnswers.educationLevel,
         occupation: demographicsAnswers.occupation,
         childhoodLanguages: demographicsAnswers.childhoodLanguages.join(', '),
       },
     });
-    navigation.navigate('ProfilePage')
+    navigation.navigate('TabNavigator')
   };
 
   //////// Navigation ////////

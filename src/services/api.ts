@@ -86,6 +86,9 @@ export const api = createApi({
         };
       },
     }),
+    // getUserDemographics: builder.query<{ [key: string]: string }, void>({
+    //   query: () => 'users',
+    // }),
     getCategories: builder.query<string[], void>({
       query: () => 'categories',
     }),
