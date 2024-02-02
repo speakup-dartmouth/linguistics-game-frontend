@@ -4,7 +4,7 @@ import Dropdown from 'components/UI/Dropdown';
 import TypeandSelect from 'components/UI/TypeandSelect';
 import { globalStyles } from 'lib/styles';
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { useAppSelector } from 'redux/hooks';
 import { useUpdateUserMutation } from 'services/api';
 import { useAppNavigation } from 'navigation/types';
@@ -49,7 +49,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
       const data = await response.json();
 
     if (Array.isArray(data)) {
-      return data.map((townsData) => townsData.name);
+      return data.map((townsData) => townsData);
     } else {
       console.error('Data received is not an array:', data);
       return [];
@@ -148,12 +148,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
   };
 
   const handleTown = (selectedTown) => {
-    const currentTown = demographicsAnswers.adultTown;
-    if (selectedTown.name === currentTown) {
-      updateDemographics({ adultTown: null });
-    } else {
-      updateDemographics({ adultTown: selectedTown.name });
-    }
+    updateDemographics({ adultTown: selectedTown.name });
   };
   
   const handleLocale = (selectedLocale) => {
@@ -166,12 +161,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
   };
 
   const handleZip = (selectedZipCode) => {
-    const currentZipCode = demographicsAnswers.adultZip;
-    if (selectedZipCode.name === currentZipCode) {
-      updateDemographics({ adultZip: null });
-    } else {
-      updateDemographics({ adultZip: selectedZipCode.name });
-    }
+    updateDemographics({ adultZip: selectedZipCode });
   };  
 
   ////////////// Navigation ///////////////

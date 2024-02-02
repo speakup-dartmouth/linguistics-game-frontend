@@ -4,7 +4,7 @@ import Dropdown from 'components/UI/Dropdown';
 import TypeandSelect from 'components/UI/TypeandSelect';
 import { globalStyles } from 'lib/styles';
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { useAppSelector } from 'redux/hooks';
 import { useUpdateUserMutation } from 'services/api';
 import { useAppNavigation } from 'navigation/types';
@@ -148,12 +148,7 @@ function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, pr
   };
 
   const handleTown = (selectedTown) => {
-    const currentTown = demographicsAnswers.teenTown;
-    if (selectedTown.name === currentTown) {
-      updateDemographics({ teenTown: null });
-    } else {
-      updateDemographics({ teenTown: selectedTown.name });
-    }
+    updateDemographics({ teenTown: selectedTown });
   };
   
   const handleLocale = (selectedLocale) => {
@@ -166,12 +161,7 @@ function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, pr
   };
 
   const handleZip = (selectedZipCode) => {
-    const currentZipCode = demographicsAnswers.teenZip;
-    if (selectedZipCode.name === currentZipCode) {
-      updateDemographics({ teenZip: null });
-    } else {
-      updateDemographics({ teenZip: selectedZipCode.name });
-    }
+    updateDemographics({ teenZip: selectedZipCode });
   };  
 
   ////////////// Navigation ///////////////

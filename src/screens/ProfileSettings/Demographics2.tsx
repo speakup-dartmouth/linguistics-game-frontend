@@ -25,7 +25,6 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
   if (childState != 'Outside the US') {
     stateAbbr = stateAbbreviations[childState];
   }
-
   const locales = ['rural', 'suburban', 'urban'];
 
   ///////////// Type and Search Towns by State //////////////
@@ -148,12 +147,7 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
   };
 
   const handleTown = (selectedTown) => {
-    const currentTown = demographicsAnswers.childTown;
-    if (selectedTown.name === currentTown) {
-      updateDemographics({ childTown: null });
-    } else {
-      updateDemographics({ childTown: selectedTown.name });
-    }
+    updateDemographics({ childTown: selectedTown});
   };
   
   const handleLocale = (selectedLocale) => {
@@ -166,12 +160,7 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
   };
 
   const handleZip = (selectedZipCode) => {
-    const currentZipCode = demographicsAnswers.childZip;
-    if (selectedZipCode.name === currentZipCode) {
-      updateDemographics({ childZip: null });
-    } else {
-      updateDemographics({ childZip: selectedZipCode.name });
-    }
+    updateDemographics({ childZip: selectedZipCode});
   };  
 
   ////////////// Navigation ///////////////
