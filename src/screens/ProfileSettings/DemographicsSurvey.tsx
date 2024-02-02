@@ -16,7 +16,6 @@ import styles from './styles';
 function DemographicsSurvey(): JSX.Element {
   const [screen, setScreen] = useState(1);
   const { demographicAttributes } = useAppSelector((state) => state.auth);
-  console.log(demographicAttributes);
   const [updateUser] = useUpdateUserMutation();
   const navigation = useAppNavigation();
 
@@ -47,7 +46,6 @@ function DemographicsSurvey(): JSX.Element {
     occupation: demographicAttributes.occupation,
     childhoodLanguages: convertToArray(demographicAttributes.childhoodLanguages),
   });
-  console.log(demographicsAnswers);
 
   const stateAbbreviations = {
     Alabama: 'AL',

@@ -86,9 +86,9 @@ export const api = createApi({
         };
       },
     }),
-    // getUserDemographics: builder.query<{ [key: string]: string }, void>({
-    //   query: () => 'users',
-    // }),
+    getUser: builder.query<User, {userId: string}>({
+      query: ({ userId }) => `users/${userId}`,
+    }),
     getCategories: builder.query<string[], void>({
       query: () => 'categories',
     }),
@@ -130,5 +130,5 @@ export const api = createApi({
 
 export const {
   useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery, useGetQuestionsQuery, useQueryQuestionsQuery, useGetLeaderboardQuery, useAddAnswerMutation, useGetAnswersQuery,
-  useVoteMutation,
+  useVoteMutation, useGetUserQuery,
 } = api;

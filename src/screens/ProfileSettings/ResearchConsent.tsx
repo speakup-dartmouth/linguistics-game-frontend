@@ -10,7 +10,6 @@ import styles from './styles';
 function ResearchConsent(): JSX.Element {
   const { isRegistering, researchConsent } = useAppSelector((state) => state.auth);
   const [checked, setChecked] = useState<boolean | null>(isRegistering ? true : researchConsent);
-  console.log(researchConsent);
   const [updateConsent] = useUpdateConsentMutation();
   const navigation = useAppNavigation();
 
