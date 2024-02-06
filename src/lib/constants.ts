@@ -8,7 +8,8 @@ export const colors = {
   lightBlack: '#373F41',
 };
 
-export const apiUrl = 'http://localhost:9090/api/';
+// export const apiUrl = 'http://localhost:9090/api/';
+export const apiUrl = 'http://10.0.2.2:9090/api/'; // for android emulator
 // export const apiUrl = 'https://linguistics-game-backend.onrender.com/api';
 export const s3BucketUrl = 'https://linguistics-games.s3.us-east-1.amazonaws.com';
 
