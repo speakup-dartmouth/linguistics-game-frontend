@@ -9,7 +9,8 @@ export const colors = {
 };
 
 // export const apiUrl = 'http://localhost:9090/api/';
-export const apiUrl = 'https://linguistics-game-backend.onrender.com/api/';
+// export const apiUrl = 'https://linguistics-game-backend.onrender.com/api/';
+export const apiUrl = 'http://10.0.2.2:9090/api/';
 export const s3BucketUrl = 'https://linguistics-games.s3.us-east-1.amazonaws.com';
 
 export const dimensions = {

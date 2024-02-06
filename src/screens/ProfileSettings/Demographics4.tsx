@@ -17,8 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, stateAbbreviations }): JSX.Element {
   // List of state dropdown options
   const states = Object.keys(stateAbbreviations);
-  states.unshift('select a state');
-  states.push('Outside the US');
+  states.unshift('Outside the US');
   
   const adultState = demographicsAnswers.adultState;
   var stateAbbr = null;
@@ -49,7 +48,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
       const data = await response.json();
 
     if (Array.isArray(data)) {
-      return data.map((townsData) => townsData);
+      return data.map((townsData) => townsData.name);
     } else {
       console.error('Data received is not an array:', data);
       return [];
@@ -140,28 +139,24 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
   ////////// Update Demographics //////////
   const handleState = (selectedState) => {
     const currentState = demographicsAnswers.adultState;
-    if (selectedState === 'select a state') {
-      updateDemographics({ adultState: null });
-    } else {
-      updateDemographics({ adultState: selectedState });
-    }
+    updateDemographics({ adultState: selectedState });
   };
 
   const handleTown = (selectedTown) => {
-    updateDemographics({ adultTown: selectedTown.name });
+    updateDemographics({ teenTown: selectedTown });
   };
   
   const handleLocale = (selectedLocale) => {
-    const currentLocale = demographicsAnswers.adultLocale;
+    const currentLocale = demographicsAnswers.teenLocale;
     if (selectedLocale === currentLocale) {
-      updateDemographics({ adultLocale: null });
+      updateDemographics({ teenLocale: null });
     } else {
-      updateDemographics({ adultLocale: selectedLocale });
+      updateDemographics({ teenLocale: selectedLocale });
     }
   };
 
   const handleZip = (selectedZipCode) => {
-    updateDemographics({ adultZip: selectedZipCode });
+    updateDemographics({ teenZip: selectedZipCode });
   };  
 
   ////////////// Navigation ///////////////
@@ -184,11 +179,11 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
 
         <View style={styles.questionContainer}>
           <View style={styles.questionNumberContainer}>
-            <Text style={styles.questionNumber}>12</Text>
+            <Text style={styles.questionNumber}>8</Text>
           </View>
           <View style={styles.questionTextContainer}>
             <Text style={styles.questionText}>
-              <Text style={{fontWeight: "bold"}}>After age 18</Text>
+              <Text style={{fontWeight: "bold"}}> After the age of 18</Text>
               <Text>, in which state did you spend the most time?</Text>
             </Text>
             <SelectDropdown
@@ -218,7 +213,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
 
           <View style={styles.questionContainer}>
             <View style={styles.questionNumberContainer}>
-              <Text style={styles.questionNumber}>13</Text>
+              <Text style={styles.questionNumber}>9</Text>
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
@@ -230,15 +225,15 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
                 <TextInput
                   style={styles.dropdownButton}
                   onChangeText={handleTown}
-                  value={demographicsAnswers.adultTown}
+                  value={demographicsAnswers.teenTown}
                   placeholder="type in a city/town"
                   placeholderTextColor="black"
-               />
+                />
               ) : (
                 <SelectDropdown
                   data={towns}
                   onSelect={(selectedItem, index) => handleTown(selectedItem)}
-                  defaultButtonText={demographicsAnswers.adultTown ? demographicsAnswers.adultTown.toString() : 'begin typing a city/town'}
+                  defaultButtonText={demographicsAnswers.teenTown ? demographicsAnswers.teenTown.toString() : 'begin typing a city/town'}
                   buttonStyle={styles.dropdownButton}
                   buttonTextStyle={styles.dropdownText}
                   dropdownStyle={styles.dropdownDropdown}
@@ -255,25 +250,24 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
                   dropdownOverlayColor={'transparent'}
                 ></SelectDropdown>  
               )}
-              
             </View>
           </View>
 
           <View style={styles.questionContainer}>
             <View style={styles.questionNumberContainer}>
-              <Text style={styles.questionNumber}>14</Text>
+              <Text style={styles.questionNumber}>10</Text>
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
                 <Text style={{fontWeight: "bold"}}>After age 18</Text>
                 <Text>, what is the 5 digit zip code in which you spent the most time?</Text>
               </Text>
-              
+
               {adultState === 'Outside the US' ? (
                 <TextInput
                   style={styles.dropdownButton}
                   onChangeText={handleZip}
-                  value={demographicsAnswers.adultZip}
+                  value={demographicsAnswers.teenZip}
                   placeholder="type in a zip code"
                   placeholderTextColor="black"
                 />
@@ -281,7 +275,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
                 <SelectDropdown
                   data={zipCodes}
                   onSelect={(selectedItem, index) => handleZip(selectedItem)}
-                  defaultButtonText={demographicsAnswers.adultZip ? demographicsAnswers.adultZip.toString() : 'begin typing a zip code'}
+                  defaultButtonText={demographicsAnswers.teenZip ? demographicsAnswers.teenZip.toString() : 'begin typing a zip code'}
                   buttonStyle={styles.dropdownButton}
                   buttonTextStyle={styles.dropdownText}
                   dropdownStyle={styles.dropdownDropdown}
@@ -296,23 +290,24 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
                     return item;
                   }}
                   dropdownOverlayColor={'transparent'}
-                ></SelectDropdown> 
-              )} 
+                ></SelectDropdown>  
+              )}    
             </View>
           </View>
 
           <View style={styles.questionContainer}>
             <View style={styles.questionNumberContainer}>
-              <Text style={styles.questionNumber}>15</Text>
+              <Text style={styles.questionNumber}>11</Text>
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
-                <Text style={{fontWeight: "bold"}}>After age 18</Text>
+                <Text>During</Text>
+                <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
                 <Text>, which of the following best describes your location?</Text>
               </Text>
               <View style={styles.pillGroup}>
                 {locales.map((pill) => (
-                  <Pill key={pill} pill={pill} onPress={() => handleLocale(pill)} isPressed={pill === demographicsAnswers.adultLocale} />          
+                  <Pill key={pill} pill={pill} onPress={() => handleLocale(pill)} isPressed={pill === demographicsAnswers.teenLocale} />          
                   ))}
               </View>
             </View>

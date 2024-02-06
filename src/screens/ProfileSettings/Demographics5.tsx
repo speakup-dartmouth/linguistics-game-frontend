@@ -16,8 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 function Demographics5({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, stateAbbreviations }): JSX.Element {
   // List of state dropdown options
   const states = Object.keys(stateAbbreviations);
-  states.unshift('select a state');
-  states.push('Outside the US');
+  states.unshift('Outside the US');
   
   const parentState = demographicsAnswers.parentState;
   const educations = ['select an education level', 'some high school or less', 'high school', 'some college, no degree', 'associate degree', "bachelor's degree" , 'graduate degree']
@@ -25,11 +24,7 @@ function Demographics5({ demographicsAnswers, updateDemographics, nextScreen, pr
   ////////// Update Demographics //////////
   const handleState = (selectedState) => {
     const currentState = demographicsAnswers.parentState;
-    if (selectedState === 'select a state') {
-      updateDemographics({ parentState: null });
-    } else {
-      updateDemographics({ parentState: selectedState });
-    }
+    updateDemographics({ parentState: selectedState });
   };
 
   const handleEducationLevel = (selectedEducationLevel) => {

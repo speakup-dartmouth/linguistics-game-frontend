@@ -17,8 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, stateAbbreviations }): JSX.Element {
   // List of state dropdown options
   const states = Object.keys(stateAbbreviations);
-  states.unshift('select a state');
-  states.push('Outside the US');
+  states.unshift('Outside the US');
   
   const childState = demographicsAnswers.childState;
   var stateAbbr = null;
@@ -139,11 +138,7 @@ function Demographics2({ demographicsAnswers, updateDemographics, nextScreen, pr
   ////////// Update Demographics //////////
   const handleState = (selectedState) => {
     const currentState = demographicsAnswers.childState;
-    if (selectedState === 'select a state') {
-      updateDemographics({ childState: null });
-    } else {
-      updateDemographics({ childState: selectedState });
-    }
+    updateDemographics({ childState: selectedState });
   };
 
   const handleTown = (selectedTown) => {
