@@ -143,20 +143,20 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
   };
 
   const handleTown = (selectedTown) => {
-    updateDemographics({ teenTown: selectedTown });
+    updateDemographics({ adultTown: selectedTown });
   };
   
   const handleLocale = (selectedLocale) => {
-    const currentLocale = demographicsAnswers.teenLocale;
+    const currentLocale = demographicsAnswers.adultLocale;
     if (selectedLocale === currentLocale) {
-      updateDemographics({ teenLocale: null });
+      updateDemographics({ adultLocale: null });
     } else {
-      updateDemographics({ teenLocale: selectedLocale });
+      updateDemographics({ adultLocale: selectedLocale });
     }
   };
 
   const handleZip = (selectedZipCode) => {
-    updateDemographics({ teenZip: selectedZipCode });
+    updateDemographics({ adultZip: selectedZipCode });
   };  
 
   ////////////// Navigation ///////////////
@@ -225,7 +225,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
                 <TextInput
                   style={styles.dropdownButton}
                   onChangeText={handleTown}
-                  value={demographicsAnswers.teenTown}
+                  value={demographicsAnswers.adultTown}
                   placeholder="type in a city/town"
                   placeholderTextColor="black"
                 />
@@ -233,7 +233,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
                 <SelectDropdown
                   data={towns}
                   onSelect={(selectedItem, index) => handleTown(selectedItem)}
-                  defaultButtonText={demographicsAnswers.teenTown ? demographicsAnswers.teenTown.toString() : 'begin typing a city/town'}
+                  defaultButtonText={demographicsAnswers.adultTown ? demographicsAnswers.adultTown.toString() : 'begin typing a city/town'}
                   buttonStyle={styles.dropdownButton}
                   buttonTextStyle={styles.dropdownText}
                   dropdownStyle={styles.dropdownDropdown}
@@ -267,7 +267,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
                 <TextInput
                   style={styles.dropdownButton}
                   onChangeText={handleZip}
-                  value={demographicsAnswers.teenZip}
+                  value={demographicsAnswers.adultZip}
                   placeholder="type in a zip code"
                   placeholderTextColor="black"
                 />
@@ -275,7 +275,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
                 <SelectDropdown
                   data={zipCodes}
                   onSelect={(selectedItem, index) => handleZip(selectedItem)}
-                  defaultButtonText={demographicsAnswers.teenZip ? demographicsAnswers.teenZip.toString() : 'begin typing a zip code'}
+                  defaultButtonText={demographicsAnswers.adultZip ? demographicsAnswers.adultZip.toString() : 'begin typing a zip code'}
                   buttonStyle={styles.dropdownButton}
                   buttonTextStyle={styles.dropdownText}
                   dropdownStyle={styles.dropdownDropdown}
@@ -307,7 +307,7 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
               </Text>
               <View style={styles.pillGroup}>
                 {locales.map((pill) => (
-                  <Pill key={pill} pill={pill} onPress={() => handleLocale(pill)} isPressed={pill === demographicsAnswers.teenLocale} />          
+                  <Pill key={pill} pill={pill} onPress={() => handleLocale(pill)} isPressed={pill === demographicsAnswers.adultLocale} />          
                   ))}
               </View>
             </View>
