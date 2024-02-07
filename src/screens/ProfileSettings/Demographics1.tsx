@@ -17,7 +17,7 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
   const navigation = useAppNavigation();
 
   const genders = ['female', 'male', 'non-binary', 'other'];
-  const races = ['select a race/ethnicity', 'White', 'Black or African American', 'American Indian or Alaska Native', 'Asian', 'Hispanic', 'Native Hawaiian or Other Pacific Islander'];
+  const races = ['White', 'Black or African American', 'American Indian or Alaska Native', 'Asian', 'Hispanic', 'Native Hawaiian or Other Pacific Islander'];
 
   // Generate birth year options
   const getCurrentYear = () => new Date().getFullYear();
@@ -35,7 +35,6 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
   };
 
   const years = generateYears();
-  years.unshift('select a year');
 
   ////////////// Navigation ///////////////
   const handleNext = () => {
@@ -67,11 +66,7 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
 
   const handleBirthYear = (selectedBirthYear) => {
     const currentBirthYear = demographicsAnswers.birthYear;
-    if (selectedBirthYear === 'select a year') {
-      updateDemographics({ birthYear: null });
-    } else {
-      updateDemographics({ birthYear: selectedBirthYear });
-    }
+    updateDemographics({ birthYear: selectedBirthYear });
   };  
 
   ////////////// Render ///////////////

@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, handleDemSubmit }): JSX.Element {
   const [selected, setSelected] = useState([...demographicsAnswers.childhoodLanguages]);
+  const [userInput, setUserInput] = useState('');
 
   const languages = [
     { label: 'English', value: 'English' },
@@ -111,8 +112,8 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
                 </TouchableOpacity>
               )}       
             />
-
-          </View>        
+            <Text>Tap an item to remove it.</Text>      
+          </View>  
         </View>
 
         <View style={styles.prevNextContainer}>
