@@ -17,7 +17,7 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
   const [selected, setSelected] = useState([...demographicsAnswers.childhoodLanguages]);
   const [userInput, setUserInput] = useState('');
 
-  const languages = [
+  const initialLanguages = [
     { label: 'English', value: 'English' },
     { label: 'Spanish', value: 'Spanish' },
     { label: 'French', value: 'French' },
@@ -34,6 +34,8 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
     { label: 'Russian', value: 'Russian' },
   ];
 
+  const [languages, setLanguages] = useState(initialLanguages);
+
   const renderItem = item => {
     return (
       <View style={styles.dropdownText}>
@@ -42,6 +44,19 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
     );
   };
 
+  const handleAddLanguage = () => {
+    if (inputValue && !languages.some(lang => lang.label.toLowerCase() === inputValue.toLowerCase())) {
+      const newLanguage = { label: inputValue, value: inputValue.toLowerCase() };
+      setLanguages(prevLanguages => [...prevLanguages, newLanguage]);
+      // Optionally select the newly added language
+      setSelected(prevSelected => [...prevSelected, newLanguage.value]);
+      setInputValue('');
+    }
+  };
+
+  const handleChangeSelected = (selectedItems) => {
+    setSelectedLanguages(selectedItems);
+  };
   
   ////////// Update Demographics //////////
 
