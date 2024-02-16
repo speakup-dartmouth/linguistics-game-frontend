@@ -20,6 +20,8 @@ export type StackParamList = {
   Categories: undefined,
   CategoriesModal: undefined,
   QuestionDetail: undefined,
+  SuggestionDetail: undefined,
+  CreateSuggestion: undefined,
 }
 
 export type NavigationProp = CompositeNavigationProp<

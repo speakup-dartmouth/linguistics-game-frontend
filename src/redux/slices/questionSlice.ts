@@ -10,6 +10,7 @@ export interface Question {
   _id: string;
   options: string[];
   categories: string[];
+  createdAt: Date;
 }
 
 export interface Answer {
@@ -31,6 +32,7 @@ export interface QuestionState {
   questionAnswers: {
     [questionId: string]: Answer[];
   },
+  allAnswers: Answer[];
   currentlyPlayingSounds: Audio.Sound[];
 }
 
@@ -40,6 +42,7 @@ const initialState: QuestionState = {
   filteredQuestions: [],
   currentQuestion: null,
   questionAnswers: {},
+  allAnswers: [],
   currentlyPlayingSounds: [],
 };
 
@@ -76,6 +79,10 @@ const questionSlice = createSlice({
       state.filteredQuestions = action.payload;
       return state;
     });
+    builder.addMatcher(api.endpoints.getQuestion.matchFulfilled, (state, action) => {
+      state.currentQuestion = action.payload;
+      return state;
+    });
     builder.addMatcher(api.endpoints.addAnswer.matchFulfilled, (state, action) => {
       const { question } = action.payload;
       if (!state.questionAnswers[question]) {
@@ -89,6 +96,10 @@ const questionSlice = createSlice({
       state.questionAnswers[questionId] = action.payload;
       return state;
     });
+    builder.addMatcher(api.endpoints.getAllAnswers.matchFulfilled, (state, action) => {
+      state.allAnswers = action.payload;
+      return state;
+    })
     builder.addMatcher(api.endpoints.vote.matchPending, (state, action) => {
       const { answerId, vote, questionId } = action.meta.arg.originalArgs;
       const answers = state.questionAnswers[questionId];

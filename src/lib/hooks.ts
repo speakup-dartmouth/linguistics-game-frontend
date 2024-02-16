@@ -26,6 +26,7 @@ interface UsePlaybackHook {
   stopPlayback: () => void;
   recordingUri: string | null;
   isBuffering: boolean;
+  time,
 }
 
 // Get mm:ss from seconds
@@ -36,6 +37,13 @@ function formatTime(seconds: number): string {
   const remainder = seconds % 3600;
   const mmss = new Date(remainder * 1000).toISOString().slice(14, 19);
   return hours > 0 ? `${hours}:${mmss}` : mmss;
+}
+
+function getTime(seconds: number): number {
+  if (Number.isNaN(seconds)) { return 0; }
+
+  const minutes = seconds/60
+  return minutes
 }
 
 export const useRecorder = (): UseRecorderHook => {
@@ -80,8 +88,7 @@ export const useRecorder = (): UseRecorderHook => {
       setIsUploading(false);
       reset();
     } catch (e) {
-      console.log(e.response);
-      console.log(e.message);
+      console.log(e);
       setIsUploading(false);
     }
   };
@@ -176,6 +183,7 @@ export const usePlayback = (uri: string | null): UsePlaybackHook => {
   const duration = formatTime(playbackStatus && isAVPlaybackStatusSuccess(playbackStatus) ? (playbackStatus.durationMillis / 1000) : 0);
   const progress = formatTime(playbackStatus && isAVPlaybackStatusSuccess(playbackStatus) ? (playbackStatus.positionMillis / 1000) : 0);
   const isLoaded = playbackStatus?.isLoaded;
+  const time = playbackStatus && isAVPlaybackStatusSuccess(playbackStatus) ? (playbackStatus.durationMillis / 1000) : 0
 
   return {
     startStopPlayback,
@@ -188,5 +196,6 @@ export const usePlayback = (uri: string | null): UsePlaybackHook => {
     stopPlayback,
     recordingUri,
     isBuffering,
+    time,
   };
 };
