@@ -43,7 +43,7 @@ export default StyleSheet.create({
     ...globalStyles.bodySmall,
     marginLeft: 10,
     alignSelf: 'center',
-    fontSize: '17pt',
+    fontSize: 17,
     width: '60%',
   },
   rank: {
@@ -82,7 +82,7 @@ export default StyleSheet.create({
   score: {
     ...globalStyles.bodySmall,
     width: '25%',
-    fontSize: '18pt',
+    fontSize: 18,
     alignSelf: 'center',
     justifyContent: 'center',
     textAlign: 'right',
