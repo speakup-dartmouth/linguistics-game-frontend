@@ -87,6 +87,9 @@ export const api = createApi({
         };
       },
     }),
+    getUser: builder.query<User, {userId: string}>({
+      query: ({ userId }) => `users/${userId}`,
+    }),
     getCategories: builder.query<string[], void>({
       query: () => 'categories',
     }),

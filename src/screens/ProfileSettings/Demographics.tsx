@@ -8,8 +8,9 @@ import { useUpdateUserMutation } from 'services/api';
 import { useAppNavigation } from 'navigation/types';
 import Textbox from 'components/UI/Textbox';
 import styles from './styles';
+import Demographics1 from './Demographics1';
 
-function Demographics(): JSX.Element {
+function Demographics({ demographicsAnswers, updateDemographics, nextScreen, prevScreen }): JSX.Element {
   const { demographicAttributes, isRegistering } = useAppSelector((state) => state.auth);
   const [isBilingualOrMultilingual, setIsBilingualOrMultilingual] = useState(null);
   const [childhoodLanguage, setChildhoodLanguage] = useState('');
@@ -23,11 +24,9 @@ function Demographics(): JSX.Element {
     } else if (demographicAttributes.isBilingualOrMultilingual === 'false') {
       setIsBilingualOrMultilingual(false);
     }
-
     if (demographicAttributes.childhoodLanguage) {
       setChildhoodLanguage(demographicAttributes.childhoodLanguage);
     }
-
     if (demographicAttributes.currentLanguage) {
       setCurrentLanguage(demographicAttributes.currentLanguage);
     }
@@ -41,12 +40,13 @@ function Demographics(): JSX.Element {
         currentLanguage,
       },
     });
-    if (isRegistering) {
-      navigation.navigate('Categories');
-    } else {
-      navigation.navigate('TabNavigator');
-    }
+    navigation.navigate('ProfilePage')
   };
+
+  const handleNext = () => {
+    nextScreen();
+  };
+
 
   return (
     <View style={styles.container}>
@@ -73,7 +73,7 @@ function Demographics(): JSX.Element {
         />
 
         <View style={styles.buttonContainer}>
-          <Button onPress={onPress} text="Continue" />
+          <Button onPress={onPress} text="Done" />
         </View>
       </View>
     </View>
