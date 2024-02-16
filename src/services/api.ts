@@ -8,6 +8,7 @@ import { API_KEY } from 'react-native-dotenv';
 import axios from 'axios';
 import { User } from 'redux/slices/authSlice';
 import { Answer, Question } from 'redux/slices/questionSlice';
+import { Suggestion } from 'redux/slices/suggestionSlice';
 
 axios.defaults.headers.common.API_KEY = API_KEY;
 
@@ -89,8 +90,14 @@ export const api = createApi({
     getCategories: builder.query<string[], void>({
       query: () => 'categories',
     }),
+    getSuggestions: builder.query<Suggestion[], void>({
+      query: () => 'suggestions',
+    }),
     getQuestions: builder.query<Question[], void>({
       query: () => 'questions',
+    }),
+    getQuestion: builder.query<Question, {questionId: string}>({
+      query: ({ questionId }) => `questions/${questionId}`,
     }),
     queryQuestions: builder.query<Question[], {q: string}>({
       query: (q) => `questions?q=${q.q}`,
@@ -112,6 +119,33 @@ export const api = createApi({
     getAnswers: builder.query<Answer[], {questionId: string}>({
       query: ({ questionId }) => `answers?question=${questionId}`,
     }),
+    getAllAnswers: builder.query<Answer[], void>({
+      query: () => 'allAnswers',
+    }),
+    getSuggestionsByUser: builder.query<Suggestion[], {userId: string}>({
+      query: ({ userId }) => `suggestions/user/${userId}`,
+    }),
+    // getUser: builder.query<User, {userId: string}>({
+    //   query: ({ userId }) => `users/${userId}`,
+    // }),
+    addSuggestion: builder.mutation<Suggestion, {prompt: string, stances: {stance: string, color: string}[], submitted: Date, icon: string, status: string, id: string}>({
+      query: ({prompt, stances, submitted, icon, status, id}) => {
+        return {
+          url: 'suggestions',
+          method: 'POST',
+          responseHandler,
+          body: {
+            prompt: prompt,
+            stances: stances,
+            dateSubmitted: submitted,
+            icon: icon,
+            question: null,
+            user: id,
+            status: status,
+          },
+        };
+      },
+    }),
     vote: builder.mutation<Answer, {answerId: string, vote: 1 | -1, questionId: string}>({
       query: ({ answerId, vote }) => {
         return {
@@ -127,5 +161,5 @@ export const api = createApi({
 
 export const {
   useSignInMutation, useSignUpMutation, useUpdateConsentMutation, useUpdateUserMutation, useGetCategoriesQuery, useGetQuestionsQuery, useQueryQuestionsQuery, useGetLeaderboardQuery, useAddAnswerMutation, useGetAnswersQuery,
-  useVoteMutation,
+  useVoteMutation, useGetSuggestionsQuery, useGetSuggestionsByUserQuery, useAddSuggestionMutation, useGetQuestionQuery, useGetAllAnswersQuery,
 } = api;

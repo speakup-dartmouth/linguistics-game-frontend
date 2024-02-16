@@ -19,7 +19,9 @@ const uploadFileToS3 = (signedUrl: string, { uri, type, filename }: {uri: string
     const xhr = new XMLHttpRequest();
     xhr.open('PUT', signedUrl);
     xhr.onreadystatechange = function xhrrequest(): void {
+      console.log(xhr.readyState)
       if (xhr.readyState === 4) {
+        console.log(xhr.status)
         if (xhr.status === 200) {
           console.log('Successfully uploaded to S3');
           fulfill();
@@ -46,6 +48,7 @@ const uploadFileToS3 = (signedUrl: string, { uri, type, filename }: {uri: string
 export const uploadFile = async (fileUri: string, userId?: string): Promise<Recording> => {
   let filename = fileUri.split('/').pop();
   const type = await getFileType(fileUri);
+
 
   if (userId) {
     filename = `${userId}/${filename}`;

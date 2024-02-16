@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   Landing, ProfilePage, Registration, Splash, /*SearchPage,*/ SuggestPage, ResearchConsent, Demographics, Categories, QuestionDetail, Leaderboard,
+  SuggestionDetail,
+  CreateSuggestion,
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
@@ -22,6 +24,20 @@ import 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+function SuggestStackNavigator(): JSX.Element {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name='SuggestPage' component={SuggestPage} />
+      <Stack.Screen name='SuggestionDetail' component={SuggestionDetail} />
+      <Stack.Screen name='CreateSuggestion' component={CreateSuggestion} />
+    </Stack.Navigator>
+  )
+}
 
 function LandingStackNavigator(): JSX.Element {
   return (
@@ -67,7 +83,7 @@ function TabNavigator(): JSX.Element {
       <Tab.Screen name="Landing" component={LandingStackNavigator} options={{ tabBarIcon: CompassIcon, tabBarLabel: 'Discover' }} />
       <Tab.Screen name="Upvote" component={Leaderboard} options={{ tabBarIcon: UpvoteIcon, tabBarLabel: 'Leaderboard' }} />
       {/* <Tab.Screen name="Search" component={SearchPage} options={{ tabBarIcon: SearchIcon, tabBarLabel: 'Search' }} /> */}      
-      <Tab.Screen name="Suggest" component={SuggestPage} options={{ tabBarIcon: SuggestIcon, tabBarLabel: 'Suggest' }} />
+      <Tab.Screen name="Suggest" component={SuggestStackNavigator} options={{ tabBarIcon: SuggestIcon, tabBarLabel: 'Suggest' }} />
       <Tab.Screen name="ProfilePage" component={ProfilePage} options={{ tabBarIcon: ProfileIcon, tabBarLabel: 'Profile' }} />
     </Tab.Navigator>
   );

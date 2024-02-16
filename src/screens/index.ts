@@ -11,6 +11,8 @@ import QuestionDetail from './QuestionDetail';
 import LeaderboardScreen from './Leaderboard';
 import SearchScreen from './Search';
 import SuggestScreen from './Suggest';
+import SuggestionDetail from './SuggestionDetail';
+import CreateSuggestion from './CreateSuggestion';
 
 export {
   LandingScreen as Landing,
@@ -26,4 +28,6 @@ export {
   Demographics,
   Categories,
   QuestionDetail,
+  SuggestionDetail,
+  CreateSuggestion,
 };

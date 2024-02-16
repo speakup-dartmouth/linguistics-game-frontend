@@ -5,6 +5,7 @@ import type { Middleware } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import errorReducer from './slices/errorSlice';
 import questionReducer from './slices/questionSlice';
+import suggestionReducer from './slices/suggestionSlice';
 
 export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
   if (action.error && action.meta.requestStatus === 'rejected' && action.error.name !== 'ConditionError') {
@@ -19,6 +20,7 @@ export const store = configureStore({
     auth: authReducer,
     error: errorReducer,
     question: questionReducer,
+    suggestion: suggestionReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware).concat(rtkQueryErrorLogger),
