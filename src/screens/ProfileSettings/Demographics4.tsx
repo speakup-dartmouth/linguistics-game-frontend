@@ -14,7 +14,7 @@ import SearchableDropdown from 'react-native-searchable-dropdown';
 import SelectDropdown from 'react-native-select-dropdown';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, stateAbbreviations }): JSX.Element {
+function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, stateAbbreviations }): JSX.Element {
   // List of state dropdown options
   const states = Object.keys(stateAbbreviations);
   states.unshift('Outside the US');
@@ -183,7 +183,8 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
           </View>
           <View style={styles.questionTextContainer}>
             <Text style={styles.questionText}>
-              <Text style={{fontWeight: "bold"}}> After the age of 18</Text>
+              <Text>During</Text>
+              <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
               <Text>, in which state did you spend the most time?</Text>
             </Text>
             <SelectDropdown
@@ -217,7 +218,8 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
-                <Text style={{fontWeight: "bold"}}>After age 18</Text>
+                <Text>During</Text>
+                <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
                 <Text>, what is the name of the city/town you spent the most time in?</Text>
               </Text>
 
@@ -259,7 +261,8 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
-                <Text style={{fontWeight: "bold"}}>After age 18</Text>
+                <Text>During</Text>
+                <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
                 <Text>, what is the 5 digit zip code in which you spent the most time?</Text>
               </Text>
 
@@ -327,4 +330,4 @@ function Demographics4({ demographicsAnswers, updateDemographics, nextScreen, pr
   );
 }
 
-export default Demographics4;
+export default Demographics3;
