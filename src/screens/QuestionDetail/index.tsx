@@ -49,14 +49,13 @@ function QuestionDetail(): JSX.Element {
     if (!answer.stance) return acc;
 
     if (acc[answer.stance]) {
-      acc[answer.stance] += answer.upvoteCount;
-      acc[answer.stance] -= answer.downvoteCount;
+      acc[answer.stance] += 1;
     } else {
-      acc[answer.stance] = answer.upvoteCount - answer.downvoteCount;
+      acc[answer.stance] = 1;
     }
     return acc;
   }, currentQuestion.options.reduce((acc, option) => {
-    if (option) { acc[option] = 1; }
+    if (option) { acc[option] = 0; }
     return acc;
   }, {} as Record<string, number>));
   const totalVotes = Object.values(pointsByStance).reduce((acc, val) => acc + val, 0);

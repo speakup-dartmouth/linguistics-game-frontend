@@ -19,7 +19,7 @@ function Demographics5({ demographicsAnswers, updateDemographics, nextScreen, pr
   states.unshift('Outside the US');
   
   const parentState = demographicsAnswers.parentState;
-  const educations = ['select an education level', 'some high school or less', 'high school', 'some college, no degree', 'associate degree', "bachelor's degree" , 'graduate degree']
+  const educations = ['some high school or less', 'high school', 'some college, no degree', 'associate degree', "bachelor's degree" , 'graduate degree']
   
   ////////// Update Demographics //////////
   const handleState = (selectedState) => {

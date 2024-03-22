@@ -12,7 +12,8 @@ export default StyleSheet.create({
     marginTop: dimensions.height * 0.1,
     paddingHorizontal: dimensions.width * 0.05,
     width: '100%',
-    flex: -1,
+    flex: 1,
+    flexDirection: 'column',
     alignItems: 'flex-start',
   },
   title: {
@@ -35,9 +36,11 @@ export default StyleSheet.create({
     paddingVertical: 20,
   },
   divider: {
-    height: 50,
+    height: 80,
   },
   buttonContainer: {
+    marginTop: 20,
+    marginBottom: 20,
     alignSelf: 'center',
   },
   recordingUi: {
@@ -110,9 +113,9 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   scrollView: {
-    marginTop: 30,
-    paddingBottom: 100,
+    paddingBottom: 20,
     width: '100%',
+    flexGrow: 1,
   },
   username: {
     marginLeft: 10,

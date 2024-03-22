@@ -239,7 +239,8 @@ export default StyleSheet.create({
     marginVertical: 10,
   },
   multiselectContainer: {
-    width: 300,
+    maxHeight: 400,
+    width: 200,
     borderRadius: 15,
     borderWidth: 0,
     flex: 1,
