@@ -17,7 +17,7 @@ function ResearchConsent(): JSX.Element {
     updateConsent(checked);
 
     if (isRegistering) {
-      navigation.navigate('Demographics1');
+      navigation.navigate('Demographics');
     } else {
       navigation.navigate('TabNavigator');
     }

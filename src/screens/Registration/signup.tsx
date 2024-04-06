@@ -51,7 +51,7 @@ function SignUp(): JSX.Element {
         autoCapitalize="none"
         autoCorrect={false}
       />
-      {/* <View style={styles.dropdownRow}>
+      <View style={styles.dropdownRow}>
         <Pressable style={styles.dateOfBirth} onPress={() => { setDateOfBirthOpen(true); }}>
           <Text style={styles.dropdownText}>{dateOfBirth ? dayjs(dateOfBirth).format('MM/DD/YYYY') : 'Date of Birth'}</Text>
         </Pressable>
@@ -78,7 +78,7 @@ function SignUp(): JSX.Element {
           placeholder="Gender"
           textStyle={styles.dropdownText}
         />
-      </View> */}
+      </View>
       <Textbox
         value={email}
         placeholder="Email"

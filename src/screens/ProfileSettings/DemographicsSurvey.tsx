@@ -3,6 +3,7 @@ import { useAppSelector } from 'redux/hooks';
 import { useUpdateUserMutation } from 'services/api';
 import { View, Text } from 'react-native';
 import { useAppNavigation } from 'navigation/types';
+import { setRegistering } from 'redux/slices/authSlice';
 import Demographics from './Demographics';
 import Demographics1 from './Demographics1';
 import Demographics2 from './Demographics2';
@@ -14,6 +15,7 @@ import styles from './styles';
 
 // Parent component managing the survey flow
 function DemographicsSurvey(): JSX.Element {
+  const { isRegistering } = useAppSelector((state) => state.auth);
   const [screen, setScreen] = useState(1);
   const { demographicAttributes } = useAppSelector((state) => state.auth);
   const [updateUser] = useUpdateUserMutation();
@@ -127,7 +129,12 @@ function DemographicsSurvey(): JSX.Element {
         childhoodLanguages: demographicsAnswers.childhoodLanguages.join(', '),
       },
     });
-    navigation.navigate('TabNavigator')
+
+    if (isRegistering) {
+      navigation.navigate('Categories');
+    } else {
+      navigation.navigate('TabNavigator');
+    }
   };
 
   //////// Navigation ////////
