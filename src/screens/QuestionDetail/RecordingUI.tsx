@@ -90,6 +90,7 @@ function RecordUI({
         <View style={styles.recordingUi}>
           <Text style={styles.recordingHeader}>Speak up!</Text>
           <Text style={styles.recordingSubheader}>Tell us why you feel that way. Try to speak about this topic for as long as you can, without interruption.</Text>
+          <Text style={styles.nowRecording}>NOW RECORDING...</Text>
         </View>
       )}
 

@@ -63,6 +63,11 @@ export default StyleSheet.create({
     color: colors.lightBlack,
     marginBottom: 20,
   },
+  nowRecording: {
+    fontSize: 24,
+    color: '#FB4E4E',
+    marginBottom: 20,
+  },
   kernedText: {
     fontWeight: '700',
     fontSize: 14,

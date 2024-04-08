@@ -6,7 +6,7 @@ function Waveform({ isRecording }: {isRecording: boolean}): JSX.Element {
   return (
     <View style={{
       ...styles.waveform,
-      backgroundColor: isRecording ? '#6AAFCF' : '#D4E1E7',
+      backgroundColor: isRecording ? '#51A0C1' : '#D4E1E7',
     }}
     >
       <WaveformSvg />
