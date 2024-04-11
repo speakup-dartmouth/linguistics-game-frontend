@@ -22,19 +22,19 @@ function SignUp(): JSX.Element {
   const [signUp, { isLoading }] = useSignUpMutation();
   const [dateOfBirthOpen, setDateOfBirthOpen] = useState(false);
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
-  const [genderOpen, setGenderOpen] = useState(false);
-  const [gender, setGender] = useState(null);
-  const [genderOptions, setGenderOptions] = useState([
-    { label: 'Male', value: 'male' },
-    { label: 'Female', value: 'female' },
-    { label: 'Nonbinary', value: 'nonbinary' },
-    { label: 'Other', value: 'other' },
-  ]);
+  // const [genderOpen, setGenderOpen] = useState(false);
+  // const [gender, setGender] = useState(null);
+  // const [genderOptions, setGenderOptions] = useState([
+  //   { label: 'Male', value: 'male' },
+  //   { label: 'Female', value: 'female' },
+  //   { label: 'Nonbinary', value: 'nonbinary' },
+  //   { label: 'Other', value: 'other' },
+  // ]);
   const [agree, setAgree] = useState(false);
   const dispatch = useAppDispatch();
 
   const disabled = !email || !username || !password || !confirmPassword
-    || !dateOfBirth || !gender || !agree || isLoading;
+    || !dateOfBirth || !agree || isLoading;
 
   return (
     <View style={styles.subview}>
@@ -66,7 +66,7 @@ function SignUp(): JSX.Element {
             setDateOfBirthOpen(false);
           }}
         />
-        <DropDownPicker
+        {/* <DropDownPicker
           open={genderOpen}
           value={gender}
           items={genderOptions}
@@ -77,7 +77,7 @@ function SignUp(): JSX.Element {
           containerStyle={styles.dropdownContainer}
           placeholder="Gender"
           textStyle={styles.dropdownText}
-        />
+        /> */}
       </View>
       <Textbox
         value={email}
@@ -148,7 +148,7 @@ function SignUp(): JSX.Element {
             return;
           }
           signUp({
-            username, email, password, gender, birthday: dateOfBirth,
+            username, email, password, birthday: dateOfBirth,
           });
         }}
       >
