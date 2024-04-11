@@ -12,9 +12,12 @@ import { useAppNavigation } from 'navigation/types';
 import Textbox from 'components/UI/Textbox';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { setRegistering } from 'redux/slices/authSlice';
+
 
 function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, prevScreen }): JSX.Element {
   const navigation = useAppNavigation();
+  const { isRegistering } = useAppSelector((state) => state.auth);
 
   const genders = ['female', 'male', 'non-binary', 'other'];
   const races = ['White', 'Black or African American', 'American Indian or Alaska Native', 'Asian', 'Hispanic', 'Native Hawaiian or Other Pacific Islander'];
@@ -41,7 +44,11 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
     nextScreen();
   };
   const handleBack = () => {
-    navigation.navigate('ProfilePage')
+    if (isRegistering) {
+      navigation.navigate('ResearchConsent')
+    } else {
+      navigation.navigate('ProfilePage')
+    }
   };
 
   ////////////// Update Demographics ////////////
