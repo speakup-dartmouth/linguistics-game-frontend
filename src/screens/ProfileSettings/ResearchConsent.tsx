@@ -26,8 +26,8 @@ function ResearchConsent(): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.subcontainer}>
-        <Text style={styles.consentHeading}>Help Aid Linguistics Research</Text>
-        <Text style={styles.consentSubheading}>Share voice data with the Dartmouth Linguistics Department.</Text>
+        <Text style={styles.consentHeading}>Welcome to SpeakUp!</Text>
+        <Text style={styles.consentSubheading}>We're glad you're here. You're welcome to use this app just for fun, or you can choose to share your voice data with us to help our research.</Text>
 
         <Text style={styles.consentHeading}>Agree to share voice data:</Text>
         <Text style={styles.consentSubheading}>Data will <Text style={{ fontWeight: '700' }}>only</Text> be seen by the Dartmouth Linguistics Department for linguistics research.</Text>
