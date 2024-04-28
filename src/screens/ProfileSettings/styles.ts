@@ -66,6 +66,16 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginTop: 5,
   },
+  aboutHeading: {
+    ...globalStyles.headingTwo,
+    marginTop: 20,
+    textAlign: 'center',
+  },
+  aboutSubheading: {
+    ...globalStyles.bodyLarge,
+    textAlign: 'center',
+    marginTop: 20,
+  },
   prevNextContainer: {
     bottom: 0,
     width: '100%',

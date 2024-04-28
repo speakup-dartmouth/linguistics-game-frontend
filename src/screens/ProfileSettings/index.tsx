@@ -43,7 +43,8 @@ function ProfileScreen(): JSX.Element {
     { id: '1', nav: 'DemographicsModal', data: 'Demographics' },
     { id: '2', nav: 'ResearchConsentModal', data: 'Linguistic Research Consent'},
     { id: '3', nav: 'CategoriesModal', data: 'Preferences' },
-    { id: '4', nav: '', data: 'Log Out', onPress: signOut },
+    { id: '4', nav: 'AboutModal', data: 'About Us' },
+    { id: '5', nav: '', data: 'Log Out', onPress: signOut },
   ];
 
 
@@ -52,7 +53,7 @@ function ProfileScreen(): JSX.Element {
       <Image source={ImageAssets.userImg} style={styles.profileImg} />
       <Text style={styles.welcome}>Welcome, {username}</Text>
       <Text></Text>
-      <View style={styles.tabContainer}>
+      {/* <View style={styles.tabContainer}>
         <TouchableOpacity >
           <Text style={styles.tabText}>Stats</Text>
         </TouchableOpacity>
@@ -64,7 +65,7 @@ function ProfileScreen(): JSX.Element {
         <TouchableOpacity >
           <Text style={styles.tabTextSelected}>Settings</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <Text></Text>
       <FlatList
           data={DATA}

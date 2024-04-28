@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   Landing, ProfilePage, Registration, Splash, /*SearchPage,*/ SuggestPage, ResearchConsent, Demographics, Demographics1, DemographicsSurvey, Categories, QuestionDetail, Leaderboard,
   SuggestionDetail,
-  CreateSuggestion,
+  CreateSuggestion, About
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
@@ -119,6 +119,7 @@ function StackModalNavigator(): JSX.Element {
       <Stack.Screen name="ResearchConsentModal" component={ResearchConsent} />
       <Stack.Screen name="DemographicsModal" component={DemographicsSurvey} />
       <Stack.Screen name="CategoriesModal" component={Categories} />
+      <Stack.Screen name="AboutModal" component={About} />
     </Stack.Navigator>
   );
 }

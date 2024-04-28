@@ -15,6 +15,7 @@ import SearchScreen from './Search';
 import SuggestScreen from './Suggest';
 import SuggestionDetail from './SuggestionDetail';
 import CreateSuggestion from './CreateSuggestion';
+import About from './ProfileSettings/About';
 
 export {
   LandingScreen as Landing,
@@ -34,4 +35,5 @@ export {
   QuestionDetail,
   SuggestionDetail,
   CreateSuggestion,
+  About,
 };
