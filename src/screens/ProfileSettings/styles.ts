@@ -236,6 +236,9 @@ export default StyleSheet.create({
     color: 'black',
     textAlign: 'center',
   },
+  note: {
+    marginTop: 10,
+  },
   multiselect: {
     paddingVertical: 8,
     paddingHorizontal: 15,

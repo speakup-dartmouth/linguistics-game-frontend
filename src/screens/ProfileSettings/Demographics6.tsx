@@ -15,7 +15,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, prevScreen, handleDemSubmit }): JSX.Element {
   const [selected, setSelected] = useState([...demographicsAnswers.childhoodLanguages]);
-  const [userInput, setUserInput] = useState('');
+  const [userInput, setUserInput] = useState("");
+
+  console.log("backend = ", demographicsAnswers.childhoodLanguages)
 
   const initialLanguages = [
     { label: 'English', value: 'English' },
@@ -44,21 +46,36 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
     );
   };
 
-  const handleAddLanguage = () => {
-    if (inputValue && !languages.some(lang => lang.label.toLowerCase() === inputValue.toLowerCase())) {
-      const newLanguage = { label: inputValue, value: inputValue.toLowerCase() };
-      setLanguages(prevLanguages => [...prevLanguages, newLanguage]);
-      // Optionally select the newly added language
-      setSelected(prevSelected => [...prevSelected, newLanguage.value]);
-      setInputValue('');
-    }
-  };
-
-  const handleChangeSelected = (selectedItems) => {
-    setSelectedLanguages(selectedItems);
+  const CustomLanguages = ({selected, languages}) => {
+    // Convert languages to a set for quick lookup
+    const languageSet = new Set(languages.map(lang => lang.value));
+  
+    // Filter selected languages to only those not in the original dropdown list
+    const custom  = selected.filter(lang => !languageSet.has(lang));
+  
+    return (
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        <View style={styles.pillGroup}>
+        {custom.map((item, index) => (
+            <Pill key={index} pill={item} onPress={() => handleRemoveLanguage(item)} isPressed={true} />          
+        ))}
+        </View>
+      </View>
+    );
   };
   
+
   ////////// Update Demographics //////////
+
+  const handleAddLanguage = (language) => {
+    handleLanguages([...selected, language.trim()]);
+    setSelected([...selected, language.trim()]);
+    setUserInput('');
+  }
+
+  const handleRemoveLanguage = (language) => {
+    setSelected(selected.filter(item => item !== language));
+  };  
 
   const handleLanguages = (selectedLanguages) => {
     updateDemographics({ childhoodLanguages: selectedLanguages });
@@ -69,6 +86,8 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
   const handleBack = () => {
     prevScreen();
   };
+
+  console.log("selected langs = ", selected);
 
   ////////////// Render ///////////////
 
@@ -86,6 +105,16 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
           </View>
           <View style={styles.questionTextContainer}>
             <Text style={styles.questionText}>What languages did you grow up speaking naturally as a child with family and friends?</Text>
+            <TextInput 
+              style={styles.dropdownButton} 
+              placeholder="enter a language" 
+              placeholderTextColor="black"
+              value={userInput} 
+              onChangeText={(text) => setUserInput(text)} 
+              onSubmitEditing={() => handleAddLanguage(userInput)}
+            />
+
+            <Text style={styles.note}>Or select from the list below. </Text>
 
             <MultiSelect
               style={styles.multiselect}
@@ -111,26 +140,31 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
               }}
               renderSelectedItem={(item, unSelect) => (
                 <TouchableOpacity onPress={() => {
-                  const languageIndex = demographicsAnswers.languages.indexOf(item.label);
-              
+                  const languageIndex = demographicsAnswers.childhoodLanguages.indexOf(item.label);
+                  console.log("languageIndex = ", languageIndex)
+                  console.log("hi")
                   if (languageIndex !== -1) {
-                    // Language is present in demographicsAnswers.languages
-                    const updatedLanguages = [...demographicsAnswers.languages];
+                    // Language is present in demographicsAnswers.childhoodLanguages
+                    const updatedLanguages = [...demographicsAnswers.childhoodLanguages];
                     updatedLanguages.splice(languageIndex, 1); // Remove the language
-                    updateDemographics({ languages: updatedLanguages });
+                    updateDemographics({ childhoodLanguages: updatedLanguages });
                   }
                   unSelect && unSelect(item); // Call unSelect from the MultiSelect component
                 }}>
                   <View style={styles.pillGroup}>
+                    {/* Render Pill for the selected language */}
                     <Pill pill={item.label} isPressed={true} onPress={() => unSelect && unSelect(item)} />
                   </View>
                 </TouchableOpacity>
-              )}       
+              )}
+                 
             />
+
+            <CustomLanguages selected={selected} languages={languages} />
+
             <Text>Tap an item to remove it.</Text>      
           </View>  
         </View>
-
         <View style={styles.prevNextContainer}>
           <View style={styles.buttonContainer}>
             <Button  onPress={handleBack} text="Back"/>
