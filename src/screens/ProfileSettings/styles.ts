@@ -66,6 +66,12 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginTop: 5,
   },
+  consentLink: {
+    ...globalStyles.bodyLarge,
+    textAlign: 'center',
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
   aboutHeading: {
     ...globalStyles.headingTwo,
     marginTop: 20,
@@ -290,4 +296,15 @@ export default StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
   },
+  listContainer: {
+    padding: 30,
+  },
+  listItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 10,
+  },
+  listItemText: {
+    flex: 1,
+  }
 });
