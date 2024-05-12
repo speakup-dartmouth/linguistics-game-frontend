@@ -96,8 +96,8 @@ function ResearchConsent(): JSX.Element {
         <Text style={styles.consentSubheading}>Data will <Text style={{ fontWeight: '700' }}>only</Text> be seen by the Dartmouth Linguistics Department for linguistics research.</Text>
 
         <View style={styles.checkboxes}>
-          <CheckBox checked={checked === true} title="I would like to use this phone app but not participate in the research study. I understand that other users will be able to hear my voice recordings that I upload to this app, but my voice samples will not be used in the research study. No names will be used." onPress={() => { setChecked(checked ? null : true); }} />
-          <CheckBox checked={checked === false} title="I would like to participate in the research study. I understand that other users will be able to hear my voice recordings that I upload to this app and my voice samples will be used in the research study. No names will be used." onPress={() => { setChecked(checked !== false ? false : null); }} />
+          <CheckBox checked={checked === true} title="I would like to participate in the research study. I understand that other users will be able to hear my voice recordings that I upload to this app and my voice samples will be used in the research study. No names will be used." onPress={() => { setChecked(checked ? null : true); }} />
+          <CheckBox checked={checked === false} title="I would like to use this phone app but not participate in the research study. I understand that other users will be able to hear my voice recordings that I upload to this app, but my voice samples will not be used in the research study. No names will be used." onPress={() => { setChecked(checked !== false ? false : null); }} />
         </View>
         
         <View style={styles.buttonContainer}>
