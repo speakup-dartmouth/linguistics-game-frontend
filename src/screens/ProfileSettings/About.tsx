@@ -29,7 +29,7 @@ function About(): JSX.Element {
         <Text style={styles.aboutHeading}>Questions or suggestions?</Text>
         <Text style={styles.aboutSubheading}>Reach us at: </Text>
         <TouchableOpacity onPress={onPressEmail}>
-          <Text style={styles.aboutSubheading}>{email}</Text>
+          <Text style={styles.aboutLink}>{email}</Text>
         </TouchableOpacity>
 
         <View style={styles.buttonContainer}>

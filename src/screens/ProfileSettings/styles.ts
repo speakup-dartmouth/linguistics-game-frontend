@@ -82,6 +82,11 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
   },
+  aboutLink: {
+    color: 'blue',
+    textDecorationLine: 'underline',    
+    marginTop: 20,
+  },
   prevNextContainer: {
     bottom: 0,
     width: '100%',

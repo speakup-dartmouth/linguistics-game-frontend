@@ -43,7 +43,11 @@ function ResearchConsent(): JSX.Element {
     updateConsent(checked);
 
     if (isRegistering) {
-      navigation.navigate('Demographics');
+      if (checked) {
+        navigation.navigate('Demographics');
+      }  else {
+        navigation.navigate('Categories');
+      }   
     } else {
       navigation.navigate('TabNavigator');
     }
