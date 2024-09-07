@@ -17,8 +17,6 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
   const [selected, setSelected] = useState([...demographicsAnswers.childhoodLanguages]);
   const [userInput, setUserInput] = useState("");
 
-  console.log("backend = ", demographicsAnswers.childhoodLanguages)
-
   const initialLanguages = [
     { label: 'English', value: 'English' },
     { label: 'Spanish', value: 'Spanish' },
