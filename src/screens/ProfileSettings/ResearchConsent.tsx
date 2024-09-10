@@ -75,7 +75,7 @@ function ResearchConsent(): JSX.Element {
                 <Text style={{paddingBottom: 12, paddingTop: 16}}>{'In addition, this phone app is part of a linguistics research study at Dartmouth College.'+ 
                 'Your participation in the research study is voluntary. You may use the app freely without'+ 
                 'participating in that research study, or you can choose to participate in the research.'+ 
-                'Thank you for considering the possibility of participating in the study: If you would be willing'+ 
+                'Thank you for considering the possibility of participating in the study. If you would be willing'+ 
                 'to participate in the research study, then we need to ask for your permission to include your recordings'+ 
                 'and general background information (without your name) in our research database. Also, if you agree to'+ 
                 'participate in the research, you will be asked to complete a survey that asks demographic questions and other'+ 
