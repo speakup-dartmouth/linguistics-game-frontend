@@ -85,8 +85,6 @@ function Demographics6({ demographicsAnswers, updateDemographics, nextScreen, pr
     prevScreen();
   };
 
-  console.log("selected langs = ", selected);
-
   ////////////// Render ///////////////
 
   return (

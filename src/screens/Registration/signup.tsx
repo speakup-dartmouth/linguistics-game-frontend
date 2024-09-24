@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import CheckBox from 'expo-checkbox';
 import DropDownPicker from 'react-native-dropdown-picker';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+// import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useSignUpMutation } from 'services/api';
 import dayjs from 'dayjs';
 import { useAppDispatch } from 'redux/hooks';
@@ -20,21 +20,14 @@ function SignUp(): JSX.Element {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [signUp, { isLoading }] = useSignUpMutation();
-  const [dateOfBirthOpen, setDateOfBirthOpen] = useState(false);
-  const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
-  // const [genderOpen, setGenderOpen] = useState(false);
-  // const [gender, setGender] = useState(null);
-  // const [genderOptions, setGenderOptions] = useState([
-  //   { label: 'Male', value: 'male' },
-  //   { label: 'Female', value: 'female' },
-  //   { label: 'Nonbinary', value: 'nonbinary' },
-  //   { label: 'Other', value: 'other' },
-  // ]);
+  // const [dateOfBirthOpen, setDateOfBirthOpen] = useState(false);
+  // const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
+  const [over18, setOver18] = useState(false);
   const [agree, setAgree] = useState(false);
   const dispatch = useAppDispatch();
 
   const disabled = !email || !username || !password || !confirmPassword
-    || !dateOfBirth || !agree || isLoading;
+    || !over18 || !agree || isLoading;
 
   return (
     <View style={styles.subview}>
@@ -51,33 +44,16 @@ function SignUp(): JSX.Element {
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <View style={styles.dropdownRow}>
-        <Pressable style={styles.dateOfBirth} onPress={() => { setDateOfBirthOpen(true); }}>
-          <Text style={styles.dropdownText}>{dateOfBirth ? dayjs(dateOfBirth).format('MM/DD/YYYY') : 'Date of Birth'}</Text>
-        </Pressable>
-        <DateTimePickerModal
-          isVisible={dateOfBirthOpen}
-          mode="date"
-          onConfirm={(date) => {
-            setDateOfBirth(date);
-            setDateOfBirthOpen(false);
-          }}
-          onCancel={() => {
-            setDateOfBirthOpen(false);
-          }}
+     <View style={styles.checkboxContainer} >
+         <CheckBox
+          value={over18}
+          onValueChange={setOver18}
         />
-        {/* <DropDownPicker
-          open={genderOpen}
-          value={gender}
-          items={genderOptions}
-          setOpen={setGenderOpen}
-          setValue={setGender}
-          setItems={setGenderOptions}
-          style={styles.dropdown}
-          containerStyle={styles.dropdownContainer}
-          placeholder="Gender"
-          textStyle={styles.dropdownText}
-        /> */}
+        <View style={styles.checkboxTextContainer}>
+          <Text style={styles.subheading}>
+           I am 18 years or older
+          </Text>
+        </View>
       </View>
       <Textbox
         value={email}
@@ -148,7 +124,7 @@ function SignUp(): JSX.Element {
             return;
           }
           signUp({
-            username, email, password, birthday: dateOfBirth,
+            username, email, password, over18,
           });
         }}
       >

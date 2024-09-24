@@ -16,7 +16,7 @@ class Guidelines extends Component{
   render(){
     return (
      <View style={styles.container}>
-            <Text style={styles.title}>Speak Up Community Guideliness</Text>
+            <Text style={styles.title}>Speak Up Community Guidelines</Text>
             <ScrollView 
             style={styles.tcContainer}
             onScroll={({nativeEvent}) => {

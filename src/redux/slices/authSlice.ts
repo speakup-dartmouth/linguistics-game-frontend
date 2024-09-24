@@ -10,7 +10,7 @@ export interface User {
   username: string
   email: string
   researchConsent: boolean,
-  birthday: string,
+  over18: boolean,
   gender: string,
   interests: string[],
   demographicAttributes: { [key: string]: string },
@@ -33,7 +33,7 @@ const initialState: AuthState = {
   loaded: false,
   isRegistering: false,
   researchConsent: false,
-  birthday: '',
+  over18: false,
   gender: '',
   interests: [],
   demographicAttributes: {},
@@ -58,7 +58,7 @@ export const retrieveToken = createAsyncThunk(
         email: data.email,
         username: data.username,
         researchConsent: data.researchConsent,
-        birthday: data.birthday,
+        over18: data.over18,
         gender: data.gender,
         interests: data.interests,
         ...data.demographicAttributes && { demographicAttributes: data.demographicAttributes },
@@ -80,7 +80,7 @@ export const authSlice = createSlice({
       state.username = '';
       state.token = '';
       state.researchConsent = false;
-      state.birthday = '';
+      state.over18 = false;
       state.gender = '';
       state.interests = [];
       state.demographicAttributes = {};
