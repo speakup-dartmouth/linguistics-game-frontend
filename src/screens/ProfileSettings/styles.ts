@@ -26,8 +26,9 @@ export default StyleSheet.create({
     height: '85%',
     flex: -1,
     alignItems: 'flex-start',
-    justifyContent: 'flex-start', // Adjust as needed
+    justifyContent: 'center', // Adjust as needed
     marginHorizontal: 0, 
+    paddingLeft: 40,
   },
   questionContainer: {
     flex: 1,
@@ -92,11 +93,13 @@ export default StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
+    justifyItems: 'center',
     paddingHorizontal: 50,
     paddingBottom: 15, // Padding to separate from the screen edge
+    paddingTop: 10,
   },
   buttonContainer: {
-    flex: -1,
+    bottom: 0,
     alignItems: 'center',
     width: '100%',
     marginTop: 50,
@@ -314,5 +317,20 @@ export default StyleSheet.create({
   },
   listItemText: {
     flex: 1,
-  }
+  },
+  prompt: {
+    marginBottom: 20,
+    marginTop: 60,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  textInput: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    fontSize: 16,
+    width: '100%',
+    textAlign: 'center',
+  },
 });
