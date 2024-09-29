@@ -4,6 +4,7 @@ import { api } from 'services/api';
 import axios from 'axios';
 import { apiUrl } from 'lib/constants';
 
+
 export interface User {
   _id: string
   id: string
@@ -69,6 +70,25 @@ export const retrieveToken = createAsyncThunk(
   },
 );
 
+export const deleteUser = createAsyncThunk(
+  'users/deleteUser',
+  async (req: { id: string }, { dispatch }) => {
+    dispatch(startUsersLoading());
+    console.log('Deleting user with ID:', req.id);  // Add logs for debugging
+    console.log('Server URL:', `${apiUrl}users/${req.id}`);
+    return axios
+      .delete(`${apiUrl}users/${req.id}`)
+      .finally(() => dispatch(stopUsersLoading()))
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.error('Error when deleting user', error);
+        return false;
+      });
+  },
+);
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -88,7 +108,10 @@ export const authSlice = createSlice({
     setRegistering: (state, action) => {
       state.isRegistering = action.payload;
     },
+    startUsersLoading: (state) => ({ ...state, loading: true }),
+    stopUsersLoading: (state) => ({ ...state, loading: false }),
   },
+
   extraReducers: (builder) => {
     builder.addCase(retrieveToken.fulfilled, (state, action) => {
       if (action.payload) {
@@ -104,6 +127,14 @@ export const authSlice = createSlice({
     builder.addCase(retrieveToken.rejected, (state) => {
       state.loaded = true;
       return state;
+    });
+    builder.addCase(deleteUser.fulfilled, (state, action) => {
+      const user: IUser = action.payload as IUser;
+      const curSelectedUser = state.selectedUser as IUser;
+      if (curSelectedUser.id === user.id) {
+        state.selectedUser = undefined;
+      }
+      alert('Deleted user with id ' + user.id);
     });
     builder.addMatcher(isAnyOf(api.endpoints.signIn.matchFulfilled, api.endpoints.signUp.matchFulfilled), (state, action) => {
       if ('token' in action.payload) {
@@ -138,6 +169,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logout, setRegistering } = authSlice.actions;
+export const { logout, setRegistering, startUsersLoading, stopUsersLoading } = authSlice.actions;
 
 export default authSlice.reducer;

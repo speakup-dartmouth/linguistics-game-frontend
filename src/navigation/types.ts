@@ -11,6 +11,7 @@ export type TabParamList = {
 };
 
 export type StackParamList = {
+  Registration: undefined,
   TabNavigator: undefined,
   ResearchConsent: undefined,
   Registration: undefined,

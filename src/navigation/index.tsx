@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   Landing, ProfilePage, Registration, Splash, /*SearchPage,*/ SuggestPage, ResearchConsent, Demographics, Demographics1, DemographicsSurvey, Categories, QuestionDetail, Leaderboard,
   SuggestionDetail,
-  CreateSuggestion, About
+  CreateSuggestion, About, Account
 } from 'screens';
 import { colors } from 'lib/constants';
 import Compass from 'assets/compass.svg';
@@ -99,6 +99,7 @@ function MainStackNavigator(): JSX.Element {
       }}
       initialRouteName={isRegistering ? 'ResearchConsent' : 'TabNavigator'}
     >
+      <Stack.Screen name="Registration" component={Registration} />
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
       <Stack.Screen name="ResearchConsent" component={ResearchConsent} />
       <Stack.Screen name="Demographics" component={DemographicsSurvey} />
@@ -120,6 +121,7 @@ function StackModalNavigator(): JSX.Element {
       <Stack.Screen name="DemographicsModal" component={DemographicsSurvey} />
       <Stack.Screen name="CategoriesModal" component={Categories} />
       <Stack.Screen name="AboutModal" component={About} />
+      <Stack.Screen name="AccountModal" component={Account} />
     </Stack.Navigator>
   );
 }
