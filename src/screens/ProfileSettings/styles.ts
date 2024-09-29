@@ -28,7 +28,7 @@ export default StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center', // Adjust as needed
     marginHorizontal: 0, 
-    paddingLeft: 40,
+    paddingLeft: 50,
   },
   questionContainer: {
     flex: 1,
@@ -94,9 +94,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     justifyItems: 'center',
+    alignItems: 'center',
     paddingHorizontal: 50,
     paddingBottom: 15, // Padding to separate from the screen edge
     paddingTop: 10,
+    marginLeft: 30,
   },
   buttonContainer: {
     bottom: 0,

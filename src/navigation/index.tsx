@@ -99,6 +99,7 @@ function MainStackNavigator(): JSX.Element {
       }}
       initialRouteName={isRegistering ? 'ResearchConsent' : 'TabNavigator'}
     >
+      <Stack.Screen name="Registration" component={Registration} />
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
       <Stack.Screen name="ResearchConsent" component={ResearchConsent} />
       <Stack.Screen name="Demographics" component={DemographicsSurvey} />

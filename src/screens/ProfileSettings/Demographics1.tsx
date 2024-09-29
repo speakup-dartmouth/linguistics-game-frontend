@@ -167,7 +167,7 @@ function Demographics1({ demographicsAnswers, updateDemographics, nextScreen, pr
         <View style={styles.prevNextContainer}>
           <View style={styles.buttonContainer}>
             <Button  onPress={handleBack} text="Back"/>
-          </View>
+          </View>  
           <View style={styles.buttonContainer}>
             <Button  onPress={handleNext} text="Next"/>
           </View>

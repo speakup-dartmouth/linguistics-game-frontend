@@ -2,7 +2,8 @@ import Button from 'components/UI/Button';
 import React, { useState } from 'react';
 import { View, Text, Linking, TouchableOpacity, TextInput } from 'react-native';
 import { useAppNavigation } from 'navigation/types';
-import { useAppSelector } from 'redux/hooks';
+import { useAppSelector, useAppDispatch } from 'redux/hooks';
+import { deleteUser } from 'redux/slices/authSlice';
 import styles from './styles';
 
 function Account(): JSX.Element {
@@ -10,6 +11,7 @@ function Account(): JSX.Element {
   const { username } = useAppSelector((state) => state.auth);
   const { id } = useAppSelector((state) => state.auth);
   const { email } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
   const [inputText, setInputText] = useState('');
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
@@ -19,7 +21,8 @@ function Account(): JSX.Element {
   };
 
   const onPressDelete = async () => {
-    
+    dispatch(deleteUser({ id: id }));
+    navigation.navigate("Registration");
   };
 
    // Function to handle the input text change
