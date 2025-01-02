@@ -16,8 +16,12 @@ function QuestionCard({ question }: {question: Question}): JSX.Element {
     navigation.navigate('QuestionDetail');
   };
 
-  const options = question.options.map((val) => <Text style={styles.stancePill} key={val}>{val}</Text>);
+  if (!question || !question.options) {
+    return;
+}
 
+  const options = question.options.map((val) => <Text style={styles.stancePill} key={val}>{val}</Text>);
+  
   return (
     <TouchableOpacity key={question._id} style={styles.container} activeOpacity={0.7} onPress={onPress}>
       <View>
