@@ -140,21 +140,9 @@ function Navigator(): JSX.Element {
   }, [token]);
 
   // When the app loads, check if there is a token stored in async storage
-  // useEffect(() => {
-  //   dispatch(retrieveToken());
-  // }, [authenticated]);
   useEffect(() => {
-    console.log('Dispatching retrieveToken...');
-    dispatch(retrieveToken())
-      .unwrap()
-      .then(() => {
-        console.log('retrieveToken fulfilled');
-      })
-      .catch((err) => {
-        console.log('retrieveToken rejected:', err);
-      });
-  }, [dispatch]);
-  
+    dispatch(retrieveToken());
+  }, [authenticated]);
 
   useEffect(() => {
     if (isError && message) {
@@ -165,7 +153,6 @@ function Navigator(): JSX.Element {
   }, [isError, message]);
 
   if (!loaded) {
-    console.log("Loading...");
     return <Splash />;
   }
 

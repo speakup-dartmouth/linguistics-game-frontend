@@ -43,7 +43,6 @@ const initialState: AuthState = {
 export const retrieveToken = createAsyncThunk(
   'auth/retrieveToken',
   async () => {
-    console.log('Retrieving token');
     const token = await AsyncStorage.getItem('@token');
     if (!token) return null;
 
@@ -109,8 +108,8 @@ export const authSlice = createSlice({
     setRegistering: (state, action) => {
       state.isRegistering = action.payload;
     },
-    startUsersLoading: (state) => { state.loading = true },
-    stopUsersLoading: (state) => { state.loading = false },
+    startUsersLoading: (state) => ({ ...state, loading: true }),
+    stopUsersLoading: (state) => ({ ...state, loading: false }),
   },
 
   extraReducers: (builder) => {
@@ -123,14 +122,10 @@ export const authSlice = createSlice({
         };
       }
       state.loaded = true;
-      console.log('Updated auth state:', state);
       return state;
     });
     builder.addCase(retrieveToken.rejected, (state) => {
-      console.log('Updated auth state:', state);
-      state.authenticated = false;
       state.loaded = true;
-      console.log('Updated auth state:', state);
       return state;
     });
     builder.addCase(deleteUser.fulfilled, (state, action) => {
