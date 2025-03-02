@@ -21,7 +21,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "edu.dartmouth.dali.speakup"
+      "bundleIdentifier": "edu.dartmouth.dali.speakup",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
