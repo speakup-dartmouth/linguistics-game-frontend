@@ -183,8 +183,7 @@ function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, pr
           </View>
           <View style={styles.questionTextContainer}>
             <Text style={styles.questionText}>
-              <Text>During</Text>
-              <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
+              <Text style={{fontWeight: "bold"}}>After age 18</Text>
               <Text>, in which state did you spend the most time?</Text>
             </Text>
             <SelectDropdown
@@ -218,8 +217,7 @@ function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, pr
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
-                <Text>During</Text>
-                <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
+                <Text style={{fontWeight: "bold"}}>After age 18</Text>
                 <Text>, what is the name of the city/town you spent the most time in?</Text>
               </Text>
 
@@ -261,8 +259,7 @@ function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, pr
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
-                <Text>During</Text>
-                <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
+                <Text style={{fontWeight: "bold"}}>After age 18</Text>
                 <Text>, what is the 5 digit zip code in which you spent the most time?</Text>
               </Text>
 
@@ -304,8 +301,7 @@ function Demographics3({ demographicsAnswers, updateDemographics, nextScreen, pr
             </View>
             <View style={styles.questionTextContainer}>
               <Text style={styles.questionText}>
-                <Text>During</Text>
-                <Text style={{fontWeight: "bold"}}> ages 13-18</Text>
+                <Text style={{fontWeight: "bold"}}>After age 18</Text>
                 <Text>, which of the following best describes your location?</Text>
               </Text>
               <View style={styles.pillGroup}>
